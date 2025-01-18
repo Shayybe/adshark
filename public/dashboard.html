@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .form-section h2 {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .file-upload {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#performance" class="active">Performance</a></li>
+                <li><a href="#datatable">Data Table</a></li>
+                <li><a href="#campaign">Campaign</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logoutButton">Logout</button>
+            </div>
+        </div>
+        
+
+        <div class="main-content">
+
+            <div id = "dateDiv" class="date-controls">
+                <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                <input type="date" id="endDate" class="date-input" aria-label="End Date">
+            </div>
+
+            
+
+            <div id="loading" style="display: none;">Loading data...</div>
+            <div id="error" style="display: none; color: red;"></div>
+            
+            <div id="performance" class="tab-content">
+                <div id="summaryStats" class="stats-overview">
+                    <!-- Stats will be populated by JavaScript -->
+                </div>
+                <div class="parent-container">
+                    <div class="chart-container">
+                        <h3>Performance Overview</h3>
+                        <canvas id="performanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div id="datatable" class="tab-content" style="display: none;">
+                <div class="table-container">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Impressions</th>
+                                <th>Clicks</th>
+                                <th>Spend</th>
+                                <th>CTR</th>
+                                <th>CPC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="campaign" class="tab-content" style="display: none;">
+                <h3>Campaign Section</h3>
+                <form>
+                    <!-- Required Settings -->
+                    <div class="form-section">
+                        <h2>Required Settings*</h2>
+            
+                        <!-- Campaign Name -->
+                        <label for="campaign-name">Campaign Name *</label>
+                        <input type="text" id="campaign-name" name="campaign-name" placeholder="Enter campaign name" required>
+            
+                        <!-- Device Format -->
+                        <label for="device-format">Device Format *</label>
+                        <select id="device-format" name="device-format" required>
+                            <option value="mobile">Mobile</option>
+                            <option value="tablet">Tablet</option>
+                            <option value="mobile-tablet">Mobile + Tablet Combined</option>
+                        </select>
+            
+                        <!-- Traffic Type -->
+                        <label for="traffic-type">Traffic Type *</label>
+                        <input type="text" id="traffic-type" name="traffic-type" placeholder="Enter traffic type" required>
+            
+                        <!-- Connection Type -->
+                        <label for="connection-type">Connection Type *</label>
+                        <input type="text" id="connection-type" name="connection-type" placeholder="Enter connection type" required>
+                    </div>
+            
+                    <!-- Ad Unit & Pricing Type -->
+                    <div class="form-section">
+                        <h2>Ad Unit & Pricing Type</h2>
+                        <label for="ad-unit">Ad Unit</label>
+                        <select id="ad-unit" name="ad-unit">
+                            <option value="popunder">Popunder</option>
+                            <option value="social-bar">Social Bar</option>
+                            <option value="native-banner">Native Banner</option>
+                            <option value="in-page-push">In-Page Push</option>
+                            <option value="interstitial">Interstitial</option>
+                        </select>
+            
+                        <label for="pricing-type">Pricing Type</label>
+                        <select id="pricing-type" name="pricing-type">
+                            <option value="cpm">CPM</option>
+                            <option value="cpa">CPA</option>
+                            <option value="cpc">CPC</option>
+                        </select>
+            
+                        <!-- Landing URL -->
+                        <label for="landing-url">Landing URL *</label>
+                        <input type="url" id="landing-url" name="landing-url" placeholder="https://" required>
+                     </div>
+            
+                    <!-- Countries -->
+                    <div class="form-section">
+                        <h2>Countries</h2>
+                        <label for="countries">Countries *</label>
+                        <textarea id="countries" name="countries" placeholder="Enter countries or use bulk input" required></textarea>
+            
+                        <label for="price">Price *</label>
+                        <input type="number" id="price" name="price" placeholder="$0.00" required>
+                    </div>
+            
+                    <!-- Schedule -->
+                    <div class="form-section">
+                        <h2>Schedule</h2>
+                        <label>
+                            <input type="radio" name="schedule" value="start-once-verified" checked>
+                            Start once verified
+                        </label>
+                        <label>
+                            <input type="radio" name="schedule" value="keep-inactive">
+                            Keep inactive
+                        </label>
+                    </div>
+                        
+                    <!-- Advanced Settings -->
+                    <div class="form-section">
+                        <h2>Advanced Settings</h2>
+                        <label for="blacklist-whitelist">Blacklist/Whitelist</label>
+                        <textarea id="blacklist-whitelist" name="blacklist-whitelist" placeholder="Enter valid placement IDs"></textarea>
+            
+                        <label for="ip-range">IP Range Targeting</label>
+                        <textarea id="ip-range" name="ip-range" placeholder="Enter IP ranges"></textarea>
+                    </div>
+            
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+<script src="chart.js"></script>
+<script src="form.js"></script>
+</html>
