@@ -3486,7 +3486,7 @@ form.whatsapp-form {
 }
 
 .boxes .icon-box:hover {
-  background: var(--color-primary-2);
+  background: var(--color-secondary);
   transition: 0.4s;
 }
 
@@ -3500,7 +3500,7 @@ form.whatsapp-form {
   font-weight: 600;
   margin-bottom: 10px;
   font-size: 20px;
-  color: #548CA8;
+  color: black;
   line-height: 32px;
 }
 

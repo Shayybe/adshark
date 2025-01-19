@@ -643,7 +643,7 @@ section {
   }
 
   .mobile-nav-show {
-    color: #ffffff99;
+    color: #000000;
     font-size: 28px;
     cursor: pointer;
     line-height: 0;
@@ -2735,7 +2735,7 @@ section {
 .hero-2 {
   width: 100%;
   position: relative;
-  background: linear-gradient(var(--color-primary-1), #FFF);
+  background: linear-gradient(var(--color-secondary-hover), #FFF);
   padding: 100px 0;
 }
 
@@ -3218,7 +3218,7 @@ section {
 # Footer
 --------------------------------------------------------------*/
 .footer {
-  background: #FFF;
+  background: var(--color-secondary-hover);
   padding: 0 0 30px 0;
   color: #000;
   font-size: 14px;
@@ -3419,7 +3419,7 @@ section {
   padding-top: 30px;
   font-family: var(--font-primary);
   font-size: 13px;
-  color: #000;
+  color: #ffffff;
 }
 
 .footer .credits {
@@ -3470,6 +3470,6 @@ section {
 
   .footer .copyright {
     font-size: 11px;
-    color: #000;
+    color: #FFF;
   }
 }
