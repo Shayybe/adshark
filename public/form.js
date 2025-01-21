@@ -1,6 +1,6 @@
 document.querySelector('form').addEventListener('submit', async (event) => {
   event.preventDefault();
-  
+
   const formData = {
     campaignName: document.getElementById('campaign-name').value,
     deviceFormat: document.getElementById('device-format').value,
@@ -27,12 +27,26 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
     const data = await response.json();
     if (data.success) {
-      alert('Campaign created successfully!');
-      // Redirect or update UI as needed
+      // Display a snackbar instead of an alert
+      Toast.show("Campaign created successfully!");
+
+      // Reset form fields
+      document.getElementById('campaign-name').value = '';
+      document.getElementById('device-format').value = '';
+      document.getElementById('traffic-type').value = '';
+      document.getElementById('connection-type').value = '';
+      document.getElementById('ad-unit').value = '';
+      document.getElementById('pricing-type').value = '';
+      document.getElementById('landing-url').value = '';
+      document.getElementById('countries').value = '';
+      document.getElementById('price').value = '';
+      document.querySelector('input[name="schedule"]:checked').checked = false;
+      document.getElementById('blacklist-whitelist').value = '';
+      document.getElementById('ip-range').value = '';
     } else {
-      alert('Error creating campaign: ' + data.message);
+      Toast.show('Error creating campaign: ' + data.message);
     }
   } catch (error) {
-    alert('Error submitting form: ' + error.message);
+    Toast.show('Error submitting form: ' + error.message);
   }
 });

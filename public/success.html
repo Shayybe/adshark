@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="success.css">
+</head>
+<body>
+    <div class="card"> 
+        <div class="header"> 
+            <div class="image">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20 7L9.00004 18L3.99994 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            </div> 
+            <div class="content">
+                <span class="title">Account Created Successfully</span> 
+                <p class="message">Thank you for being a part of AdShark!</p> 
+            </div> 
+            <div class="actions">
+                <button class="history" type="button" id="loginButton">Login</button> 
+            </div> 
+        </div>
+    </div>
+
+    <!-- Add JavaScript for redirection -->
+    <script>
+        // Add an event listener to the button
+        document.getElementById('loginButton').addEventListener('click', function() {
+            window.location.href = 'login.html'; // Redirect to login.html
+        });
+    </script>
+</body>
+</html>
+

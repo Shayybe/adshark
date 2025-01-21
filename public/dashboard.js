@@ -17,11 +17,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/login';
             } else {
                 console.error('Logout failed');
-                alert('Failed to logout. Please try again.');
+                Toast.show("Failed to logout. Please try again.");
             }
         } catch (error) {
             console.error('Error during logout:', error);
-            alert('An error occurred during logout. Please try again.');
+            Toast.show("An error occurred during logout. Please try again.");
         }
     });
 });
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.sidebar a');
     const tabContents = document.querySelectorAll('.tab-content');
-    const dateDiv = document.getElementById('dateDiv'); // Ensure this ID matches your HTML
+    const dateDiv = document.getElementById('dateDiv');
 
     function showTab(targetId) {
         tabContents.forEach(content => {
@@ -89,11 +89,11 @@ async function fetchData() {
     try {
         console.log(`Fetching data from: http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
-            `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=campaign`
-        );
-        
+            `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
+            { credentials: 'include' }
+          );
         if (!response.ok) {
-            throw new Error('Failed to fetch data. Try logging in again.');
+            throw new Error('Failed to retrive.');
         }
         
         const result = await response.json();
@@ -118,19 +118,25 @@ async function fetchData() {
 
 function updateTable(data) {
     const tbody = document.querySelector('#dataTable tbody');
-    tbody.innerHTML = '';
+    tbody.innerHTML = ''; // Clear existing rows
 
     data.forEach(item => {
         const row = document.createElement('tr');
-        const ctr = ((item.clicks / item.impressions) * 100).toFixed(2);
-        const cpc = (parseFloat(item.spend) / item.clicks).toFixed(2);
+
+        // Calculate CTR (Click-Through Rate)
+        const ctr = item.impressions > 0 ? ((item.clicks / item.impressions) * 100).toFixed(2) : '0.00';
+
+        // Calculate CPC (Cost Per Click)
+        const cpc = item.clicks > 0 ? (parseFloat(item.spend || 0) / item.clicks).toFixed(2) : '0.00';
+
+        // Add data to the table row
         row.innerHTML = `
             <td>${item.date || item.campaign}</td>
             <td>${item.impressions?.toLocaleString() || 0}</td>
             <td>${item.clicks?.toLocaleString() || 0}</td>
             <td>$${parseFloat(item.spend || 0).toFixed(2)}</td>
             <td>${ctr}%</td>
-            <td>$${cpc}</td>
+             <td>$${cpc}</td>
         `;
         tbody.appendChild(row);
     });
@@ -161,9 +167,9 @@ function updateSummaryStats(data) {
             <h3>Average CTR</h3>
             <p>${avgCTR}%</p>
         </div>
-        <div class="stat-card">
-            <h3>Average CPC</h3>
-            <p>$${avgCPC}</p>
+         <div class="stat-card">
+             <h3>Average CPC</h3>
+             <p>$${avgCPC}</p>
         </div>
     `;
 }

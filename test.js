@@ -5,6 +5,10 @@ const path = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const axios = require('axios');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+
 const app = express();
 const PORT = 3000;
 
@@ -12,6 +16,8 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
 
 // Session configuration
 app.use(session({
@@ -38,7 +44,7 @@ mongoose.connect('mongodb+srv://adshark00:0KKX2YSBGY9Zrz21@cluster0.g7lpz.mongod
   process.exit(1);
 });
 
-// Authentication middleware
+// // Authentication middleware
 const isAuthenticated = (req, res, next) => {
   if (req.session.userId) {
     next();
@@ -47,16 +53,21 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 
-// User Schema
+/// Define the user schema
 const userSchema = new mongoose.Schema({
-  username: String,
-  email: String,
-  password: String,
-  apiToken: {
-    type: String,
-    default: "",
-  }
+    username: String,
+    email: String,
+    password: String,
+    apiToken: {
+        type: String,
+        default: "",
+    },
+    verified: {
+        type: Boolean,
+        default: false,
+    },
 });
+
 
 const campaignSchema = new mongoose.Schema({
   // User reference (matching your existing User model)
@@ -143,51 +154,54 @@ const campaignSchema = new mongoose.Schema({
     default: 'pending'
   }
 });
-
 const Campaign = mongoose.model('Campaign', campaignSchema);
 module.exports = Campaign;
-
-
 const User = mongoose.model('User', userSchema);
 
 // Constants
 const BASE_URL = 'https://api3.adsterratools.com/advertiser/stats';
 
 // Function to fetch performance report
-async function fetchPerformanceReport(apiToken, format, startDate, endDate, groupBy = ['campaign'], additionalParams = {}) {
-  const url = `${BASE_URL}.${format}`;
+async function fetchPerformanceReport(apiToken, format, startDate, endDate, groupBy = 'date', additionalParams = {}) {
+  const url = `${BASE_URL}.${format}`; // Include format in the URL path
   const params = {
     start_date: startDate,
     finish_date: endDate,
-    'group_by[]': groupBy,
-    ...additionalParams,
+    group_by: groupBy, // Pass as a string, not an array
+    ...additionalParams
   };
 
-  console.log('Making API request to:', url);
-  console.log('With parameters:', params);
-  console.log('Headers:', { 'X-API-Key': '***' });
+  console.log('Making API request with:', {
+    url,
+    params,
+    headers: {
+      'X-API-Key': apiToken.substring(0, 4) + '...' // Log partial token for security
+    }
+  });
 
   try {
     const response = await axios.get(url, {
       headers: {
-        'X-API-Key': apiToken,
+        'X-API-Key': apiToken
       },
       params: params,
     });
 
-    console.log('Response status:', response.status);
-    console.log('Response data:', response.data);
+    console.log('API Response:', {
+      status: response.status,
+      data: {
+        ...response.data,
+        items: response.data.items // Explicitly log the items array
+      }
+    });
+
     return response.data;
   } catch (error) {
-    console.error('Full error:', {
-      message: error.message,
+    console.error('API Error:', {
       status: error.response?.status,
-      data: error.response?.data,
-      config: {
-        url: error.config?.url,
-        method: error.config?.method,
-        params: error.config?.params,
-      },
+      statusText: error.response?.statusText,
+      data: error.response?.data, // Log the full error response
+      message: error.message
     });
     throw error;
   }
@@ -199,96 +213,19 @@ function validateDates(startDate, endDate) {
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  // Ensure dates are not in the future
   if (start > today || end > today) {
     throw new Error('Cannot request future dates');
   }
 
-  // Ensure start date is before end date
   if (start > end) {
     throw new Error('Start date must be before end date');
   }
 
   return {
-    startDate: startDate,
-    endDate: new Date(Math.min(end.getTime(), today.getTime())).toISOString().split('T')[0],
+    startDate: start.toISOString().split('T')[0], // Format as YYYY-MM-DD
+    endDate: end.toISOString().split('T')[0] // Format as YYYY-MM-DD
   };
 }
-
-// Routes
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
-});
-
-
-app.post('/signup', async (req, res) => {
-  const { username, email, password, token } = req.body;
-
-  try {
-    // Check if a user with the same email or username already exists
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      // Render the signup page again with an error message
-      return res.render('signup', {
-        error: 'User with this email or username already exists',
-        formData: { username, email }, // Pass back the entered data
-      });
-    }
-
-    // If no user exists, create a new user
-    const user = new User({ username, email, password, apiToken: token });
-    await user.save();
-    req.session.userId = user._id;
-
-    res.redirect('/login.html');
-  } catch (error) {
-    console.error('Error creating user:', error);
-    res.status(400).render('signup', { error: 'Error creating user', formData: req.body });
-  }
-});
-
-app.post('/check-user', async (req, res) => {
-  const { email, username } = req.body;
-
-  try {
-    const existingUser = await User.findOne({ $or: [{ email }, { username }] });
-    if (existingUser) {
-      return res.status(400).json({ error: 'User with this email or username already exists' });
-    }
-    res.status(200).json({ message: 'User is available' });
-  } catch (error) {
-    console.error('Error checking user:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
-
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) {
-    return res.status(400).json({ success: false, error: 'Username and password are required' });
-  }
-
-  try {
-    const user = await User.findOne({ username, password });
-    if (user) {
-      req.session.userId = user._id;
-      return res.status(200).json({ success: true, redirectUrl: '/dashboard.html' });
-    } else {
-      return res.status(401).json({ success: false, error: 'Invalid username or password' });
-    }
-  } catch (error) {
-    console.error('Error during login:', error);
-    return res.status(500).json({ success: false, error: 'An error occurred during login' });
-  }
-});
-
 
 
 app.get('/logout', (req, res) => {
@@ -312,6 +249,7 @@ const fetchUserApiToken = async (req, res, next) => {
     if (!user.apiToken) {
       return res.status(400).json({ message: 'API token not assigned to user' });
     }
+    console.log('Using API token:', user.apiToken.substring(0, 4) + '...');
     req.apiToken = user.apiToken;
     next();
   } catch (err) {
@@ -320,47 +258,95 @@ const fetchUserApiToken = async (req, res, next) => {
   }
 };
 
-// Performance report endpoint with authentication
-app.get('/performance-report', isAuthenticated, fetchUserApiToken, async (req, res) => {
-  const { format = 'json', startDate, endDate, groupBy, ...additionalParams } = req.query;
-  const apiToken = req.apiToken;
 
-  console.log('Incoming request:', { format, startDate, endDate, groupBy, additionalParams });
+app.get('/performance-report', isAuthenticated,  fetchUserApiToken, async (req, res) => {
+  const { format = 'json', startDate, endDate, groupBy = 'date', ...additionalParams } = req.query;
+  const apiToken = req.apiToken;
 
   if (!startDate || !endDate) {
     return res.status(400).json({
       error: 'startDate and endDate are required.',
-      example: '/performance-report?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD',
+      example: '/performance-report?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD'
     });
   }
 
   try {
     const validDates = validateDates(startDate, endDate);
-    const groupByArray = groupBy ? groupBy.split(',') : ['campaign'];
 
-    console.log('Validated request parameters:', { validDates, groupByArray });
-
-    const data = await fetchPerformanceReport(apiToken, format, validDates.startDate, validDates.endDate, groupByArray, additionalParams);
+    const data = await fetchPerformanceReport(
+      apiToken,
+      format,
+      validDates.startDate,
+      validDates.endDate,
+      groupBy,
+      additionalParams
+    );
 
     res.json({
       message: 'Performance Report',
       startDate: validDates.startDate,
       endDate: validDates.endDate,
-      groupBy: groupByArray,
-      data,
+      groupBy: groupBy,
+      data
     });
   } catch (error) {
     console.error('Error in performance-report handler:', error.message);
     res.status(error.response?.status || 500).json({
       error: 'Failed to fetch performance report.',
-      details: error.response?.data || error.message,
+      details: error.response?.data || error.message
     });
   }
 });
 
+/////////////////////////////////////////////////////////////////////////////////sending campaign data to user/////////////////////////////////////////////////////
+
+const sendCampaignEmail = (email, username, campaignData) => {
+  // HTML content for the email
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+      <h2 style="color: #8bbcd4;">Hello ${username},</h2>
+      <p>Thank you for creating a campaign with AdShark! Here are the details of your campaign:</p>
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+      <h3 style="color: #8bbcd4;">Your Campaign Details:</h3>
+      <ul style="list-style-type: none; padding: 0;">
+        <li><strong>Campaign Name:</strong> ${campaignData.campaignName}</li>
+        <li><strong>Device Format:</strong> ${campaignData.deviceFormat}</li>
+        <li><strong>Traffic Type:</strong> ${campaignData.trafficType}</li>
+        <li><strong>Connection Type:</strong> ${campaignData.connectionType}</li>
+        <li><strong>Ad Unit:</strong> ${campaignData.adUnit}</li>
+        <li><strong>Pricing Type:</strong> ${campaignData.pricingType}</li>
+        <li><strong>Landing URL:</strong> ${campaignData.landingUrl}</li>
+        <li><strong>Countries:</strong> ${campaignData.countries.join(', ')}</li>
+        <li><strong>Price:</strong> $${campaignData.price}</li>
+        <li><strong>Schedule:</strong> ${campaignData.schedule}</li>
+        <li><strong>Blacklist/Whitelist:</strong> ${campaignData.blacklistWhitelist.join(', ')}</li>
+        <li><strong>IP Ranges:</strong> ${campaignData.ipRanges.join(', ')}</li>
+      </ul>
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+      <p style="font-size: 12px; color: #777;">This email was sent by AdShark. Please do not reply to this email.</p>
+    </div>
+  `;
+
+  const mailOptions = {
+    from: 'info@adshark.net',
+    to: email,
+    subject: 'Your Campaign Details',
+    text: `Hello ${username},\n\nThank you for creating a campaign with AdShark! Here are the details of your campaign:\n${JSON.stringify(campaignData, null, 2)}\n\nIf you have any questions, please contact support.`, // Fallback plain text version
+    html: htmlContent, // HTML version of the email
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Campaign email sent:', info.response);
+    }
+  });
+};
 
 
-app.post('/api/campaigns', isAuthenticated, async (req, res) => {
+
+app.post('/api/campaigns',isAuthenticated,  async (req, res) => {
   try {
     // Get user from session
     const user = await User.findById(req.session.userId);
@@ -379,7 +365,7 @@ app.post('/api/campaigns', isAuthenticated, async (req, res) => {
 
     const campaign = new Campaign(campaignData);
     await campaign.save();
-
+    sendCampaignEmail(user.email, user.username, campaignData);
     res.status(201).json({
       success: true,
       message: 'Campaign created successfully',
@@ -474,7 +460,7 @@ app.put('/api/campaigns/:id', isAuthenticated, async (req, res) => {
   }
 });
 
-// Delete campaign
+// // Delete campaign
 app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
   try {
     const campaign = await Campaign.findOneAndDelete({
@@ -501,6 +487,183 @@ app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
     });
   }
 });
+
+
+
+// Routes
+const JWT_SECRET = 'your_jwt_secret_key'; // Replace with a strong secret key
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+});
+// app.post('/signup', signUpUser);
+
+// Add a new user to the database
+const addUser = async (userData) => {
+  try {
+      const user = new User(userData);
+      await user.save();
+  } catch (error) {
+      console.error('Error adding user to database:', error);
+  }
+};
+
+
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+      user: 'adshark00@gmail.com',
+      pass: 'iasy nmqs bzpa favn',
+  },
+});
+
+const sendVerificationEmail = (email, username) => {
+  // Generate a JWT token
+  const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
+
+  // Construct the verification URL
+  const verificationUrl = `http://localhost:3000/verify-email?token=${token}`;
+
+  // HTML content for the email
+  const htmlContent = `
+    <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+      <h2 style="color: #8bbcd4;">Hello ${username},</h2>
+      <p>Thank you for registering! Please verify your email by clicking the button below:</p>
+      <a href="${verificationUrl}" style="display: inline-block; padding: 10px 20px; background-color: #8bbcd4; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0;">
+        Verify Email
+      </a>
+      <p>If the button doesn't work, copy and paste this link into your browser:</p>
+      <p style="word-wrap: break-word;">${verificationUrl}</p>
+      <p>If you did not request this, please ignore this email.</p>
+      <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+      <p style="font-size: 12px; color: #777;">This email was sent by AdShark. Please do not reply to this email.</p>
+    </div>
+  `;
+
+  const mailOptions = {
+    from: 'info@adshark.net',
+    to: email,
+    subject: 'Email Verification',
+    text: `Hello ${username},\n\nThank you for registering! Please verify your email by clicking the link below:\n${verificationUrl}\n\nIf you did not request this, please ignore this email.`, // Fallback plain text version
+    html: htmlContent, // HTML version of the email
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Verification email sent:', info.response);
+    }
+  });
+};
+
+// Update user verification status
+const updateUserVerificationStatus = async (email, status) => {
+  try {
+      await User.updateOne({ email }, { verified: status });
+      console.log(`User verification status updated for ${email}: ${status}`);
+  } catch (error) {
+      console.error('Error updating user verification status:', error);
+  }
+};
+
+app.post('/signup', async (req, res) => {
+  const { username, email, password } = req.body;
+
+  // Check if user already exists
+  const existingUser = await findUserByEmail(email);
+  if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+  }
+
+  // Add new user to the database
+  await addUser({ username, email, password });
+
+  // Send verification email
+  sendVerificationEmail(email, username);
+
+  res.redirect('/success.html');
+});
+
+app.post('/check-user', async (req, res) => {
+  const { email, username } = req.body;
+
+  try {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: 'User with this email already exists' });
+    }
+
+
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ error: 'User with this username already exists' });
+    }
+
+
+    res.status(200).json({ message: 'User is available' });
+  } catch (error) {
+    console.error('Error checking user:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Find a user by email
+const findUserByEmail = async (email) => {
+  try {
+      return await User.findOne({ email });
+  } catch (error) {
+      console.error('Error finding user by email:', error);
+  }
+};
+
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  // Find user by email
+  const user = await findUserByEmail(email);
+  if (!user) {
+      return res.status(400).json({ message: 'User not found' });
+  }
+  // Check if password matches (you should use bcrypt for password hashing in a real application)
+  if (user.password !== password) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+  }
+
+  // Check if user is verified
+  if (!user.verified) {
+    return res.status(401).json({ success: false, error: 'Please verify your email before logging in' });
+  }
+  req.session.userId = user._id;
+  return res.status(200).json({ success: true, redirectUrl: '/dashboard.html' });
+});
+
+
+
+// Verify Email Endpoint
+app.get('/verify-email', async (req, res) => {
+  const { token } = req.query;
+
+  try {
+      // Verify the token
+      const decoded = jwt.verify(token, JWT_SECRET);
+      const { email } = decoded;
+
+      // Update user verification status
+      await updateUserVerificationStatus(email, true);
+
+      res.redirect('/verified.html');
+  } catch (error) {
+      res.status(400).json({ message: 'Invalid or expired token' });
+  }
+});
+
+
+
 
 // Start the server
 app.listen(PORT, () => {
