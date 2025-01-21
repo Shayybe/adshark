@@ -526,7 +526,7 @@ const sendVerificationEmail = (email, username) => {
   const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: '1h' });
 
   // Construct the verification URL
-  const verificationUrl = `http://localhost:3000/verify-email?token=${token}`;
+  const verificationUrl = `http://adshark.net/verify-email?token=${token}`;
 
   // HTML content for the email
   const htmlContent = `
