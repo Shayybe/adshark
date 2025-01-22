@@ -1,115 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>Adshark</title>
-    <meta content="Advertising Agency" name="description" />
-    <meta
-      content="digital service, 
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Adshark</title>
+  <meta content="Advertising Agency" name="description">
+  <meta content="digital service, 
     Advertising agency, 
     digital marketing agency, 
-    "
-      name="keywords"
-    />
+    " name="keywords">
 
     <!-- Favicons -->
-    <link href="assets/img/AdShark.png" rel="icon" />
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+  <link href="assets/img/AdShark.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Vendor CSS Files -->
-    <link
-      href="assets/vendor/bootstrap/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link
-      href="assets/vendor/glightbox/css/glightbox.min.css"
-      rel="stylesheet"
-    />
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-    <!-- Template Main CSS File -->
-    <link href="assets/css/main.css" rel="stylesheet" />
-    <link href="assets/css/edited.css" rel="stylesheet" />
+  <!-- Template Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/edited.css" rel="stylesheet">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script>
-      !(function (w, d, t) {
-        w.TiktokAnalyticsObject = t;
-        var ttq = (w[t] = w[t] || []);
-        (ttq.methods = [
-          "page",
-          "track",
-          "identify",
-          "instances",
-          "debug",
-          "on",
-          "off",
-          "once",
-          "ready",
-          "alias",
-          "group",
-          "enableCookie",
-          "disableCookie",
-        ]),
-          (ttq.setAndDefer = function (t, e) {
-            t[e] = function () {
-              t.push([e].concat(Array.prototype.slice.call(arguments, 0)));
-            };
-          });
-        for (var i = 0; i < ttq.methods.length; i++)
-          ttq.setAndDefer(ttq, ttq.methods[i]);
-        (ttq.instance = function (t) {
-          for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++)
-            ttq.setAndDefer(e, ttq.methods[n]);
-          return e;
-        }),
-          (ttq.load = function (e, n) {
-            var i = "https://analytics.tiktok.com/i18n/pixel/events.js";
-            (ttq._i = ttq._i || {}),
-              (ttq._i[e] = []),
-              (ttq._i[e]._u = i),
-              (ttq._t = ttq._t || {}),
-              (ttq._t[e] = +new Date()),
-              (ttq._o = ttq._o || {}),
-              (ttq._o[e] = n || {});
-            var o = document.createElement("script");
-            (o.type = "text/javascript"),
-              (o.async = !0),
-              (o.src = i + "?sdkid=" + e + "&lib=" + t);
-            var a = document.getElementsByTagName("script")[0];
-            a.parentNode.insertBefore(o, a);
-          });
+        !function (w, d, t) {
+        w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
 
-        ttq.load("CHQCM8RC77U2H86LQDT0");
+        ttq.load('CHQCM8RC77U2H86LQDT0');
         ttq.page();
-      })(window, document, "ttq");
+        }(window, document, 'ttq');
     </script>
-  </head>
-  <!-- class="disable-select" oncopy="return false" oncut="return false" onpaste="return false" -->
-  <body>
+
+</head>
+<!-- class="disable-select" oncopy="return false" oncut="return false" onpaste="return false" -->
+    <body>
+        
     <script>
-      !(function (f, b, e, v, n, t, s) {
+        !(function (f, b, e, v, n, t, s) {
         if (f.fbq) return;
         n = f.fbq = function () {
-          n.callMethod
-            ? n.callMethod.apply(n, arguments)
-            : n.queue.push(arguments);
+            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
         };
         if (!f._fbq) f._fbq = n;
         n.push = n;
@@ -121,41 +63,24 @@
         t.src = v;
         s = b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t, s);
-      })(
-        window,
-        document,
-        "script",
-        "https://connect.facebook.net/en_US/fbevents.js"
-      );
-      fbq("init", "1234567890");
-      fbq("track", "PageView");
-      fbq("track", "ViewContent");
+        })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+        fbq("init", "1234567890");
+        fbq("track", "PageView");
+        fbq("track", "ViewContent");
     </script>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1"
-    /></noscript>
+    <noscript><img height="1" width="1" style="display: none" src="https://www.facebook.com/tr?id=1234567890&ev=PageView&noscript=1" /></noscript>
     <!-- End Facebook Pixel Code -->
     <script>
-      function ATC() {
+        function ATC() {
         fbq("track", "Contact");
-      }
+        }
     </script>
-
+    
     <header id="header" class="header d-flex align-items-center">
-      <div
-        class="container-fluid container-xl d-flex align-items-center justify-content-between"
-      >
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
           <!-- this is the top logo -->
-          <img
-            src="assets/img/AdShark.png"
-            class="img-fluid"
-            alt="logo Header Art Developer"
-          />
+          <img src="assets/img/AdShark.png" class="img-fluid" alt="logo Header Art Developer">
         </a>
         <nav id="navbar" class="navbar">
           <ul>
@@ -176,614 +101,410 @@
             <li><a href="#review">Reviews</a></li>
             <li><a href="#contact">Contact Us</a></li>
           </ul>
-        </nav>
-        <!-- .navbar -->
+        </nav><!-- .navbar -->
         <div class="btn-nav d-flex align-items-center">
           <ul>
             <!-- <li><a href="login.html">Login</a></li> -->
-            <li class="login-nav">
-              <a href="login.html" role="button">Get Started</a>
-            </li>
+            <li class="login-nav"><a href="login.html" role="button" >Get Started</a></li>
           </ul>
         </div>
         <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
         <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
       </div>
-    </header>
-    <!-- End Header -->
+    </header><!-- End Header -->
 
-    <div
-      class="offcanvas offcanvas-end"
-      data-bs-backdrop="static"
-      tabindex="-1"
-      id="offcanvasExample"
-      aria-labelledby="offcanvasExampleLabel"
-    >
+    <div class="offcanvas offcanvas-end" data-bs-backdrop="static" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">
-          Adshark &trade;
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="offcanvas"
-          aria-label="Close"
-        ></button>
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Adshark &trade;</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
         <div class="img-offcanvas col-lg-12">
-          <img src="assets/img/about/1.png" class="img-fluid" alt="" />
+          <img src="assets/img/about/1.png" class="img-fluid" alt="">
         </div>
-        <p>
-          Here to help your business grow and thrive. We provide dedicated
-          support, guiding you every step of the way as if we were your own
-          team. Our ability to compete with other digital agencies stems from
-          our expertise and your complete trust in our services.
-        </p>
-        <p>
-          We offer cutting-edge solutions tailored to your needs in today’s
-          fast-paced business world. We bring you the most sought-after services
-          in the digital landscape, ensuring your business stays ahead of the
-          curve.
-        </p>
+        <p>Here to help your business grow and thrive. We provide dedicated support, guiding you every step of the way as if we were your own team. Our ability to compete with other digital agencies stems from our expertise and your complete trust in our services.</p>
+        <p>We offer cutting-edge solutions tailored to your needs in today’s fast-paced business world. We bring you the most sought-after services in the digital landscape, ensuring your business stays ahead of the curve.</p>
       </div>
     </div>
-    <!-- End Header -->
+  <!-- End Header -->
     <!-- ======= Hero Section ======= -->
     <section id="about" class="hero">
       <div class="container position-relative">
         <div class="row gy-5 justify-content-between" data-aos="fade-in">
-          <div
-            class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start"
-          >
-            <h2>
-              We Are Your Trusted <span>Advanced Advertising Network</span>
-            </h2>
-            <p>
-              Driving high-quality traffic to power your success. Let us help
-              you reach your audience effortlessly.
-            </p>
+          <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
+            <h2>We Are Your Trusted <span>Advanced Advertising Network</span></h2> 
+            <p>Driving high-quality traffic to power your success. Let us help you reach your audience effortlessly.</p>            
             <div class="justify-content-center justify-content-lg-start">
               <a href="login.html" class="btn-get-started btn-block">Sign up</a>
+              <a href="#" class="btn-watch-video btn-block" onClick="ATC()">Look Around</a>
             </div>
           </div>
           <div class="hero-img col-lg-5 order-1 order-lg-2">
-            <img
-              src="assets/img/index/Sales.png"
-              class="img-fluid"
-              alt="artdev-official-img"
-              data-aos="fade-in"
-            />
+            <img src="assets/img/index/Sales.png" class="img-fluid" alt="artdev-official-img" data-aos="fade-in">
           </div>
         </div>
       </div>
     </section>
     <!-- End Hero Section -->
 
-    <main id="main" class="mobile-view">
-      <!-- ======= Services Section ======= -->
+      <main id="main" class="mobile-view">
+        <!-- ======= Services Section ======= -->
 
-      <section id="boxes-hero" class="boxes-hero">
-        <div class="container">
-          <header class="section-header">
-            <p>Why Choose Us</p>
-            <h3>Our Commitment to Driving Quality Traffic</h3>
-          </header>
-          <div class="row icon-boxes">
-            <div
-              class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <div class="icon">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/index/a.svg"
-                    alt="artdev-official-img"
-                  />
+        <section id="boxes-hero" class="boxes-hero">
+          <div class="container">
+            <header class="section-header">
+              <p>Why Choose Us</p> <h3>Our Commitment to Driving Quality Traffic</h3>
+            </header>
+            <div class="row icon-boxes">
+              <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <div class="icon">
+                    <img class="img-fluid" src="assets/img/index/a.svg" alt="artdev-official-img">
+                  </div>
+                  <h4 class="title">Delivering Results</h4> 
+                  <p class="description">We specialize in connecting you with high-quality traffic that maximizes conversions, boosts engagement, and ensures measurable growth for your business.</p>
                 </div>
-                <h4 class="title">Delivering Results</h4>
-                <p class="description">
-                  We specialize in connecting you with high-quality traffic that
-                  maximizes conversions, boosts engagement, and ensures
-                  measurable growth for your business.
-                </p>
               </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <div class="icon">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/index/b.svg"
-                    alt="artdev-official-img"
-                  />
+              <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <div class="icon">
+                    <img class="img-fluid" src="assets/img/index/b.svg" alt="artdev-official-img">
+                  </div>
+                  <h4 class="title">Targeted Reach</h4> 
+                  <p class="description">Our precise traffic solutions ensure your message reaches the right audience at the right time, driving relevance and optimizing ROI.</p>
                 </div>
-                <h4 class="title">Targeted Reach</h4>
-                <p class="description">
-                  Our precise traffic solutions ensure your message reaches the
-                  right audience at the right time, driving relevance and
-                  optimizing ROI.
-                </p>
               </div>
-            </div>
-            <div
-              class="col-md-12 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <div class="icon">
-                  <img
-                    class="img-fluid"
-                    src="assets/img/index/c.svg"
-                    alt="artdev-official-img"
-                  />
+              <div class="col-md-12 col-lg-4 d-flex align-items-stretch mb-3 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <div class="icon">
+                    <img class="img-fluid" src="assets/img/index/c.svg" alt="artdev-official-img">
+                  </div>
+                  <h4 class="title">Impactful Traffic Solutions</h4> 
+                  <p class="description">Avoid wasted ad spend with our proven strategies to attract genuine visitors, ensuring every click contributes to your success.
+                  </p>
                 </div>
-                <h4 class="title">Impactful Traffic Solutions</h4>
-                <p class="description">
-                  Avoid wasted ad spend with our proven strategies to attract
-                  genuine visitors, ensuring every click contributes to your
-                  success.
-                </p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- About Section - Home Page -->
-      <section id="solutions" class="about-append">
-        <div class="container" data-aos="fade-in">
-          <div class="row align-items-xl-center gy-5 justify-content-between">
-            <div class="col-xl-5 content">
-              <p>We Serve You Better</p>
-              <h2>Top Traffic Solutions for Your Business</h2>
-              <p>
-                AdShark specializes in delivering tailored traffic solutions to
-                drive targeted visitors to your platform, helping you achieve
-                your goals and expand your online presence.
-              </p>
-              <p class="clamp">
-                With years of expertise, we focus on precision targeting,
-                maximizing ROI, and providing high-quality traffic to help you
-                stand out and thrive in a competitive market.
-              </p>
-              <a href="contact.html" class="read-more">Contact us</a>
-            </div>
-            <div class="col-xl-6">
-              <div class="row gy-2 gx-2 gy-lg-3 gx-lg-3 icon-boxes">
-                <div class="col-md-6 col-6" data-aos="fade-in">
-                  <div class="icon-box">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-01.svg"
-                        class="img-fluid"
-                        alt="artdev-official-img"
-                      />
+        <!-- About Section - Home Page -->
+        <section id="solutions" class="about-append">
+          <div class="container" data-aos="fade-in">
+            <div class="row align-items-xl-center gy-5 justify-content-between">
+              <div class="col-xl-5 content">
+                <p>We Serve You Better</p> 
+                <h2>Top Traffic Solutions for Your Business
+                </h2> 
+                <p>AdShark specializes in delivering tailored traffic solutions to drive targeted visitors to your platform, helping you achieve your goals and expand your online presence.
+                </p> 
+                <p class="clamp">With years of expertise, we focus on precision targeting, maximizing ROI, and providing high-quality traffic to help you stand out and thrive in a competitive market.
+                </p>
+                <a href="#" class="read-more">Contact us</a>
+              </div>
+              <div class="col-xl-6">
+                <div class="row gy-2 gx-2 gy-lg-3 gx-lg-3 icon-boxes">
+                  <div class="col-md-6 col-6" data-aos="fade-in">
+                    <div class="icon-box">
+                      <div class="icon">
+                        <img src="assets/img/index/index-01.svg" class="img-fluid" alt="artdev-official-img">
+                      </div>
+                      <h3>Proven Expertise</h3> 
+                      <p>With years of experience, we’ve supported businesses of all sizes in achieving their traffic and conversion goals.</p>
                     </div>
-                    <h3>Proven Expertise</h3>
-                    <p>
-                      With years of experience, we’ve supported businesses of
-                      all sizes in achieving their traffic and conversion goals.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Icon Box -->
-                <div class="col-md-6 col-6" data-aos="fade-in">
-                  <div class="icon-box">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-02.svg"
-                        class="img-fluid"
-                        alt="artdev-official-img"
-                      />
+                  </div> <!-- End Icon Box -->
+                  <div class="col-md-6 col-6" data-aos="fade-in">
+                    <div class="icon-box">
+                      <div class="icon">
+                        <img src="assets/img/index/index-02.svg" class="img-fluid" alt="artdev-official-img">
+                      </div>
+                      <h3>Effortless Results</h3> 
+                      <p>We streamline the process, saving you time and delivering effective traffic solutions that work.</p>
                     </div>
-                    <h3>Effortless Results</h3>
-                    <p>
-                      We streamline the process, saving you time and delivering
-                      effective traffic solutions that work.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Icon Box -->
-                <div class="col-md-6 col-6" data-aos="fade-in">
-                  <div class="icon-box">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-03.svg"
-                        class="img-fluid"
-                        alt="artdev-official-img"
-                      />
+                  </div> <!-- End Icon Box -->
+                  <div class="col-md-6 col-6" data-aos="fade-in">
+                    <div class="icon-box">
+                      <div class="icon">
+                        <img src="assets/img/index/index-03.svg" class="img-fluid" alt="artdev-official-img">
+                      </div>
+                      <h3>Transparent Collaboration</h3> 
+                      <p>We listen, understand your needs, and ensure our traffic strategies align with your business objectives.</p>
                     </div>
-                    <h3>Transparent Collaboration</h3>
-                    <p>
-                      We listen, understand your needs, and ensure our traffic
-                      strategies align with your business objectives.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Icon Box -->
-                <div class="col-md-6 col-6" data-aos="fade-in">
-                  <div class="icon-box">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-04.svg"
-                        class="img-fluid"
-                        alt="artdev-official-img"
-                      />
+                  </div> <!-- End Icon Box -->
+                  <div class="col-md-6 col-6" data-aos="fade-in">
+                    <div class="icon-box">
+                      <div class="icon">
+                        <img src="assets/img/index/index-04.svg" class="img-fluid" alt="artdev-official-img">
+                      </div>
+                      <h3>Strategic Precision</h3> 
+                      <p>Strategic PrecisionOur data-driven approach ensures every visitor we drive to your platform is primed for engagement and results.</p>
                     </div>
-                    <h3>Strategic Precision</h3>
-                    <p>
-                      Strategic PrecisionOur data-driven approach ensures every
-                      visitor we drive to your platform is primed for engagement
-                      and results.
-                    </p>
-                  </div>
+                  </div> <!-- End Icon Box -->
                 </div>
-                <!-- End Icon Box -->
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- End About Section -->
+        </section><!-- End About Section -->
 
       <!-- ======= Why Us Section ======= -->
-<section id="layanan-kita" class="layanan-kita">
-  <div class="container" data-aos="fade-in">
-    <header class="section-header">
-      <p>The AdShark Advantage</p>
-      <h3>Why Choose <span style="color:#8bbcd4">AdShark?</span></h3>
-    </header>
-    <div class="row gy-4">
-      <div class="col-lg-4 col-md-6" data-aos="fade-up">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
+      <section id="layanan-kita" class="layanan-kita">
+        <div class="container" data-aos="fade-in">
+          <header class="section-header">
+            <p>The AdShark Advantage</p> 
+            <h3>Why Choose <span style="color:#8bbcd4">Adshark?</span></h3>
+          </header>
+          <div class="row gy-3 gx-2 gx-lg-3 gy-lg-3 item">
+            <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-1.svg" alt="adshark-img">
+                </div>
+                <h3>Partner Support</h3> 
+                <p>Top-tier assistance, we provide expert guidance to help you optimize campaigns and maximize traffic monetization. Our skilled managers work closely with you to enhance your advertising strategies for optimal results.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-2.svg" alt="adshark-img">
+                </div>
+                <h3>Quality Traffic and Ad Safety</h3>
+                <p>Adsterra’s advanced security system blocks malware, fraud, and bots while intelligent algorithms deliver ads to the most relevant audiences.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-3.svg" alt="adshark-img">
+                </div>
+                <h3>Performance-Enhancing Tools</h3>
+                <p>Advertisers streamline bidding with Traffic Estimator, Smart CPM, and CPA Goal, while Custom Bid enables precise adjustments and maximizes payouts for high-performing placements.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+            <!-- <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-4.svg" alt="adshark-img">
+                </div>
+                <h3>Self-Serve Platforms</h3>
+                <p>User-friendly Self-Serve platforms simplify advertising and monetization, automating tasks for effortless use.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
+            <!-- <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-5.svg" alt="adshark-img">
+                </div>
+                <h3>Proprietary Ad Formats</h3>
+                <p>Adshark's unique ad formats provide a unique and effective way to connect with digital natives, helping marketers and website owners connect with high-intent audiences.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
+            <!-- <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-7.svg" alt="adshark-img">
+                </div>
+                <h3>Competitive CPMs</h3>
+                <p>Adshark offers top CPM rates, prioritizing conversions over views, allowing partners to profit from all traffic types without volume restrictions.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
+            <!-- <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-8.svg" alt="adshark-img">
+                </div>
+                <h3>Brand Identity Design</h3>
+                <p>Build a recognizable and memorable brand identity with expert logo and branding services.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
+            <!-- <div class="col-lg-4 col-md-6" data-aos="fade-in">
+              <div class="service-item position-relative">
+                <div class="icon">
+                  <img src="assets/img/services/service-6.svg" alt="adshark-img">
+                </div>
+                <h3>Graphic Design</h3>
+                <p>Create visually appealing graphics that leave a lasting impact on your audience.</p>
+                <a href="#">Learn More  <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div> -->
           </div>
-          <h3>Partner Support</h3>
-          <p>Get dedicated support from expert managers who help optimize your campaigns and maximize returns. Our team provides personalized guidance and strategic insights for your success.</p>
-          <a href="contact.html" class="mt-3 d-inline-block">Get Expert Support <i class="bi bi-arrow-right"></i></a>
         </div>
-      </div>
+      </section><!-- End Why Us Section -->
 
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-shield-check text-primary" style="font-size: 3rem;"></i>
-          </div>
-          <h3>Quality Traffic & Safety</h3>
-          <p>Advanced multi-layer security system that prevents fraud and ensures high-quality traffic. Our intelligent algorithms deliver ads to relevant audiences based on extensive targeting parameters.</p>
-          <a href="login.html" class="mt-3 d-inline-block">Start Campaign <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-gear-fill text-primary" style="font-size: 3rem;"></i>
-          </div>
-          <h3>Smart Campaign Tools</h3>
-          <p>Access powerful optimization tools including Traffic Estimator and Smart Bidding to streamline your campaigns. Custom bidding options help maximize performance and ROI.</p>
-          <a href="login.html#dashboard" class="mt-3 d-inline-block">View Dashboard <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-display text-primary" style="font-size: 3rem;"></i>
-          </div>
-          <h3>Easy-to-Use Platform</h3>
-          <p>Our intuitive self-serve platform makes it simple to launch and manage campaigns. Automate routine tasks while maintaining full control over your advertising.</p>
-          <a href="login.html" class="mt-3 d-inline-block">Try Platform <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-images text-primary" style="font-size: 3rem;"></i>
-          </div>
-          <h3>Engaging Ad Formats</h3>
-          <p>Choose from exclusive ad formats designed to capture attention and drive engagement. Reach your target audience effectively with compelling creative options.</p>
-          <a href="#solutions" class="mt-3 d-inline-block">View Ad Types <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-        <div class="service-item position-relative">
-          <div class="icon">
-            <i class="bi bi-cash-stack text-primary" style="font-size: 3rem;"></i>
-          </div>
-          <h3>Competitive Pricing</h3>
-          <p>Get excellent value with competitive rates and no minimum spend requirements. Our pricing model focuses on delivering strong ROI across all traffic types.</p>
-          <a href="login.html" class="mt-3 d-inline-block">Get Started <i class="bi bi-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End Why Us Section -->
 
       <section id="review" class="about-3">
         <div class="container" data-aos="fade-in">
           <div class="row no-gutters justify-content-between">
-            <div
-              class="col-lg-6 video-box justify-content-center"
-              data-aos="fade-in"
-            >
-              <img
-                src="assets/img/index/4.png"
-                class="img-fluid"
-                alt="adshark-img"
-              />
+            <div class="col-lg-6 video-box justify-content-center" data-aos="fade-in">
+              <img src="assets/img/index/4.png" class="img-fluid" alt="adshark-img">
             </div>
-            
-            <div
-              class="col-lg-5 d-flex flex-column d-flex justify-content-center about-content"
-            >
+            <div class="col-lg-5 d-flex flex-column d-flex justify-content-center about-content">
               <div class="section-title-new" data-aos="fade-in">
-                <p>Your Success, Our Strategy</p>
+                <p>Your Success, Our Strategy</p> 
                 <h2>We Discover the Right Strategy for You</h2>
-                <p>
-                  Our creative and data-driven approach ensures your business
-                  captures attention and outperforms competitors. Let us help
-                  you stay ahead of audience trends and market demands.
-                </p>
+                <p>Our creative and data-driven approach ensures your business captures attention and outperforms competitors. Let us help you stay ahead of audience trends and market demands.</p>
               </div>
-              
+              <a href="#">View Our Case Studies <i class="bi bi-arrow-right"></i></a>
               <div class="about-3-quote" data-aos="fade-in">
                 <div class="content">
-                  <blockquote>
-                    <p>
-                      Within just three months of partnering with AdShark, our conversion rates jumped by 185%. Their data-driven approach and strategic insights revolutionized our digital marketing ROI.
-                    </p>
-                    <h5>Michael Bennett</h5>
-                    <p>CEO, TechFront Systems</p>
+                  <blockquote> 
+                    <p>AdShark transformed our traffic strategy, doubling daily revenue within months. Their professionalism and expertise are unmatched!</p> 
+                    <h5>Alex Carter</h5> 
+                    <p>CEO, Innovative Tech Solutions</p> 
                   </blockquote>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!-- End About Us Section -->
+      </section><!-- End About Us Section -->
 
-      <section id="about-4" class="about-4">
-        <div class="container" data-aos="fade-in">
-          <div class="row align-items-xl-center gy-5">
-            <div
-              class="col-lg-12 d-flex flex-column justify-conten-center about-content"
-            >
-              <div class="section-title-new" data-aos="fade-in">
-                <p>Business Flow</p>
-                <h2>We Create Tailored and Impactful Business Flows</h2>
-              </div>
-              <div
-                class="row gy-lg-3 gx-lg-3 gy-3 gx-2"
-                data-aos="fade-in"
-                data-aos-delay="100"
-              >
-                <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="service-item position-relative">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-learn.svg"
-                        alt="artdev-official-img"
-                      />
-                    </div>
-                    <h3>Audience Insights</h3>
-                    <p>
-                      We dive deep into your audience's preferences and
-                      behaviors to craft campaigns that resonate and deliver
-                      results.
-                    </p>
-                  </div>
+        <section id="about-4" class="about-4">
+          <div class="container" data-aos="fade-in">
+            <div class="row align-items-xl-center gy-5">
+              <div class="col-lg-12 d-flex flex-column justify-conten-center about-content">
+                <div class="section-title-new" data-aos="fade-in">
+                  <p>Business Flow</p> 
+                  <h2>We Create Tailored and Impactful Business Flows</h2>
                 </div>
-                <!-- End Service Item -->
-                <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="service-item position-relative">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-analys.svg"
-                        alt="artdev-official-img"
-                      />
+                <div class="row gy-lg-3 gx-lg-3 gy-3 gx-2" data-aos="fade-in" data-aos-delay="100">
+                  <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
+                    <div class="service-item position-relative">
+                      <div class="icon">
+                        <img src="assets/img/index/index-learn.svg" alt="artdev-official-img">
+                      </div>
+                      <h3>Audience Insights</h3> 
+                      <p>We dive deep into your audience's preferences and behaviors to craft campaigns that resonate and deliver results.</p>
                     </div>
-                    <h3>Market Research</h3>
-                    <p>
-                      We analyze the competitive landscape and trends to
-                      position your business for maximum impact.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Service Item -->
-                <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="service-item position-relative">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-strategy.svg"
-                        alt="artdev-official-img"
-                      />
+                  </div><!-- End Service Item -->
+                  <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
+                    <div class="service-item position-relative">
+                      <div class="icon">
+                        <img src="assets/img/index/index-analys.svg" alt="artdev-official-img">
+                      </div>
+                      <h3>Market Research</h3> 
+                      <p>We analyze the competitive landscape and trends to position your business for maximum impact.</p>
                     </div>
-                    <h3>Growth Strategy</h3>
-                    <p>
-                      Our tailored strategies focus on driving conversions,
-                      increasing ROI, and scaling your business efficiently.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Service Item -->
-                <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
-                  <div class="service-item position-relative">
-                    <div class="icon">
-                      <img
-                        src="assets/img/index/index-data.svg"
-                        alt="artdev-official-img"
-                      />
+                  </div><!-- End Service Item -->
+                  <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
+                    <div class="service-item position-relative">
+                      <div class="icon">
+                        <img src="assets/img/index/index-strategy.svg" alt="artdev-official-img">
+                      </div>
+                      <h3>Growth Strategy</h3> 
+                      <p>Our tailored strategies focus on driving conversions, increasing ROI, and scaling your business efficiently.</p>
                     </div>
-                    <h3>Data-Driven Insights</h3>
-                    <p>
-                      We use data to inform every aspect of your business
-                      concept, helping us identify accurate and relevant goals.
-                    </p>
-                  </div>
-                </div>
-                <!-- End Service Item -->
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about-3" class="about-3">
-        <div class="container" data-aos="fade-in">
-          <div class="row no-gutters justify-content-between">
-            <div
-              class="col-lg-6 video-box justify-content-center order-lg-2 order-1"
-              data-aos="fade-in"
-            >
-              <img
-                src="assets/img/index/6.png"
-                class="img-fluid"
-                alt="artdev-official-img"
-              />
-            </div>
-            <div
-              class="col-lg-5 d-flex flex-column d-flex justify-content-center about-content order-lg-1 order-2"
-            >
-              <div class="section-title-new" data-aos="fade-in">
-                <p>Client Progress</p>
-                <h2>Trusted to Accelerate Your Growth</h2>
-                <p>
-                  At AdShark, we prioritize strategies that truly work,
-                  delivering measurable results while putting service excellence
-                  at the forefront. Unlike others that overpromise and
-                  underdeliver, we ensure every dollar you invest drives real,
-                  impactful growth.
-                </p>
-              </div>
-              <div class="about-3-quote" data-aos="fade-in">
-                <div class="content">
-                  <blockquote>
-                    <p>
-                      What sets AdShark apart is their attention to detail and proactive support. They didn't just optimize our campaigns - they became true partners in our growth, helping us scale from a regional player to a national presence.
-                    </p>
-                    <h5>Alex Carter</h5>
-                    <p>CEO, Innovative Tech Solutions</p>
-                  </blockquote>
+                  </div><!-- End Service Item -->
+                  <div class="col-lg-6 col-md-6 d-md-flex align-items-md-stretch">
+                    <div class="service-item position-relative">
+                      <div class="icon">
+                        <img src="assets/img/index/index-data.svg" alt="artdev-official-img">
+                      </div>
+                      <h3>Data-Driven Insights</h3> 
+                      <p>We use data to inform every aspect of your business concept, helping us identify accurate and relevant goals.</p>
+                    </div>
+                  </div><!-- End Service Item -->  
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <!--End About Us Section -->
+        </section>
 
-      <section id="boxes" class="boxes">
-        <div class="container" data-aos="fade-in">
-          <div class="section-title-new" data-aos="fade-in">
-            <p>Our Expertise</p>
-            <h2>Why AdShark is the Best Choice for Your Business</h2>
-          </div>
-          <div class="row icon-boxes gy-lg-3 gx-lg-3 gy-3 gx-2">
-            <div
-              class="col-md-6 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <img
-                  class="img-fluid"
-                  src="assets/img/index/investor.svg"
-                  alt="artdev-official-img"
-                />
-                <h4 class="title">Performance-Driven Results</h4>
-                <p class="description">
-                  We focus on delivering measurable results, ensuring your
-                  campaigns are optimized for maximum ROI.
-                </p>
+        <section id="about-3" class="about-3">
+          <div class="container" data-aos="fade-in">
+            <div class="row no-gutters justify-content-between">
+              <div class="col-lg-6 video-box justify-content-center order-lg-2 order-1" data-aos="fade-in">
+                <img src="assets/img/index/6.png" class="img-fluid" alt="artdev-official-img">
               </div>
-            </div>
-            <div
-              class="col-md-6 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <img
-                  class="img-fluid"
-                  src="assets/img/index/operation.svg"
-                  alt="artdev-official-img"
-                />
-                <h4 class="title">Achieving Seamless Operations</h4>
-                <p class="description">
-                  With Adshark's digital solutions, monitor and optimize every
-                  aspect of your business, ensuring smooth and uninterrupted
-                  processes.
-                </p>
-              </div>
-            </div>
-            <div
-              class="col-md-12 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0"
-              data-aos="fade-in"
-            >
-              <div class="icon-box">
-                <img
-                  class="img-fluid"
-                  src="assets/img/index/team.svg"
-                  alt="artdev-official-img"
-                />
-                <h4 class="title">Performance Insights</h4>
-                <p class="description">
-                  Track and enhance the performance of every team, ensuring your
-                  company consistently achieves its targets.
-                </p>
+              <div class="col-lg-5 d-flex flex-column d-flex justify-content-center about-content order-lg-1 order-2">
+                <div class="section-title-new" data-aos="fade-in">
+                  <p>Client Progress</p> 
+                  <h2>Trusted to Accelerate Your Growth</h2> 
+                  <p>At AdShark, we prioritize strategies that truly work, delivering measurable results while putting service excellence at the forefront. Unlike others that overpromise and underdeliver, we ensure every dollar you invest drives real, impactful growth.</p>
+                </div>
+                <div class="about-3-quote" data-aos="fade-in">
+                  <div class="content">
+                    <blockquote> 
+                      <p>AdShark transformed our traffic strategy, doubling daily revenue within months. Their professionalism and expertise are unmatched!</p> 
+                      <h5>Alex Carter</h5> 
+                      <p>CEO, Innovative Tech Solutions</p> 
+                    </blockquote>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section><!--End About Us Section -->
 
-      <!-- ======= Call To Action Section ======= -->
-      <section id="contact" class="hero-2">
-        <div class="container text-center" data-aos="fade-in">
-          <h1>Ready to Get Started?</h1>
-          <p style="color: rgba(255, 255, 255, 0.6)">
-            We drive your business growth with targeted advertising strategies
-          </p>
-          <a class="btn-get-started-2 btn-block" href="#our-services"
-            >Explore Ads</a
-          >
-          <a
-            class="btn-get-started-bot btn-block"
-            href="contact.html"
-            onClick="ATC()"
-            >Contact Us</a
-          >
-        </div>
-      </section>
-      <!-- End Call To Action Section -->
-    </main>
+        <section id="boxes" class="boxes">
+          <div class="container" data-aos="fade-in">
+            <div class="section-title-new" data-aos="fade-in">
+              <p>Our Expertise</p> 
+              <h2>Why AdShark is the Best Choice for Your Business</h2>
+            </div>
+            <div class="row icon-boxes gy-lg-3 gx-lg-3 gy-3 gx-2">
+              <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <img class="img-fluid" src="assets/img/index/investor.svg" alt="artdev-official-img">
+                  <h4 class="title">Performance-Driven Results</h4> 
+                  <p class="description">We focus on delivering measurable results, ensuring your campaigns are optimized for maximum ROI.</p>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <img class="img-fluid" src="assets/img/index/operation.svg" alt="artdev-official-img">
+                  <h4 class="title">Achieving Seamless Operations</h4> 
+                  <p class="description">With Adshark's digital solutions, monitor and optimize every aspect of your business, ensuring smooth and uninterrupted processes.</p>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-4 d-flex align-items-stretch mb-0 mb-lg-0" data-aos="fade-in">
+                <div class="icon-box">
+                  <img class="img-fluid" src="assets/img/index/team.svg" alt="artdev-official-img">
+                  <h4 class="title">Performance Insights</h4> 
+                  <p class="description">Track and enhance the performance of every team, ensuring your company consistently achieves its targets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
+        <!-- ======= Call To Action Section ======= -->
+        <section id="contact" class="hero-2">
+          <div class="container text-center" data-aos="fade-in">
+            <h1>Ready to Get Started?</h1> 
+            <p style="color:rgba(255, 255, 255, 0.6)">We drive your business growth with targeted advertising strategies
+            </p> 
+            <a class="btn-get-started-2 btn-block" href="#our-services">Explore Ads</a> 
+            <a class="btn-get-started-bot btn-block" href="#" onClick="ATC()">Contact Us</a>
+          </div>
+        </section><!-- End Call To Action Section -->
+
+      </main>
+  
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
+     <footer id="footer" class="footer">
       <!-- <div class="footer-top" data-aos="fade-in"> -->
-      <!-- <div class="container"> -->
-      <!-- <div class="row justify-content-between">
+        <!-- <div class="container"> -->
+          <!-- <div class="row justify-content-between">
             <div class="col-lg-3 col-md-6 footer-contact" data-aos="fade-in">
               <img src="assets/img/logo-down.png" alt="">  -->
-      <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
-      <!-- company address -->
-      <!-- <p>
+              <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+              <!-- company address -->
+              <!-- <p>
                 Medan, Sumatera Utara<br>
                 Indonesia<br>
                 <strong>Phone :</strong> <a href="https://api.whatsapp.com/send?text=Halo%20ArtDev,%20Saya%20ingin%20Konsultasi%20Layanan%20Dengan%20Anda%20&phone=6281260779669">0812-6077-9669</a><br>
                 <strong>Email :</strong> <a href="mailto:artdeveloper.tech@gmail.com?subject=Halo ArtDev, saya ingin konsultasi">artdeveloper.tech@gmail.com</a><br>
               </p> -->
-      <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
-      <!-- <div class="social-links">
+              <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+              <!-- <div class="social-links">
                 <a href="#" class="facebook" target="_blank"><i class="bi bi-facebook"></i></a>
                 <a href="#" class="instagram" target="_blank"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="linkedin" target="_blank"><i class="bi bi-linkedin"></i></a>
@@ -809,8 +530,8 @@
                 <li><a href="#">Terms & Conditions</a></li>
               </ul>
             </div> -->
-      <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
-      <!-- <div class="col-lg-3 col-md-6 footer-blog" data-aos="fade-in">
+                          <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+            <!-- <div class="col-lg-3 col-md-6 footer-blog" data-aos="fade-in">
               <h4>Our Popular Article</h4>
               <ul>
                 <li><img src="assets/img/blog/blog-01/banner.webp" alt=""><a href="#">Pentingnya Digital Marketing untuk Bisnis di Era Pandemi</a></li>
@@ -819,41 +540,34 @@
                 <li><img src="assets/img/blog/blog-04/banner.webp" alt=""><a href="#">Cara Menggunakan SEO untuk Menaikkan Rangking Website</a></li>
               </ul>
             </div> -->
-      <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
-      <!-- </div>
+                          <!-- ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+          <!-- </div>
         </div>
       </div> -->
 
       <div class="container">
-        <div class="copyright">
-          &copy; Copyright 2025 AdShark; - All Rights Reserved
-        </div>
+        <div class="copyright">&copy; Copyright 2025 AdShark; - All Rights Reserved</div>
       </div>
     </footer>
     <!-- End Footer -->
-    <!-- End Footer -->
+  <!-- End Footer -->
 
-    <a
-      href="#"
-      class="scroll-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
+  <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
-      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-      crossorigin="anonymous"
-    ></script>
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-  </body>
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+
+</body>
+
 </html>
