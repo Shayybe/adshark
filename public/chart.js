@@ -130,7 +130,7 @@ function updateChart(data) {
     }
   });
 
-  console.log('Chart updated with data:', data);
+  // console.log('Chart updated with data:', data);
 }
 
 // Add this CSS to your styles

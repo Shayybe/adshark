@@ -8,13 +8,15 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
-// app.use(cors({
-//   origin: 'https://www.adshark.net',
-//   credentials: true
-// }));
+
+app.use(cors({
+  origin: 'https://www.adshark.net',
+  credentials: true
+}));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -298,6 +300,48 @@ app.get('/performance-report', isAuthenticated,  fetchUserApiToken, async (req, 
     });
   }
 });
+
+
+app.get('/performance-report-campaign', isAuthenticated, fetchUserApiToken, async (req, res) => {
+  const { format = 'json', startDate, endDate, groupBy = 'campaign', ...additionalParams } = req.query;
+  const apiToken = req.apiToken;
+
+  if (!startDate || !endDate) {
+    return res.status(400).json({
+      error: 'startDate and endDate are required.',
+      example: '/performance-report-campaign?startDate=YYYY-MM-DD&endDate=YYYY-MM-DD'
+    });
+  }
+
+  try {
+    const validDates = validateDates(startDate, endDate);
+
+    // Fetch campaign-specific data
+    const data = await fetchPerformanceReport(
+      apiToken,
+      format,
+      validDates.startDate,
+      validDates.endDate,
+      groupBy, // Ensure this groups by 'campaign'
+      additionalParams
+    );
+
+    res.json({
+      message: 'Performance Report by Campaign',
+      startDate: validDates.startDate,
+      endDate: validDates.endDate,
+      groupBy: groupBy,
+      data // Ensure this contains campaign-specific data
+    });
+  } catch (error) {
+    console.error('Error in performance-report-campaign handler:', error.message);
+    res.status(error.response?.status || 500).json({
+      error: 'Failed to fetch performance report by campaign.',
+      details: error.response?.data || error.message
+    });
+  }
+});
+
 
 /////////////////////////////////////////////////////////////////////////////////sending campaign data to user/////////////////////////////////////////////////////
 

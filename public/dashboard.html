@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="toastNotification.css">
+    <link rel="stylesheet" href="campaign.css">
     <style>
         .form-section {
             margin-bottom: 20px;
@@ -34,9 +35,10 @@
     <div class="dashboard">
         <div class="sidebar">
             <ul>
-                <li><a href="#performance" class="active">Performance</a></li>
-                <li><a href="#datatable">Data Table</a></li>
-                <li><a href="#campaign">Campaign</a></li>
+                <li><a href="#performance" class="active">Analytics</a></li>
+                <li><a href="#datatable">Reports</a></li>
+                <li><a href="#campaign">Campaigns</a></li>
+                <li><a href="#newCampaign">New Campaign</a></li>
             </ul>
             <div class="sidebar-footer">
                 <button id="logoutButton">Logout</button>
@@ -87,94 +89,121 @@
                     </table>
                 </div>
             </div>
-            <div id="campaign" class="tab-content" style="display: none;">
-                <h3>Campaign Section</h3>
+
+            <div id="campaign" class="tab-content" style="display: block;">
+                <h2>Campaigns</h2>
                 <form>
-                    <!-- Required Settings -->
-                    <div class="form-section">
-                        <h2>Required Settings*</h2>
+                    <div class="campaign-container">
+                        <!-- Table Headers -->
+                        <div class="campaign-headers">
+                            <span>Campaign</span>
+                            <span>Impressions</span>
+                            <span>Conversions</span>
+                            <span>Clicks</span>
+                            <span>CTR (%)</span>
+                            <span>CPM ($)</span>
+                            <span>Spent ($)</span>
+                            <span>I2C</span>
+                        </div>
             
-                        <!-- Campaign Name -->
-                        <label for="campaign-name">Campaign Name *</label>
-                        <input type="text" id="campaign-name" name="campaign-name" placeholder="Enter campaign name" required>
-            
-                        <!-- Device Format -->
-                        <label for="device-format">Device Format *</label>
-                        <select id="device-format" name="device-format" required>
-                            <option value="mobile">Mobile</option>
-                            <option value="tablet">Tablet</option>
-                            <option value="mobile-tablet">Mobile + Tablet Combined</option>
-                        </select>
-            
-                        <!-- Traffic Type -->
-                        <label for="traffic-type">Traffic Type *</label>
-                        <input type="text" id="traffic-type" name="traffic-type" placeholder="Enter traffic type" required>
-            
-                        <!-- Connection Type -->
-                        <label for="connection-type">Connection Type *</label>
-                        <input type="text" id="connection-type" name="connection-type" placeholder="Enter connection type" required>
+                        <!-- Cards Container -->
+                        <div class="campaign-cards" id="campaignTableBody">
+                            <!-- Cards will be dynamically inserted here -->
+                        </div>
                     </div>
-            
-                    <!-- Ad Unit & Pricing Type -->
-                    <div class="form-section">
-                        <h2>Ad Unit & Pricing Type</h2>
-                        <label for="ad-unit">Ad Unit</label>
-                        <select id="ad-unit" name="ad-unit">
-                            <option value="popunder">Popunder</option>
-                            <option value="social-bar">Social Bar</option>
-                            <option value="native-banner">Native Banner</option>
-                            <option value="in-page-push">In-Page Push</option>
-                            <option value="interstitial">Interstitial</option>
-                        </select>
-            
-                        <label for="pricing-type">Pricing Type</label>
-                        <select id="pricing-type" name="pricing-type">
-                            <option value="cpm">CPM</option>
-                            <option value="cpa">CPA</option>
-                            <option value="cpc">CPC</option>
-                        </select>
-            
-                        <!-- Landing URL -->
-                        <label for="landing-url">Landing URL *</label>
-                        <input type="url" id="landing-url" name="landing-url" placeholder="https://" required>
-                     </div>
-            
-                    <!-- Countries -->
-                    <div class="form-section">
-                        <h2>Countries</h2>
-                        <label for="countries">Countries *</label>
-                        <textarea id="countries" name="countries" placeholder="Enter countries or use bulk input" required></textarea>
-            
-                        <label for="price">Price *</label>
-                        <input type="number" id="price" name="price" placeholder="$0.00" required>
-                    </div>
-            
-                    <!-- Schedule -->
-                    <div class="form-section">
-                        <h2>Schedule</h2>
-                        <label>
-                            <input type="radio" name="schedule" value="start-once-verified" checked>
-                            Start once verified
-                        </label>
-                        <label>
-                            <input type="radio" name="schedule" value="keep-inactive">
-                            Keep inactive
-                        </label>
-                    </div>
-                        
-                    <!-- Advanced Settings -->
-                    <div class="form-section">
-                        <h2>Advanced Settings</h2>
-                        <label for="blacklist-whitelist">Blacklist/Whitelist</label>
-                        <textarea id="blacklist-whitelist" name="blacklist-whitelist" placeholder="Enter valid placement IDs"></textarea>
-            
-                        <label for="ip-range">IP Range Targeting</label>
-                        <textarea id="ip-range" name="ip-range" placeholder="Enter IP ranges"></textarea>
-                    </div>
-            
-                    <button type="submit">Submit</button>
                 </form>
             </div>
+
+        <div id="newCampaign" class="tab-content" style="display: none;">
+        <h2>Campaign Section</h2>
+        <form>
+            <!-- Required Settings -->
+            <div class="form-section">
+                <h2>Required Settings*</h2>
+
+                <!-- Campaign Name -->
+                <label for="campaign-name">Campaign Name *</label>
+                <input type="text" id="campaign-name" name="campaign-name" placeholder="Enter campaign name" required>
+
+                <!-- Device Format -->
+                <label for="device-format">Device Format *</label>
+                <select id="device-format" name="device-format" required>
+                    <option value="mobile">Mobile</option>
+                    <option value="tablet">Tablet</option>
+                    <option value="mobile-tablet">Mobile + Tablet Combined</option>
+                </select>
+
+                <!-- Traffic Type -->
+                <label for="traffic-type">Traffic Type *</label>
+                <input type="text" id="traffic-type" name="traffic-type" placeholder="Enter traffic type" required>
+
+                <!-- Connection Type -->
+                <label for="connection-type">Connection Type *</label>
+                <input type="text" id="connection-type" name="connection-type" placeholder="Enter connection type" required>
+            </div>
+
+            <!-- Ad Unit & Pricing Type -->
+            <div class="form-section">
+                <h2>Ad Unit & Pricing Type</h2>
+                <label for="ad-unit">Ad Unit</label>
+                <select id="ad-unit" name="ad-unit">
+                    <option value="popunder">Popunder</option>
+                    <option value="social-bar">Social Bar</option>
+                    <option value="native-banner">Native Banner</option>
+                    <option value="in-page-push">In-Page Push</option>
+                    <option value="interstitial">Interstitial</option>
+                </select>
+
+                <label for="pricing-type">Pricing Type</label>
+                <select id="pricing-type" name="pricing-type">
+                    <option value="cpm">CPM</option>
+                    <option value="cpa">CPA</option>
+                    <option value="cpc">CPC</option>
+                </select>
+
+                <!-- Landing URL -->
+                <label for="landing-url">Landing URL *</label>
+                <input type="url" id="landing-url" name="landing-url" placeholder="https://" required>
+            </div>
+
+            <!-- Countries -->
+            <div class="form-section">
+                <h2>Countries</h2>
+                <label for="countries">Countries *</label>
+                <textarea id="countries" name="countries" placeholder="Enter countries or use bulk input" required></textarea>
+
+                <label for="price">Price *</label>
+                <input type="number" id="price" name="price" placeholder="$0.00" required>
+            </div>
+
+            <!-- Schedule -->
+            <div class="form-section">
+                <h2>Schedule</h2>
+                <label>
+                    <input type="radio" name="schedule" value="start-once-verified" checked>
+                    Start once verified
+                </label>
+                <label>
+                    <input type="radio" name="schedule" value="keep-inactive">
+                    Keep inactive
+                </label>
+            </div>
+                
+            <!-- Advanced Settings -->
+            <div class="form-section">
+                <h2>Advanced Settings</h2>
+                <label for="blacklist-whitelist">Blacklist/Whitelist</label>
+                <textarea id="blacklist-whitelist" name="blacklist-whitelist" placeholder="Enter valid placement IDs"></textarea>
+
+                <label for="ip-range">IP Range Targeting</label>
+                <textarea id="ip-range" name="ip-range" placeholder="Enter IP ranges"></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="newAd" class="tab-content" style="display: none;">
         </div>
     </div>
 </body>
@@ -183,4 +212,5 @@
 <script src="chart.js"></script>
 <script src="form.js"></script>
 <script src="toastNotification.js"></script>
+<script src="campaign.js"></script>
 </html>

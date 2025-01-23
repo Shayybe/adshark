@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 window.location.href = '/login';
             } else {
-                console.error('Logout failed');
+                // console.error('Logout failed');
                 Toast.show("Failed to logout. Please try again.");
             }
         } catch (error) {
-            console.error('Error during logout:', error);
+            // console.error('Error during logout:', error);
             Toast.show("An error occurred during logout. Please try again.");
         }
     });
@@ -39,12 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-  
-        if (targetId === 'campaign') { 
+        if (targetId === 'campaign') {
             dateDiv.style.display = 'none';
+            fetchCampaignData();
+        } 
+        else if (targetId === 'newCampaign') {
+            dateDiv.style.display = 'none';
+            
         } else {
             dateDiv.style.display = 'block';
         }
+
     }
 
     links.forEach(link => {
@@ -63,8 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
 function setDefaultDates() {
     const endDate = new Date();
     const startDate = new Date();
@@ -73,7 +76,6 @@ function setDefaultDates() {
     document.getElementById('startDate').value = startDate.toISOString().split('T')[0];
     document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
 }
-
 
 async function fetchData() {
     const startDate = document.getElementById('startDate').value;
@@ -85,7 +87,7 @@ async function fetchData() {
     loadingDiv.style.display = 'block';
 
     try {
-        console.log(`Fetching data from: https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}`);
+        // console.log(`Fetching data from: https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
             `https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             { credentials: 'include' }
@@ -95,7 +97,7 @@ async function fetchData() {
         }
         
         const result = await response.json();
-        console.log('API Response:', result);
+        // console.log('API Response:', result);
 
         if (!result.data || !result.data.items) {
             throw new Error('No data available');
@@ -105,7 +107,7 @@ async function fetchData() {
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
         errorDiv.textContent = error.message;
         errorDiv.style.display = 'block';
     } finally {
@@ -173,67 +175,6 @@ function updateSummaryStats(data) {
 <h3>Average CPC</h3>
 <p>$${avgCPC}</p>
 </div> */
-
-function updateChart(data) {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    
-    if (chart) {
-        chart.destroy();
-    }
-    
-    chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: data.map(item => item.date || item.campaign),
-            datasets: [
-                {
-                    label: 'Impressions',
-                    data: data.map(item => item.impressions),
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1,
-                    yAxisID: 'y'
-                },
-                {
-                    label: 'Clicks',
-                    data: data.map(item => item.clicks),
-                    borderColor: 'rgb(255, 99, 132)',
-                    tension: 0.1,
-                    yAxisID: 'y1'
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'Impressions'
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'Clicks'
-                    },
-                    grid: {
-                        drawOnChartArea: false
-                    }
-                }
-            }
-        }
-    });
-}
 
 setDefaultDates();
 fetchData();

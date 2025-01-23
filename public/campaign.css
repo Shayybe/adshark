@@ -1,0 +1,58 @@
+/* Campaign Container */
+.campaign-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between headers and cards */
+}
+
+/* Campaign Headers */
+.campaign-headers {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 columns */
+    gap: 10px; /* Space between columns */
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+}
+
+.campaign-headers span {
+    text-align: center;
+}
+
+/* Campaign Cards */
+.campaign-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between cards */
+}
+
+.campaign-card {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 columns */
+    gap: 10px; /* Space between columns */
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.campaign-card span {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Align the first column (Campaign) to the left */
+.campaign-card span:first-child,
+.campaign-headers span:first-child {
+    text-align: left;
+}
+
+/* Align the last column (I2C) to the right */
+.campaign-card span:last-child,
+.campaign-headers span:last-child {
+    text-align: right;
+}

@@ -77,7 +77,7 @@ document.querySelector('.sign-in-form').addEventListener('submit', async (event)
         });
 
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         if (response.ok) 
         {
             Toast.show("Sign-in successful!");
