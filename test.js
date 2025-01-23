@@ -518,7 +518,66 @@ app.post('/submit-support', (req, res) => {
   sendSupportEmail(name, email, subject, issue);
   res.redirect('/dashboard.html');
 });
+//////////////////////////////////////////////////////////////////////sending contact email/////////////////////////////////////////////////////////
 
+const sendContactEmail = (name, email, subject, message) => {
+  const htmlContent = `
+      <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+          <h2 style="color: #8bbcd4;">New Contact Request</h2>
+          <p>You have received a new contact request from <strong>${name}</strong> (${email}).</p>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+          <h3 style="color: #8bbcd4;">Contact Request Details:</h3>
+          <ul style="list-style-type: none; padding: 0;">
+              <li><strong>Name:</strong> ${name}</li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Subject:</strong> ${subject}</li>
+              <li><strong>Message:</strong> ${message}</li>
+          </ul>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+          <p style="font-size: 12px; color: #777;">This email was sent by AdShark Contact Form. Please respond to the user directly.</p>
+      </div>
+  `;
+
+  const mailOptions = {
+      from: email, // Sender email address
+      to: 'adshark00@gmail.com', // Support team email address
+      subject: `Contact Request: ${subject}`, // Email subject
+      text: `New Contact Request from ${name} (${email}).\n\nSubject: ${subject}\n\nMessage: ${message}`, // Plain text version
+      html: htmlContent,
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          console.error('Error sending contact email:', error);
+      } else {
+          console.log('Contact email sent:', info.response);
+      }
+  });
+};
+
+// Contact form submission endpoint
+app.post('/submit-contact', (req, res) => {
+  const { name, email, subject, message } = req.body;
+
+  console.log('Received contact request:', { name, email, subject, message }); // Debugging log
+
+  // Validate required fields
+  if (!name || !email || !subject || !message) {
+      return res.status(400).json({ message: 'All fields are required.' });
+  }
+
+  try {
+      // Send the contact email
+      sendContactEmail(name, email, subject, message);
+
+      // Send a JSON response
+      res.redirect('/contact.html');
+  } catch (error) {
+      console.error('Error sending contact email:', error);
+      res.status(500).json({ message: 'Failed to submit the contact request.' });
+  }
+});
 
 
 // // Update campaign
