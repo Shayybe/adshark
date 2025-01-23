@@ -44,9 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
             fetchCampaignData();
         } 
         else if (targetId === 'newCampaign') {
+            dateDiv.style.display = 'none'; 
+        }
+        else if (targetId === 'support') {
             dateDiv.style.display = 'none';
-            
-        } else {
+        }
+         else {
             dateDiv.style.display = 'block';
         }
 

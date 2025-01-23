@@ -39,6 +39,7 @@
                 <li><a href="#datatable">Reports</a></li>
                 <li><a href="#campaign">Campaigns</a></li>
                 <li><a href="#newCampaign">New Campaign</a></li>
+                <li><a href="#support">Support</a></li>
             </ul>
             <div class="sidebar-footer">
                 <button id="logoutButton">Logout</button>
@@ -202,6 +203,39 @@
             <button type="submit">Submit</button>
         </form>
     </div>
+
+    <div id="support" class="tab-content" style="display: none;">
+        <h2>Support</h2>
+        <form id="supportForm" method="POST" action="/submit-support">
+            <!-- Name Field -->
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
+        
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+            </div>
+        
+            <!-- Subject Field -->
+            <div class="form-group">
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required placeholder="Enter the subject">
+            </div>
+        
+            <!-- Issue Description -->
+            <div class="form-group">
+                <label for="issue">Describe your issue:</label>
+                <textarea id="issue" name="issue" rows="5" required placeholder="Please describe your issue in detail"></textarea>
+            </div>
+        
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
 
     <div id="newAd" class="tab-content" style="display: none;">
         </div>

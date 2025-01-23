@@ -8,14 +8,14 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
-const cors = require('cors');
+// const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-app.use(cors({
-  origin: 'https://www.adshark.net',
-  credentials: true
-}));
+// app.use(cors({
+//   origin: 'https://www.adshark.net',
+//   credentials: true
+// }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -471,67 +471,116 @@ app.get('/api/campaigns/:id', isAuthenticated, async (req, res) => {
     });
   }
 });
+//////////////////////////////////////////////////////////////////////sending support email/////////////////////////////////////////////////////////
+const sendSupportEmail = (name, email, subject, issue) => {
+  const htmlContent = `
+      <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+          <h2 style="color: #8bbcd4;">New Support Request</h2>
+          <p>You have received a new support request from <strong>${name}</strong> (${email}).</p>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+          <h3 style="color: #8bbcd4;">Support Request Details:</h3>
+          <ul style="list-style-type: none; padding: 0;">
+              <li><strong>Name:</strong> ${name}</li>
+              <li><strong>Email:</strong> ${email}</li>
+              <li><strong>Subject:</strong> ${subject}</li>
+              <li><strong>Issue:</strong> ${issue}</li>
+          </ul>
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 20px 0;">
+          <p style="font-size: 12px; color: #777;">This email was sent by AdShark Support System. Please respond to the user directly.</p>
+      </div>
+  `;
 
-// Update campaign
-app.put('/api/campaigns/:id', isAuthenticated, async (req, res) => {
-  try {
-    const campaign = await Campaign.findOneAndUpdate(
-      {
-        _id: req.params.id,
-        userId: req.session.userId
-      },
-      req.body,
-      { new: true }
-    );
+  const mailOptions = {
+      from: email, 
+      to: 'adshark00@gmail.com', // Support team email address
+      subject: `Support Request: ${subject}`, // Email subject
+      text: `You have received a new support request from ${name} (${email}).\n\nSubject: ${subject}\n\nIssue: ${issue}`, // Plain text version
+      html: htmlContent,
+  };
 
-    if (!campaign) {
-      return res.status(404).json({
-        success: false,
-        message: 'Campaign not found'
-      });
-    }
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          console.error('Error sending support email:', error);
+      } else {
+          console.log('Support email sent:', info.response);
+      }
+  });
+};
 
-    res.json({
-      success: true,
-      message: 'Campaign updated successfully',
-      data: campaign
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error updating campaign',
-      error: error.message
-    });
-  }
+// Support form submission endpoint
+app.post('/submit-support', (req, res) => {
+  const { name, email, subject, issue } = req.body;
+
+  console.log('Received support request:', { name, email, subject, issue }); // Debugging log
+
+  // Send the support email
+  sendSupportEmail(name, email, subject, issue);
+  res.redirect('/dashboard.html');
 });
 
-// // Delete campaign
-app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
-  try {
-    const campaign = await Campaign.findOneAndDelete({
-      _id: req.params.id,
-      userId: req.session.userId
-    });
 
-    if (!campaign) {
-      return res.status(404).json({
-        success: false,
-        message: 'Campaign not found'
-      });
-    }
 
-    res.json({
-      success: true,
-      message: 'Campaign deleted successfully'
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error deleting campaign',
-      error: error.message
-    });
-  }
-});
+// // Update campaign
+// app.put('/api/campaigns/:id', isAuthenticated, async (req, res) => {
+//   try {
+//     const campaign = await Campaign.findOneAndUpdate(
+//       {
+//         _id: req.params.id,
+//         userId: req.session.userId
+//       },
+//       req.body,
+//       { new: true }
+//     );
+
+//     if (!campaign) {
+//       return res.status(404).json({
+//         success: false,
+//         message: 'Campaign not found'
+//       });
+//     }
+
+//     res.json({
+//       success: true,
+//       message: 'Campaign updated successfully',
+//       data: campaign
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error updating campaign',
+//       error: error.message
+//     });
+//   }
+// });
+
+// // // Delete campaign
+// app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
+//   try {
+//     const campaign = await Campaign.findOneAndDelete({
+//       _id: req.params.id,
+//       userId: req.session.userId
+//     });
+
+//     if (!campaign) {
+//       return res.status(404).json({
+//         success: false,
+//         message: 'Campaign not found'
+//       });
+//     }
+
+//     res.json({
+//       success: true,
+//       message: 'Campaign deleted successfully'
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: 'Error deleting campaign',
+//       error: error.message
+//     });
+//   }
+// });
 
 
 
