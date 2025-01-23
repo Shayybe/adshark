@@ -23,10 +23,12 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
 
   <!-- Template Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
   <link href="assets/css/edited.css" rel="stylesheet">
+  <link href="toastNotification.css" rel="stylesheet">
 
   <style>
     body {
@@ -270,6 +272,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <cript src="./toastNotification.js"></cript>
 
   <script>
     // Form submission handling
@@ -277,7 +280,7 @@
       e.preventDefault();
       // Here you can add your form submission logic
       // For now, let's just show an alert
-      alert('Thank you for your message! We will get back to you soon.');
+      Toast.show("Thank you for your message! We will get back to you soon.");
       this.reset();
     });
   </script>

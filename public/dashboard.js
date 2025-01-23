@@ -8,12 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                // Include credentials to ensure session cookie is sent
                 credentials: 'same-origin'
             });
             
             if (response.ok) {
-                // Redirect to login page after successful logout
                 window.location.href = '/login';
             } else {
                 console.error('Logout failed');
@@ -118,7 +116,7 @@ async function fetchData() {
 
 function updateTable(data) {
     const tbody = document.querySelector('#dataTable tbody');
-    tbody.innerHTML = ''; // Clear existing rows
+    tbody.innerHTML = '';
 
     data.forEach(item => {
         const row = document.createElement('tr');
@@ -127,7 +125,7 @@ function updateTable(data) {
         const ctr = item.impressions > 0 ? ((item.clicks / item.impressions) * 100).toFixed(2) : '0.00';
 
         // Calculate CPC (Cost Per Click)
-        const cpc = item.clicks > 0 ? (parseFloat(item.spend || 0) / item.clicks).toFixed(2) : '0.00';
+        // const cpc = item.clicks > 0 ? (parseFloat(item.spend || 0) / item.clicks).toFixed(2) : '0.00';
 
         // Add data to the table row
         row.innerHTML = `
@@ -136,8 +134,9 @@ function updateTable(data) {
             <td>${item.clicks?.toLocaleString() || 0}</td>
             <td>$${parseFloat(item.spend || 0).toFixed(2)}</td>
             <td>${ctr}%</td>
-             <td>$${cpc}</td>
+             
         `;
+        // <td>$${cpc}</td>
         tbody.appendChild(row);
     });
 }
@@ -147,7 +146,7 @@ function updateSummaryStats(data) {
     const totalClicks = data.reduce((sum, item) => sum + (item.clicks || 0), 0);
     const totalSpend = data.reduce((sum, item) => sum + parseFloat(item.spend || 0), 0);
     const avgCTR = (totalClicks / totalImpressions * 100 || 0).toFixed(2);
-    const avgCPC = (totalSpend / totalClicks || 0).toFixed(2);
+    // const avgCPC = (totalSpend / totalClicks || 0).toFixed(2);
 
     const summaryStatsDiv = document.getElementById('summaryStats');
     summaryStatsDiv.innerHTML = `
@@ -167,12 +166,13 @@ function updateSummaryStats(data) {
             <h3>Average CTR</h3>
             <p>${avgCTR}%</p>
         </div>
-         <div class="stat-card">
-             <h3>Average CPC</h3>
-             <p>$${avgCPC}</p>
-        </div>
     `;
 }
+
+/* <div class="stat-card">
+<h3>Average CPC</h3>
+<p>$${avgCPC}</p>
+</div> */
 
 function updateChart(data) {
     const ctx = document.getElementById('performanceChart').getContext('2d');
@@ -235,15 +235,12 @@ function updateChart(data) {
     });
 }
 
-// Initialize the page
 setDefaultDates();
 fetchData();
 
-// Add event listeners for date inputs
 document.getElementById('startDate').addEventListener('change', fetchData);
 document.getElementById('endDate').addEventListener('change', fetchData);
 
-// Smooth scrolling for sidebar links
 document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();

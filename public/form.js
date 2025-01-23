@@ -27,10 +27,9 @@ document.querySelector('form').addEventListener('submit', async (event) => {
 
     const data = await response.json();
     if (data.success) {
-      // Display a snackbar instead of an alert
+      
       Toast.show("Campaign created successfully!");
 
-      // Reset form fields
       document.getElementById('campaign-name').value = '';
       document.getElementById('device-format').value = '';
       document.getElementById('traffic-type').value = '';
