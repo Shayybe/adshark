@@ -97,23 +97,126 @@ textarea::placeholder {
     color: #aaa;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 10px 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 0 10px;
+    }
+
+    .sidebar ul li {
+        margin-bottom: 0;
+    }
+
+    .sidebar ul li a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .sidebar-footer {
+        display: block; 
+        padding: 10px;
+        text-align: center;
+        background-color: #000;
+        border-top: 1px solid #444;
+    }
+
+    #logoutButton {
+        width: 100%;
+        padding: 8px;
+        font-size: 12px;
+        margin: 0 auto;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 15px;
+    }
+
+    .date-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .date-input {
+        width: 100%;
+    }
+
+    .stats-overview {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 10px;
+    }
+
+    .chart-container {
+        height: auto;
+        padding: 15px;
+    }
+
+    .table-container {
+        padding: 10px;
+    }
+
+    #dataTable {
+        min-width: 100%;
+    }
+
+    #dataTable th,
+    #dataTable td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
     form {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     h2 {
         font-size: 1.25rem;
     }
 
-    input,
+    input[type="text"],
+    input[type="url"],
+    input[type="number"],
     textarea,
     select {
         font-size: 0.9rem;
+        padding: 0.6rem;
     }
 
     button[type="submit"] {
         font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+
+    .tab-navigation {
+        flex-direction: column;
+    }
+
+    .tab-navigation a {
+        padding: 8px 10px;
+        font-size: 12px;
     }
 }

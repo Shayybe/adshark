@@ -8,12 +8,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                // Include credentials to ensure session cookie is sent
                 credentials: 'same-origin'
             });
             
             if (response.ok) {
-                // Redirect to login page after successful logout
                 window.location.href = '/login';
             } else {
                 console.error('Logout failed');
@@ -118,7 +116,7 @@ async function fetchData() {
 
 function updateTable(data) {
     const tbody = document.querySelector('#dataTable tbody');
-    tbody.innerHTML = ''; // Clear existing rows
+    tbody.innerHTML = '';
 
     data.forEach(item => {
         const row = document.createElement('tr');
@@ -235,15 +233,12 @@ function updateChart(data) {
     });
 }
 
-// Initialize the page
 setDefaultDates();
 fetchData();
 
-// Add event listeners for date inputs
 document.getElementById('startDate').addEventListener('change', fetchData);
 document.getElementById('endDate').addEventListener('change', fetchData);
 
-// Smooth scrolling for sidebar links
 document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
