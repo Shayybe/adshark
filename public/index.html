@@ -826,6 +826,7 @@
           </div>
         </div>
       </section>
+      
 
       <!-- ======= Call To Action Section ======= -->
       <section id="contact" class="hero-2">
@@ -845,6 +846,59 @@
       </section>
       <!-- End Call To Action Section -->
     </main>
+    <div class="partner-banner">
+      <div class="partner-slider">
+        <div class="slide-track">
+          <div class="slide">
+            <img src="assets/img/partners.jpg" alt="Partner Logos">
+          </div>
+          <div class="slide">
+            <img src="assets/img/partners.jpg" alt="Partner Logos">
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <style>
+    .partner-banner {
+      position: relative;
+      width: 100%;
+      background: #2A2E32;
+      padding: 15px 0;
+      overflow: hidden;
+      z-index: 100;
+    }
+    
+    .partner-slider {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+    }
+    
+    .slide-track {
+      display: flex;
+      width: 200%;
+      animation: scroll 20s linear infinite;
+    }
+    
+    .slide {
+      width: 50%;
+      height: 100%;
+    }
+    
+    .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(1.2) contrast(1.1);
+    }
+    
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    </style>
 
     <!-- ======= Footer ======= -->
 <footer id="footer" class="footer bg-dark text-white py-5">
