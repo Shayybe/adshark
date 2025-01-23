@@ -87,8 +87,7 @@ async function fetchData() {
     try {
         console.log(`Fetching data from: https://adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
-            // `https://adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
-            `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
+            `https://adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             { credentials: 'include' }
           );
         if (!response.ok) {
