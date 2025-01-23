@@ -499,6 +499,13 @@ app.get('/', (req, res) => {
 app.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
+app.get('/TOS', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'TOS.html'));
+});
+
+app.get('/privacy', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'privacy.html'));
+});
 // app.post('/signup', signUpUser);
 
 // Add a new user to the database
