@@ -580,66 +580,66 @@ app.post('/submit-contact', (req, res) => {
 });
 
 
-// // Update campaign
-// app.put('/api/campaigns/:id', isAuthenticated, async (req, res) => {
-//   try {
-//     const campaign = await Campaign.findOneAndUpdate(
-//       {
-//         _id: req.params.id,
-//         userId: req.session.userId
-//       },
-//       req.body,
-//       { new: true }
-//     );
+// Update campaign
+app.put('/api/campaigns/:id', isAuthenticated, async (req, res) => {
+  try {
+    const campaign = await Campaign.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        userId: req.session.userId
+      },
+      req.body,
+      { new: true }
+    );
 
-//     if (!campaign) {
-//       return res.status(404).json({
-//         success: false,
-//         message: 'Campaign not found'
-//       });
-//     }
+    if (!campaign) {
+      return res.status(404).json({
+        success: false,
+        message: 'Campaign not found'
+      });
+    }
 
-//     res.json({
-//       success: true,
-//       message: 'Campaign updated successfully',
-//       data: campaign
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Error updating campaign',
-//       error: error.message
-//     });
-//   }
-// });
+    res.json({
+      success: true,
+      message: 'Campaign updated successfully',
+      data: campaign
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error updating campaign',
+      error: error.message
+    });
+  }
+});
 
-// // // Delete campaign
-// app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
-//   try {
-//     const campaign = await Campaign.findOneAndDelete({
-//       _id: req.params.id,
-//       userId: req.session.userId
-//     });
+// // Delete campaign
+app.delete('/api/campaigns/:id', isAuthenticated, async (req, res) => {
+  try {
+    const campaign = await Campaign.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.session.userId
+    });
 
-//     if (!campaign) {
-//       return res.status(404).json({
-//         success: false,
-//         message: 'Campaign not found'
-//       });
-//     }
+    if (!campaign) {
+      return res.status(404).json({
+        success: false,
+        message: 'Campaign not found'
+      });
+    }
 
-//     res.json({
-//       success: true,
-//       message: 'Campaign deleted successfully'
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: 'Error deleting campaign',
-//       error: error.message
-//     });
-//   }
-// });
+    res.json({
+      success: true,
+      message: 'Campaign deleted successfully'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting campaign',
+      error: error.message
+    });
+  }
+});
 
 
 

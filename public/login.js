@@ -61,11 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
 document.querySelector('.sign-in-form').addEventListener('submit', async (event) => {
-    event.preventDefault(); 
+    event.preventDefault(); // Prevent the form from submitting
 
     const email = document.querySelector('.sign-in-form input[name="email"]').value;
     const password = document.querySelector('.sign-in-form input[name="password"]').value;
+
+    // Clear previous error messages
+    const errorElement = document.getElementById('login-error');
+    errorElement.textContent = '';
+    errorElement.style.display = 'none';
 
     try {
         const response = await fetch('/login', {
@@ -77,23 +84,29 @@ document.querySelector('.sign-in-form').addEventListener('submit', async (event)
         });
 
         const data = await response.json();
-        // console.log(data);
-        if (response.ok) 
-        {
+
+        if (response.ok) {
+            // Login successful
             Toast.show("Sign-in successful!");
             setTimeout(() => {
-                window.location.href = data.redirectUrl;
+                window.location.href = data.redirectUrl; // Redirect to dashboard
             }, 2000);
-        }else {
-            const errorElement = document.getElementById('login-error');
-            errorElement.textContent = data.error;
-            errorElement.style.display = 'block';
+        } else {
+            // Login failed
+            if (data.message === 'User not found') {
+                errorElement.textContent = 'User not found. Please check your email.';
+            } else if (data.message === 'Invalid credentials') {
+                errorElement.textContent = 'Invalid password. Please try again.';
+            } else if (data.error === 'Please verify your email before logging in') {
+                errorElement.textContent = 'Please verify your email before logging in.';
+            } else {
+                errorElement.textContent = 'An unexpected error occurred. Please try again.';
+            }
+            errorElement.style.display = 'block'; // Show the error message
         }
     } catch (error) {
         console.error('Error during login:', error);
-        const errorElement = document.getElementById('login-error');
-        errorElement.textContent = 'Check Password and Email again';
-        errorElement.style.display = 'block';
+        errorElement.textContent = 'An error occurred. Please try again later.';
+        errorElement.style.display = 'block'; // Show the error message
     }
 });
-

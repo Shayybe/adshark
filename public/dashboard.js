@@ -24,50 +24,65 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// Define showTab globally
+function showTab(targetId) {
+    console.log(`Showing tab: ${targetId}`); // Debugging
+    const tabContents = document.querySelectorAll('.tab-content');
+    const links = document.querySelectorAll('.sidebar a');
+
+    // Hide all tab contents
+    tabContents.forEach(content => {
+        if (content.id === targetId) {
+            content.style.display = 'block'; // Show the selected tab
+        } else {
+            content.style.display = 'none'; // Hide other tabs
+        }
+    });
+
+    // Remove the 'active' class from all links
+    links.forEach(link => {
+        link.classList.remove('active');
+    });
+
+    // Add the 'active' class to the clicked link
+    const activeLink = document.querySelector(`.sidebar a[href="#${targetId}"]`);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+
+    // Hide dateDiv for specific tabs
+    if (
+        targetId === 'dashboard' || 
+        targetId === 'campaign' || 
+        targetId === 'newCampaign' || 
+        targetId === 'support'
+    ) {
+        document.getElementById('dateDiv').style.display = 'none'; // Hide dateDiv for these tabs
+    } else {
+        document.getElementById('dateDiv').style.display = 'block'; // Show dateDiv for other tabs
+    }
+
+    // Additional logic for specific tabs
+    if (targetId === 'campaign') {
+        fetchCampaignData(); // Fetch campaign data if needed
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.sidebar a');
-    const tabContents = document.querySelectorAll('.tab-content');
-    const dateDiv = document.getElementById('dateDiv');
 
-    function showTab(targetId) {
-        tabContents.forEach(content => {
-            if (content.id === targetId) {
-                content.style.display = 'block';
-            } else {
-                content.style.display = 'none';
-            }
-        });
-
-        if (targetId === 'campaign') {
-            dateDiv.style.display = 'none';
-            fetchCampaignData();
-        } 
-        else if (targetId === 'newCampaign') {
-            dateDiv.style.display = 'none'; 
-        }
-        else if (targetId === 'support') {
-            dateDiv.style.display = 'none';
-        }
-         else {
-            dateDiv.style.display = 'block';
-        }
-
-    }
-
+    // Add event listeners to sidebar links
     links.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            links.forEach(l => l.classList.remove('active'));
-            link.classList.add('active');
-
-            const targetId = link.getAttribute('href').substring(1);
-            showTab(targetId);
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default link behavior
+            const targetId = link.getAttribute('href').substring(1); // Get the target tab ID
+            showTab(targetId); // Show the selected tab
         });
     });
 
-    const firstTab = links[0].getAttribute('href').substring(1);
-    showTab(firstTab);
+    // Show the default tab on page load
+    const defaultTab = 'dashboard'; // Change this to your default tab ID
+    showTab(defaultTab);
 });
 
 
@@ -193,3 +208,17 @@ document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
+const sideMenu = document.querySelector("aside");
+const menuBtn = document.querySelector("#menu-btn");
+const closeBtn = document.querySelector("#close-btn");
+// Show Sidebar
+menuBtn.addEventListener("click", () => {
+    sideMenu.style.display = "block";
+  });
+  
+  // Hide Sidebar
+  closeBtn.addEventListener("click", () => {
+    sideMenu.style.display = "none";
+  });
+  

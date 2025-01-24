@@ -1,0 +1,118 @@
+#dateDiv {
+    margin-top: 100px; /* Add 100px margin to the top */
+}
+
+/* Campaign Section */
+#campaign {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1200px;
+    margin-top: 100px;
+}
+
+/* Campaign Header */
+#campaign h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Campaign Container */
+.campaign-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between headers and cards */
+}
+
+/* Campaign Headers */
+.campaign-headers {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 columns */
+    gap: 10px; /* Space between columns */
+    padding: 15px;
+    background-color: #8bbcd4; /* Primary color */
+    color: #ffffff; /* White text */
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+    text-transform: uppercase; /* Uppercase for header text */
+    font-size: 14px;
+}
+
+.campaign-headers span {
+    text-align: center;
+}
+
+/* Campaign Cards */
+.campaign-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between cards */
+}
+
+.campaign-card {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* 8 columns */
+    gap: 10px; /* Space between columns */
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.campaign-card:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.campaign-card span {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Align the first column (Campaign) to the left */
+.campaign-card span:first-child,
+.campaign-headers span:first-child {
+    text-align: left;
+}
+
+/* Align the last column (I2C) to the right */
+.campaign-card span:last-child,
+.campaign-headers span:last-child {
+    text-align: right;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 800px) {
+    .campaign-headers,
+    .campaign-card {
+        grid-template-columns: repeat(4, 1fr); /* Reduce to 4 columns */
+    }
+
+    .campaign-headers span,
+    .campaign-card span {
+        font-size: 12px; /* Smaller text for mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    .campaign-headers,
+    .campaign-card {
+        grid-template-columns: repeat(2, 1fr); /* Reduce to 2 columns */
+    }
+
+    .campaign-headers span,
+    .campaign-card span {
+        text-align: left; /* Align all text to the left for small screens */
+    }
+
+    .campaign-container {
+        gap: 10px; /* Reduce spacing between elements */
+    }
+}

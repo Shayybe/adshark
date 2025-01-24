@@ -1,53 +1,145 @@
+/* General Styles for Support Section */
+#support {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin-top: 100px;
+}
+
+/* Section Header */
+#support h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
 /* Form Styles */
 #supportForm {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.form-group {
-    margin-bottom: 20px;
+/* Form Group Styles */
+#supportForm .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.form-group label {
-    display: block;
+/* Labels */
+#supportForm label {
     font-weight: bold;
-    margin-bottom: 8px;
-    color: #2c3e50;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
     font-size: 14px;
     color: #555;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    border-color: #2c3e50;
-    outline: none;
-    box-shadow: 0 0 5px rgba(44, 62, 80, 0.3);
+/* General Input Styles */
+#supportForm input[type="text"],
+#supportForm input[type="email"],
+#supportForm textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Ensures a visible border */
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* Prevents content overflow */
+    width: 100%; /* Ensures inputs take full width */
 }
 
-button[type="submit"] {
-    background-color: #2c3e50;
+/* Placeholder Styles */
+#supportForm input::placeholder,
+#supportForm textarea::placeholder {
+    color: #888;
+    font-style: oblique;
+}
+
+/* Focus Styles */
+#supportForm input[type="text"]:focus,
+#supportForm input[type="email"]:focus,
+#supportForm textarea:focus {
+    border-color: #8bbcd4; /* Highlight the border on focus */
+    outline: none;
+    background-color: #fff;
+}
+
+/* Submit Button */
+#supportForm button[type="submit"] {
+    background-color: #8bbcd4;
     color: #fff;
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
+    padding: 10px 15px;
     font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-    background-color: #1a252f;
+/* Submit Button Hover Effect */
+#supportForm button[type="submit"]:hover {
+    background-color: #77a9c1;
 }
+
+
+
+
+/* /////////////////////////////////////////////////////////////////////////////////// */
+/* .contact-form {
+    background: #fff;
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    height: 50px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: #8bbcd4;
+    box-shadow: none;
+  }
+
+  textarea.form-control {
+    height: 150px;
+    resize: none;
+  }
+
+  .submit-btn {
+    background: #8bbcd4;
+    color: #fff;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    background: #7ab0c9;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .contact-info-box {
+      margin-bottom: 30px;
+    }
+  } */

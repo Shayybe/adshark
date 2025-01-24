@@ -1,5 +1,9 @@
-document.querySelector('form').addEventListener('submit', async (event) => {
-  event.preventDefault();
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('campaignForm');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
   const formData = {
     campaignName: document.getElementById('campaign-name').value,
@@ -48,4 +52,5 @@ document.querySelector('form').addEventListener('submit', async (event) => {
   } catch (error) {
     Toast.show('Error submitting form: ' + error.message);
   }
+});
 });

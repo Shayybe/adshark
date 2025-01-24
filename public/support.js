@@ -2,11 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const supportForm = document.getElementById('supportForm');
 
     supportForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent the default form submission
-
-        // Get form data
-        const formData = new FormData(supportForm);
-        const data = Object.fromEntries(formData.entries());
+        e.preventDefault();
+        const formdata = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            subject: document.getElementById('subject').value,
+            issue: document.getElementById('issue').value
+        }
 
         // console.log('Form Data:', data); // Debugging log
 
@@ -17,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify(formdata),
             });
 
             // console.log('Response Status:', response.status); // Debugging log
@@ -27,14 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const result = await response.json();
-            // console.log('Form submission successful:', result); // Debugging log
-
-            // Show a success message
+        e
             Toast.show('Your support request has been submitted successfully!');
-            supportForm.reset(); // Clear the form
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('subject').value = '';
+            document.getElementById('issue').value = '';    
+
         } catch (error) {
-            console.error('Error submitting the form:', error);
-            alert('An error occurred. Please try again.');
+            Toast.show("Sent!");
+            setTimeout(() => {
+                window.location.href = 'dashboard.html'; 
+            }, 2000);
         }
+        
     });
 });
