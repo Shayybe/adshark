@@ -455,7 +455,7 @@ section {
   .navbar .active:focus,
   .navbar li:hover > a {
     color: #fff;
-    background: var(--color-primary-3);
+    background: var(--color-secondary);
     padding: 15px 13px;
     border-radius: 10px;
   }
