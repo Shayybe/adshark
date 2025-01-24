@@ -8,14 +8,14 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
-// const cors = require('cors');
+const cors = require('cors');
 const app = express();
 const PORT = 3000;
 
-// app.use(cors({
-//   origin: 'https://www.adshark.net',
-//   credentials: true
-// }));
+app.use(cors({
+  origin: 'https://www.adshark.net',
+  credentials: true
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
