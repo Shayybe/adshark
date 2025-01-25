@@ -134,12 +134,13 @@ aside .top {
   margin-top: 1.4rem;
 }
 aside .logo {
+  margin-left: 2rem;
   display: flex;
   gap: 0.8rem;
 }
 aside .logo img {
-  width: 2rem;
-  height: 2rem;
+  width:6rem;
+  height:6rem;
 }
 aside .close {
   display: none;
