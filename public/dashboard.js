@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Define showTab globally
 function showTab(targetId) {
-    console.log(`Showing tab: ${targetId}`); // Debugging
+    // console.log(`Showing tab: ${targetId}`); // Debugging
     const tabContents = document.querySelectorAll('.tab-content');
     const links = document.querySelectorAll('.sidebar a');
 
@@ -98,11 +98,8 @@ function setDefaultDates() {
 async function fetchData() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const errorDiv = document.getElementById('error');
-    const loadingDiv = document.getElementById('loading');
 
-    errorDiv.style.display = 'none';
-    loadingDiv.style.display = 'block';
+    const loadingDiv = document.getElementById('loading');
 
     try {
         // console.log(`Fetching data from: https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}`);
@@ -111,11 +108,10 @@ async function fetchData() {
             { credentials: 'include' }
           );
         if (!response.ok) {
-            throw new Error('Failed to retrive.');
+            // throw new Error('Failed to retrive.');
         }
         
         const result = await response.json();
-        // console.log('API Response:', result);
 
         if (!result.data || !result.data.items) {
             throw new Error('No data available');
@@ -125,9 +121,7 @@ async function fetchData() {
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-        // console.error('Error fetching data:', error);
-        errorDiv.textContent = error.message;
-        errorDiv.style.display = 'block';
+        Toast.show(error.message, 'error');
     } finally {
         loadingDiv.style.display = 'none';
     }

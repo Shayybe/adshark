@@ -1,11 +1,11 @@
 async function fetchCampaignData() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const errorDiv = document.getElementById('error');
+    // const errorDiv = document.getElementById('error');
     const loadingDiv = document.getElementById('loading');
 
-    errorDiv.style.display = 'none';
-    loadingDiv.style.display = 'block';
+    // errorDiv.style.display = 'none';
+    // loadingDiv.style.display = 'block';
 
     try {
         // console.log(`Fetching campaign data from: https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`);
@@ -34,9 +34,7 @@ async function fetchCampaignData() {
         // document.getElementById('lastUpdateTime').textContent = result.data.dbLastUpdateTime;
         // document.getElementById('dbDateTime').textContent = result.data.dbDateTime;
     } catch (error) {
-        // console.error('Error fetching campaign data:', error);
-        errorDiv.textContent = error.message;
-        errorDiv.style.display = 'block';
+        Toast.show(error.message, 'error');
     } finally {
         loadingDiv.style.display = 'none';
     }

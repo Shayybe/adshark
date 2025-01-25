@@ -124,6 +124,7 @@ b {
 
 /* START ASIDE */
 aside {
+  position: fixed;
   height: 100vh;
 }
 aside .top {
