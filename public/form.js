@@ -2,23 +2,38 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('campaignForm');
 
+  if (!form) {
+    console.error('Form element not found.');
+    return;
+  }
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-  const formData = {
-    campaignName: document.getElementById('campaign-name').value,
-    deviceFormat: document.getElementById('device-format').value,
-    trafficType: document.getElementById('traffic-type').value,
-    connectionType: document.getElementById('connection-type').value,
-    adUnit: document.getElementById('ad-unit').value,
-    pricingType: document.getElementById('pricing-type').value,
-    landingUrl: document.getElementById('landing-url').value,
-    countries: document.getElementById('countries').value.split('\n').map(country => country.trim()),
-    price: parseFloat(document.getElementById('price').value),
-    schedule: document.querySelector('input[name="schedule"]:checked').value,
-    blacklistWhitelist: document.getElementById('blacklist-whitelist').value.split('\n').map(id => id.trim()),
-    ipRanges: document.getElementById('ip-range').value.split('\n').map(range => range.trim())
-  };
+    const getValue = (id) => {
+      const element = document.getElementById(id);
+      return element ? element.value : null;
+    };
+
+    const getCheckedValue = (name) => {
+      const element = document.querySelector(`input[name="${name}"]:checked`);
+      return element ? element.value : null;
+    };
+
+    const formData = {
+      campaignName: getValue('campaign-name'),
+      deviceFormat: getValue('device-format'),
+      trafficType: getValue('traffic-type'),
+      connectionType: getValue('connection-type'),
+      adUnit: getValue('ad-unit'),
+      pricingType: getCheckedValue('pricing-type'),
+      landingUrl: getValue('landing-url'),
+      countries: getValue('countries')?.split('\n').map((country) => country.trim()) || [],
+      price: parseFloat(getValue('price')) || 0,
+      schedule: getCheckedValue('schedule'),
+      blacklistWhitelist: getValue('blacklist-whitelist')?.split('\n').map((id) => id.trim()) || [],
+      ipRanges: getValue('ip-range')?.split('\n').map((range) => range.trim()) || [],
+    };
 
   try {
     const response = await fetch('/api/campaigns', {
@@ -47,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('blacklist-whitelist').value = '';
       document.getElementById('ip-range').value = '';
     } else {
-      Toast.show('Error creating campaign: ' + data.message);
+      // Toast.show('Error creating campaign: ' + data.message);
     }
   } catch (error) {
-    Toast.show('Error submitting form: ' + error.message);
+    // Toast.show('Error submitting form: ' + error.message);
   }
 });
 });

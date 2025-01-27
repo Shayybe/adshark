@@ -104,6 +104,7 @@ async function fetchData() {
     try {
         // console.log(`Fetching data from: https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
+            // `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             `https://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             { credentials: 'include' }
           );
@@ -123,7 +124,7 @@ async function fetchData() {
     } catch (error) {
         Toast.show(error.message, 'error');
     } finally {
-        loadingDiv.style.display = 'none';
+        // loadingDiv.style.display = 'none';
     }
 }
 

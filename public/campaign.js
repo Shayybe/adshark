@@ -10,7 +10,8 @@ async function fetchCampaignData() {
     try {
         // console.log(`Fetching campaign data from: https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
-            `https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+            // `http://localhost:3000.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+            `https://www.adshark.net/perfo/rmance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             { credentials: 'include' }
         );
 
