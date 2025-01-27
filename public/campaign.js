@@ -10,13 +10,13 @@ async function fetchCampaignData() {
     try {
         // console.log(`Fetching campaign data from: https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
-            // `http://localhost:3000.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             `https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             { credentials: 'include' }
         );
 
+        //
         if (!response.ok) {
-            throw new Error('Failed to retrieve campaign data.');
+            throw new Error('No campaign set yet.');
         }
 
         const result = await response.json();

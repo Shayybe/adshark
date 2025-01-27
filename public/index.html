@@ -867,6 +867,35 @@
       object-fit: contain;
       filter: brightness(1.2) contrast(1.1);
     }
+    .accordion-item {
+    border: none;
+    margin-bottom: 10px;
+}
+
+.accordion-button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.accordion-button::after {
+    filter: brightness(0) invert(1);
+}
+
+.accordion-body {
+    padding: 10px 15px;
+    font-size: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.05);
+}
     
     @keyframes scroll {
       0% { transform: translateX(0); }
@@ -877,92 +906,123 @@
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer bg-dark text-white py-5">
       <div class="container">
-        <div class="row">
-          <!-- Logo and Contact Info -->
-          <div class="col-lg-4 mb-4">
-            <div class="footer-info">
-              <div class="logo-wrapper mb-3">
-                <img
-                  src="assets/img/AdShark.png"
-                  class="img-fluid"
-                  width="200"
-                  height="80"
-                  alt="AdShark Logo"
-                />
+          <div class="row">
+              <!-- Logo and Contact Info -->
+              <div class="col-lg-3 mb-4">
+                  <div class="footer-info">
+                      <div class="logo-wrapper mb-3">
+                          <img src="assets/img/AdShark.png" class="img-fluid" width="200" height="80" alt="AdShark Logo" />
+                      </div>
+                      <p class="mb-2">
+                          <strong>Email:</strong> <a href="mailto:info@adshark.net" class="text-white text-decoration-none">info@adshark.net</a>
+                      </p>
+                      <p class="mb-2">
+                          <strong>Phone:</strong> +1 234 567 890
+                      </p>
+                  </div>
               </div>
-              <p class="mb-2">
-                <strong>Email:</strong> <a href="mailto:info@adshark.net" class="text-white text-decoration-none">info@adshark.net</a>
-              </p>
-              <p class="mb-2">
-                <strong>Phone:</strong> +1 234 567 890
-              </p>
-              <p class="mb-2">
-                <strong>Address:</strong> 123 AdShark Street, Marketing City, USA
-              </p>
-            </div>
+  
+              <!-- FAQ Section -->
+              <div class="col-lg-3 mb-4">
+                  <h5 class="mb-4 text-white">FAQ</h5>
+                  <div class="accordion" id="faqAccordion">
+                      <div class="accordion-item bg-transparent">
+                          <h6 class="accordion-header">
+                              <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                  What is CPM, CPC, and CPA?
+                              </button>
+                          </h6>
+                          <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                              <div class="accordion-body text-light">
+                                  CPM (Cost Per Mille): Cost per thousand impressions
+                                  CPC (Cost Per Click): Pay per click
+                                  CPA (Cost Per Action): Pay per completed action
+                              </div>
+                          </div>
+                      </div>
+                      <div class="accordion-item bg-transparent">
+                          <h6 class="accordion-header">
+                              <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                  How do I start a campaign?
+                              </button>
+                          </h6>
+                          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                              <div class="accordion-body text-light">
+                                  Login to your dashboard, click "New Campaign", fill in the required details, and submit for review.
+                              </div>
+                          </div>
+                      </div>
+                      <div class="accordion-item bg-transparent">
+                          <h6 class="accordion-header">
+                              <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                  What payment methods do you accept?
+                              </button>
+                          </h6>
+                          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                              <div class="accordion-body text-light">
+                                  We accept PayPal, Visa, and Mastercard for all transactions.
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+  
+              <!-- Legal Links -->
+              <div class="col-lg-3 mb-4">
+                  <h5 class="mb-4 text-white">Legal</h5>
+                  <ul class="list-unstyled">
+                      <li class="mb-2"><a href="/privacy" class="text-white text-decoration-none">Privacy Policy</a></li>
+                      <li class="mb-2"><a href="/TOS" class="text-white text-decoration-none">Terms & Conditions</a></li>
+                  </ul>
+              </div>
+  
+              <!-- Social Media & Newsletter -->
+              <div class="col-lg-3 mb-4">
+                  <h5 class="mb-4 text-white">Stay Connected</h5>
+                  <div class="mb-3">
+                      <a href="https://facebook.com" class="text-white me-3">
+                          <i class="bi bi-facebook fs-4"></i>
+                      </a>
+                      <a href="https://twitter.com" class="text-white me-3">
+                          <i class="bi bi-twitter fs-4"></i>
+                      </a>
+                      <a href="https://linkedin.com" class="text-white me-3">
+                          <i class="bi bi-linkedin fs-4"></i>
+                      </a>
+                      <a href="https://instagram.com" class="text-white">
+                          <i class="bi bi-instagram fs-4"></i>
+                      </a>
+                  </div>
+                  <h6 class="mb-3">Subscribe to our Newsletter</h6>
+                  <form action="#" method="post" class="d-flex">
+                      <input type="email" class="form-control me-2" placeholder="Enter your email" required />
+                      <button type="submit" class="btn btn-primary">Subscribe</button>
+                  </form>
+              </div>
           </div>
-    
-          <!-- Legal Links -->
-          <div class="col-lg-4 mb-4 mt-5">
-            <h5 class="mb-4 text-white">Legal</h5>
-            <ul class="list-unstyled">
-              <li class="mb-2"><a href="/privacy" class="text-white text-decoration-none">Privacy Policy</a></li>
-              <li class="mb-2"><a href="/TOS" class="text-white text-decoration-none">Terms & Conditions</a></li>
-            </ul>
+  
+          <!-- Payment Methods Section -->
+          <div class="row mt-4">
+              <div class="col text-center">
+                  <h5 class="text-white mb-3">We Accept</h5>
+                  <div class="payment-methods">
+                      <img src="assets/img/payment/mastercard.png" alt="MasterCard" class="img-fluid mx-2" width="80" />
+                      <img src="assets/img/payment/paypal.png" alt="PayPal" class="img-fluid mx-2" width="80" />
+                      <img src="assets/img/payment/visa.png" alt="Visa" class="img-fluid mx-2" width="80" />
+                  </div>
+              </div>
           </div>
-    
-          <!-- Social Media & Newsletter -->
-          <div class="col-lg-4 mb-4 mt-5">
-            <h5 class="mb-4 text-white">Stay Connected</h5>
-            <div class="mb-3">
-              <a href="https://facebook.com" class="text-white me-3">
-                <i class="bi bi-facebook fs-4"></i>
-              </a>
-              <a href="https://twitter.com" class="text-white me-3">
-                <i class="bi bi-twitter fs-4"></i>
-              </a>
-              <a href="https://linkedin.com" class="text-white me-3">
-                <i class="bi bi-linkedin fs-4"></i>
-              </a>
-              <a href="https://instagram.com" class="text-white">
-                <i class="bi bi-instagram fs-4"></i>
-              </a>
-            </div>
-            <h6 class="mb-3">Subscribe to our Newsletter</h6>
-            <form action="#" method="post" class="d-flex">
-              <input
-                type="email"
-                class="form-control me-2"
-                placeholder="Enter your email"
-                required
-              />
-              <button type="submit" class="btn btn-primary">Subscribe</button>
-            </form>
+  
+          <!-- Footer Bottom -->
+          <div class="row">
+              <div class="col text-center mt-5 pt-4 border-top border-secondary">
+                  <p class="mb-0">
+                      © Copyright 2025 AdShark - All Rights Reserved
+                  </p>
+              </div>
           </div>
-        </div>
-
-            <!-- Payment Methods Section -->
-        <div class="row mt-4">
-          <div class="col text-center">
-            <h5 class="text-white mb-3">We Accept</h5>
-            <div class="payment-methods">
-              <img src="assets/img/payment/mastercard.png" alt="MasterCard" class="img-fluid mx-2" width="80" />
-              <img src="assets/img/payment/paypal.png" alt="PayPal" class="img-fluid mx-2" width="80" />
-              <img src="assets/img/payment/visa.png" alt="Visa" class="img-fluid mx-2" width="80" />
-            </div>
-          </div>
-        </div>
-    
-        <!-- Footer Bottom -->
-        <div class="row">
-          <div class="col text-center mt-5 pt-4 border-top border-secondary">
-            <p class="mb-0">
-              © Copyright 2025 AdShark - All Rights Reserved
-            </p>
-          </div>
-        </div>
       </div>
-    </footer>
+  </footer>
     
 
     <a
