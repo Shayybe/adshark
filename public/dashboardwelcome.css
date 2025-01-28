@@ -1,129 +1,281 @@
-/* Welcome Section */
-.welcome-section {
-    text-align: center;
-    margin-bottom: 2rem;
+/* Main Container Styles */
+.welcome-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
-.welcome-section h1 {
+/* Header Styles */
+.welcome-header {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.welcome-header::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #8bbcd4;
+    border-radius: 2px;
+}
+
+.welcome-header h1 {
     font-size: 2.5rem;
-    color: #333;
+    font-weight: 700;
+    color: #1a202c;
     margin-bottom: 0.5rem;
 }
 
-.welcome-section p {
-    font-size: 1.2rem;
-    color: #666;
+.welcome-header .welcome-subtitle {
+    font-size: 1.1rem;
+    color: #4a5568;
+    line-height: 1.5;
+    max-width: 800px;
 }
 
-/* Overview Section */
-.overview-section {
+/* Section Title */
+.section-title {
+    font-size: 1.75rem;
+    color: #1a202c;
+    margin: 2rem 0;
+    font-weight: 700;
+}
+
+/* Grid Layout */
+.getting-started-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.overview-card {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
+/* Card Styles */
+.start-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.overview-card:hover {
+.start-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.overview-card span {
-    font-size: 2rem;
-    color: #8bbcd4;
-    margin-bottom: 1rem;
-    display: block;
-}
-
-.overview-card h3 {
+.start-card h2 {
     font-size: 1.2rem;
-    color: #555;
+    color: #8bbcd4;
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
-.overview-card p {
+.start-card h3 {
     font-size: 1.5rem;
-    color: #333;
-    font-weight: bold;
-}
-
-/* Recent Activity Section */
-.recent-activity {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-}
-
-.recent-activity h2 {
-    font-size: 1.5rem;
-    color: #333;
+    color: #1a202c;
     margin-bottom: 1rem;
+    font-weight: 700;
 }
 
-.recent-activity ul {
+/* Campaign Options */
+.campaign-options {
+    margin: 1.5rem 0;
+}
+
+.option-section {
+    margin-bottom: 1.5rem;
+}
+
+.option-section h4 {
+    font-size: 1.1rem;
+    color: #1a202c;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+/* Feature Lists */
+.feature-list {
     list-style: none;
     padding: 0;
+    margin: 1rem 0;
 }
 
-.recent-activity li {
-    font-size: 1rem;
-    color: #666;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+.feature-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: #2d3748;
+    font-size: 0.95rem;
 }
 
-.recent-activity li:last-child {
+.feature-list li .material-icons-sharp {
+    color: #8bbcd4;
+    margin-right: 0.75rem;
+    font-size: 1.25rem;
+}
+
+/* Activity List */
+.activity-list {
+    margin: 1.5rem 0;
+}
+
+.activity-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem 0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.activity-item:last-child {
     border-bottom: none;
 }
 
-/* Quick Actions Section */
-.quick-actions {
-    background: #fff;
-    padding: 1.5rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.activity-item .material-icons-sharp {
+    color: #8bbcd4;
+    margin-right: 1rem;
+    margin-top: 0.25rem;
 }
 
-.quick-actions h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1rem;
+.activity-content {
+    flex: 1;
 }
 
-.action-buttons {
-    display: flex;
-    gap: 1rem;
+.activity-content p {
+    margin: 0;
+    color: #2d3748;
+    font-weight: 500;
 }
 
+.activity-time {
+    font-size: 0.875rem;
+    color: #718096;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+/* Buttons */
 .action-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    background: #8bbcd4;
-    color: #fff;
-    border: none;
-    padding: 1rem 1.5rem;
-    border-radius: 5px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
     font-size: 1rem;
+    transition: all 0.2s ease;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.action-button.primary {
+    background: #8bbcd4;
+    color: white;
+}
+
+.action-button.secondary {
+    background: #f7fafc;
+    color: #8bbcd4;
+    border: 2px solid #8bbcd4;
+}
+
+.action-button .material-icons-sharp {
+    margin-right: 0.5rem;
 }
 
 .action-button:hover {
-    background: #77a9c1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.action-button span {
-    font-size: 1.2rem;
+.action-button.primary:hover {
+    background: #4ba6d3;
+}
+
+.action-button.secondary:hover {
+    background: #f0f9ff;
+}
+
+/* Quick Stats Section */
+.quick-stats {
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .getting-started-grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 2rem auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-container {
+        padding: 1rem;
+    }
+
+    .welcome-header {
+        margin-bottom: 2rem;
+    }
+
+    .welcome-header h1 {
+        font-size: 2rem;
+    }
+
+    .welcome-header::before {
+        left: -1rem;
+    }
+
+    .start-card {
+        padding: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .option-section h4 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .welcome-subtitle {
+        font-size: 1rem;
+    }
+
+    .start-card h3 {
+        font-size: 1.25rem;
+    }
+
+    .action-button {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.9rem;
+    }
+
+    .feature-list li {
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

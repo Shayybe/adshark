@@ -11,7 +11,7 @@ const nodemailer = require('nodemailer');
 const cors = require('cors');
 const app = express();
 const PORT = 3000;
-
+const router = express.Router();
 app.use(cors({
   origin: 'https://www.adshark.net',
   credentials: true
@@ -209,6 +209,77 @@ async function fetchPerformanceReport(apiToken, format, startDate, endDate, grou
     throw error;
   }
 }
+
+// Updated traffic chart data fetching function
+async function fetchTrafficChartData(apiToken, params) {
+  // IMPORTANT: Verify the correct API endpoint with Adsterra support
+  const url = 'https://api3.adsterratools.com/advertiser/stats.json';
+
+  console.log('🌐 Fetching Traffic Chart Data:');
+  console.log('----------------------------');
+  console.log('API URL:', url);
+  console.log('API Token (partial):', apiToken.substring(0, 4) + '...');
+  console.log('Params:', JSON.stringify(params, null, 2));
+
+  try {
+    // Prepare comprehensive query parameters
+    const queryParams = {
+      start_date: params.start_date || getDefaultStartDate(),
+      finish_date: params.finish_date || getCurrentDate(),
+      group_by: 'country', // Specific grouping for traffic insights
+      ad_unit: params.ad_unit || params.adUnit,
+      traffic_type: params.traffic_type || params.trafficType,
+      device_format: params.device_format || params.deviceFormat,
+      country: params.country,
+      os: params.os
+    };
+
+    // Remove undefined parameters
+    Object.keys(queryParams).forEach(key => 
+      queryParams[key] === undefined && delete queryParams[key]
+    );
+
+    const response = await axios.get(url, {
+      headers: {
+        'X-API-Key': apiToken,
+        'Accept': 'application/json'
+      },
+      params: queryParams
+    });
+
+    // Validate response
+    if (!response.data || !response.data.items) {
+      throw new Error('No data received from Adsterra API');
+    }
+
+    console.log('✅ API Response Received:');
+    console.log('----------------------------');
+    console.log('Status:', response.status);
+    console.log('Total Items:', response.data.items.length);
+    console.log('Response Details:', JSON.stringify(response.data, null, 2));
+
+    return response.data;
+  } catch (error) {
+    console.error('❌ Adsterra API Error:');
+    console.error('----------------------------');
+    
+    // Detailed error logging
+    if (error.response) {
+      console.error('Response Status:', error.response.status);
+      console.error('Response Headers:', JSON.stringify(error.response.headers, null, 2));
+      console.error('Response Data:', JSON.stringify(error.response.data, null, 2));
+    } else if (error.request) {
+      console.error('No response received');
+      console.error('Request:', JSON.stringify(error.request, null, 2));
+    } else {
+      console.error('Error Message:', error.message);
+    }
+
+    // Throw a detailed error
+    throw new Error(`Adsterra API Error: ${error.message}`);
+  }
+}
+
 
 // Function to validate dates
 function validateDates(startDate, endDate) {
@@ -822,8 +893,101 @@ app.get('/verify-email', async (req, res) => {
   }
 });
 
+app.get('/traffic-chart', isAuthenticated, fetchUserApiToken, async (req, res) => {
+  console.log('🌐 Traffic Chart Endpoint Hit');
+  console.log('----------------------------');
+  
+  // Log all received query parameters with full details
+  console.log('Received Raw Query Parameters:', JSON.stringify(req.query, null, 2));
+  console.log('URL:', req.url);
+  console.log('Headers:', JSON.stringify(req.headers, null, 2));
 
+  // Decode and sanitize parameters
+  const { 
+    adUnit, 
+    trafficType, 
+    deviceFormat, 
+    country, 
+    os 
+  } = req.query;
 
+  const apiToken = req.apiToken;
+
+  console.log('Processed Parameters:', {
+    adUnit: decodeURIComponent(adUnit || ''),
+    trafficType: decodeURIComponent(trafficType || ''),
+    deviceFormat: decodeURIComponent(deviceFormat || ''),
+    country: decodeURIComponent(country || ''),
+    os: decodeURIComponent(os || '')
+  });
+
+  // Validate API token
+  if (!apiToken) {
+    console.error('❌ No API token found');
+    return res.status(401).json({
+      success: false, 
+      error: 'Missing API token'
+    });
+  }
+
+  try {
+    // Prepare parameters for Adsterra API
+    const params = {
+      ad_unit: decodeURIComponent(adUnit || 'popunder'),
+      traffic_type: decodeURIComponent(trafficType || 'all'),
+      device_format: decodeURIComponent(deviceFormat || 'mobile'),
+      country: decodeURIComponent(country || 'All'),
+      os: decodeURIComponent(os || 'all')
+    };
+
+    console.log('📤 Prepared API Request Params:', JSON.stringify(params, null, 2));
+
+    // Fetch data from Adsterra
+    const data = await fetchTrafficChartData(apiToken, params);
+    
+    console.log('📥 API Response:');
+    console.log('---------------');
+    console.log('Total Items:', data.items ? data.items.length : 0);
+    
+    // Log each item for debugging
+    if (data.items) {
+      data.items.forEach((item, index) => {
+        console.log(`Item ${index + 1}:`, JSON.stringify(item, null, 2));
+      });
+    }
+
+    // Ensure response matches expected format
+    res.json({
+      success: true,
+      data: {
+        items: data.items || [],
+        totalCount: data.items ? data.items.length : 0
+      }
+    });
+  } catch (error) {
+    console.error('\n❌ Traffic Chart Endpoint Error:');
+    console.error('----------------------------');
+    console.error('Error Name:', error.name);
+    console.error('Error Message:', error.message);
+    
+    // Log full error details
+    if (error.response) {
+      console.error('Response Status:', error.response.status);
+      console.error('Response Data:', JSON.stringify(error.response.data, null, 2));
+    }
+    console.error('Full Error Object:', JSON.stringify(error, null, 2));
+
+    // Send detailed error response
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch traffic chart data',
+      details: {
+        message: error.message,
+        name: error.name
+      }
+    });
+  }
+});
 
 // Start the server
 app.listen(PORT, () => {

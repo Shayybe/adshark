@@ -1,18 +1,26 @@
+const API_ENDPOINTS = {
+    local: 'http://localhost:3000',
+    production: 'https://www.adshark.net'
+};
+
+const BASE_URL = window.location.hostname === 'localhost' ? API_ENDPOINTS.local : API_ENDPOINTS.production;
+
 async function fetchCampaignData() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    // const errorDiv = document.getElementById('error');
+    const startDate = document.getElementById('startDate')?.value;
+    const endDate = document.getElementById('endDate')?.value;
     const loadingDiv = document.getElementById('loading');
 
-    // errorDiv.style.display = 'none';
-    // loadingDiv.style.display = 'block';
+    if (loadingDiv) loadingDiv.style.display = 'block';
 
     try {
-        // console.log(`Fetching campaign data from: https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`);
         const response = await fetch(
-            // `http://localhost:3000.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
-            `https://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
-            { credentials: 'include' }
+            `${BASE_URL}/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+            { 
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
         );
 
         if (!response.ok) {
@@ -20,47 +28,63 @@ async function fetchCampaignData() {
         }
 
         const result = await response.json();
-        // console.log('API Response:', result); // Debugging log
 
-        // Access the items array from the data object
         if (!result.data || !result.data.items || result.data.items.length === 0) {
             throw new Error('No campaign data available');
         }
 
-        // Populate the table with campaign data
         populateCampaignTable(result.data.items);
-
-        // Update summary stats
-        // document.getElementById('itemCount').textContent = result.data.itemCount;
-        // document.getElementById('lastUpdateTime').textContent = result.data.dbLastUpdateTime;
-        // document.getElementById('dbDateTime').textContent = result.data.dbDateTime;
     } catch (error) {
         Toast.show(error.message, 'error');
+        const campaignTableBody = document.getElementById('campaignTableBody');
+        if (campaignTableBody) {
+            campaignTableBody.innerHTML = `
+                <div class="campaign-card empty">
+                    <p>No campaigns found. Create a new campaign to get started!</p>
+                </div>
+            `;
+        }
     } finally {
-        loadingDiv.style.display = 'none';
+        if (loadingDiv) loadingDiv.style.display = 'none';
     }
 }
-  
+
 function populateCampaignTable(campaigns) {
-    // console.log('Campaigns Data:', campaigns); // Debugging log
     const tableBody = document.getElementById('campaignTableBody');
-    tableBody.innerHTML = ''; // Clear existing cards
+    if (!tableBody) return;
+
+    tableBody.innerHTML = '';
 
     campaigns.forEach(campaign => {
         const card = document.createElement('div');
         card.className = 'campaign-card';
 
+        // Format numbers with proper precision
+        const impressions = parseInt(campaign.impressions || 0).toLocaleString();
+        const clicks = parseInt(campaign.clicks || 0).toLocaleString();
+        const ctr = ((campaign.clicks / campaign.impressions) * 100 || 0).toFixed(2);
+        const cpm = parseFloat(campaign.cpm || 0).toFixed(2);
+        const spent = parseFloat(campaign.spent || 0).toFixed(2);
+        const conversions = parseInt(campaign.conversions || 0).toLocaleString();
+        const i2c = parseFloat(campaign.i2c || 0).toFixed(3);
+
         card.innerHTML = `
             <span>${campaign.campaign}</span>
-            <span>${campaign.impressions.toLocaleString()}</span>
-            <span>${campaign.conversions}</span>
-            <span>${campaign.clicks.toLocaleString()}</span>
-            <span>${campaign.ctr.toFixed(3)}</span>
-            <span>${campaign.cpm.toFixed(3)}</span>
-            <span>${campaign.spent.toFixed(2)}</span>
-            <span>${campaign.i2c.toFixed(3)}</span>
+            <span>${impressions}</span>
+            <span>${conversions}</span>
+            <span>${clicks}</span>
+            <span>${ctr}%</span>
+            <span>$${cpm}</span>
+            <span>$${spent}</span>
+            <span>${i2c}</span>
         `;
 
         tableBody.appendChild(card);
     });
 }
+
+// Export functions for use in dashboard.js
+window.campaignModule = {
+    fetchCampaignData,
+    populateCampaignTable
+};

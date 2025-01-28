@@ -1,111 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="toastNotification.css"/>
-    <link rel="stylesheet" href="dashboardcampaign.css"/>
-    <link rel="stylesheet" href="dasboardsidebar.css"/>
-    <link rel="stylesheet" href="dashboardanalytics.css"/>
-    <link rel="stylesheet" href="dashboardnewcampaign.css"/>
-    <link rel="stylesheet" href="support.css"/>
-    <link rel="stylesheet" href="dashboardwelcome.css"/>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="toastNotification.css" />
+    <link rel="stylesheet" href="dashboardcampaign.css" />
+    <link rel="stylesheet" href="dasboardsidebar.css" />
+    <link rel="stylesheet" href="dashboardanalytics.css" />
+    <link rel="stylesheet" href="dashboardnewcampaign.css" />
+    <link rel="stylesheet" href="support.css" />
+    <link rel="stylesheet" href="dashboardwelcome.css" />
+    <link rel="stylesheet" href="FAQs.css" />
+    <link rel="stylesheet" href="traffic.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 </head>
+
 <body>
     <div class="container">
-    <div id = "dashboard" class="dashboard">
-        <aside>
-            <div class="top">
-              <div class="logo">
-                <img src="assets/img/AdShark.png" alt="Logo" />
-                <!-- <h2>Ad<span class="danger">shark</span></h2> -->
-              </div>
-              <div class="close" id="close-btn">
-                <span class="material-icons-sharp"> close </span>
-              </div>
-            </div>
-    
-            <div class="sidebar">
-              <a href="#dashboard" class="active">
-                <span class="material-icons-sharp"> dashboard </span>
-                <h3>Dashboard</h3>
-              </a>
-              <a href="#performance">
-                <span class="material-icons-sharp"> insights </span>
-                <h3>Analytics</h3>
-              </a>
-              <a href="#datatable">
-                <span class="material-icons-sharp"> inventory </span>
-                <h3>Reports</h3>
-              </a>
-              <a href="#campaign">
-                <span class="material-icons-sharp"> library_books </span>
-                <h3>Campaigns</h3>
-              </a>
-              <a href="#newCampaign">
-                <span class="material-icons-sharp"> library_add </span>
-                <h3>New Campaign</h3>
-              </a>
-              <a href="#support">
-                <span class="material-icons-sharp"> info </span>
-                <h3>Support</h3>
-              </a>
-              <a id="logoutButton" href="#logout">
-                <span class="material-icons-sharp"> logout </span>
-                <h3>Log out</h3>
-              </a>
-            </div>
-        </aside>
+        <div id="dashboard" class="dashboard">
+            <aside>
+                <div class="top">
+                    <div class="logo">
+                        <img src="assets/img/AdShark.png" alt="Logo" />
+                    </div>
+                    <div class="close" id="close-btn">
+                        <span class="material-icons-sharp">close</span>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <a href="#dashboard" class="active">
+                        <span class="material-icons-sharp">dashboard</span>
+                        <h3>Dashboard</h3>
+                    </a>
+                    <a href="#performance">
+                        <span class="material-icons-sharp">insights</span>
+                        <h3>Analytics</h3>
+                    </a>
+                    <a href="#datatable">
+                        <span class="material-icons-sharp">inventory</span>
+                        <h3>Reports</h3>
+                    </a>
+                    <a href="#campaign">
+                        <span class="material-icons-sharp">library_books</span>
+                        <h3>Campaigns</h3>
+                    </a>
+                    <a href="#newCampaign">
+                        <span class="material-icons-sharp">library_add</span>
+                        <h3>New Campaign</h3>
+                    </a>
+                    <a href="#traffic">
+                        <span class="material-icons-sharp">traffic</span>
+                        <h3>Traffic Chart</h3>
+                    </a>
+                    <a href="#FAQs">
+                        <span class="material-icons-sharp">help_outline</span>
+                        <h3>FAQs</h3>
+                    </a>
+                    <a href="#support">
+                        <span class="material-icons-sharp">info</span>
+                        <h3>Support</h3>
+                    </a>
+                    <a id="logoutButton" href="#logout">
+                        <span class="material-icons-sharp">logout</span>
+                        <h3>Log out</h3>
+                    </a>
+                </div>
+            </aside>
         </div>
 
-
         <div class="main-content">
-            
-            <div id="dateDiv">
-                <input type="date" id="startDate" class="date-input" aria-label="Start Date">
-                <input type="date" id="endDate" class="date-input" aria-label="End Date">
-            </div>
+    
 
+            <!-- Dashboard Content -->
             <div id="dashboard" class="tab-content">
-                <!-- Welcome Section -->
-                <div class="welcome-section">
-                    <h1>Welcome back <span id="username"></span>!</h1>
-                    <p>Here's what's happening with your account today.</p>
-                </div>
-            
-                <!-- Recent Activity Section -->
-                <div class="recent-activity">
-                    <h2>Recent Activity</h2>
-                    <ul id="activityList">
-                        <li>No recent activity.</li>
-                    </ul>
-                </div>
-            
-                <!-- Quick Actions Section -->
-                <div class="quick-actions">
-                    <h2>Quick Actions</h2>
-                    <div class="action-buttons">
-                        <button class="action-button" onclick="showTab('newCampaign')">
-                            <span class="material-icons-sharp">add</span>
-                            <span>Create New Campaign</span>
-                        </button>
-                        <button class="action-button" onclick="showTab('support')">
-                            <span class="material-icons-sharp">support</span>
-                            <span>Get Support</span>
-                        </button>
+                <div class="welcome-container">
+                    <div class="welcome-header">
+                        <h1>Welcome to AdShark!</h1>
+                        <p class="welcome-subtitle">Thanks for joining AdShark, the reputable advertising network with
+                            the best Partner Care approach. We have multiple popular ad formats and tons of high-quality
+                            traffic from all over the world!</p>
+                    </div>
+
+                    <h2 class="section-title">How to start getting traffic</h2>
+
+                    <div class="getting-started-grid">
+                        <div class="start-card">
+                            <h2>Step 1</h2>
+                            <h3>Choose payment method and top up your balance</h3>
+                            <p class="card-description">Some methods allow you to make payments by yourself, others
+                                require a manager's assistance.</p>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="material-icons-sharp">payment</span>
+                                    Credit/Debit Cards
+                                </li>
+                                <li>
+                                    <span class="material-icons-sharp">account_balance</span>
+                                    Bank Transfer
+                                </li>
+                                <li>
+                                    <span class="material-icons-sharp">currency_bitcoin</span>
+                                    Cryptocurrency
+                                </li>
+                            </ul>
+                            <button class="action-button primary" onclick="showTab('payment')">
+                                <span class="material-icons-sharp">account_balance_wallet</span>
+                                Choose Payment Method
+                            </button>
+                        </div>
+
+                        <div class="start-card">
+                            <h2>Step 2</h2>
+                            <h3>Create a campaign by yourself or with the help of a manager</h3>
+
+                            <div class="campaign-options">
+                                <div class="option-section">
+                                    <h4>By yourself:</h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Popunder (CPM, CPA)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Native ads (CPM, CPC)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Social Bar (In-Page Push) (CPM, CPC, CPA)
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="option-section">
+                                    <h4>With help of a manager:</h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Popunder (CPM, CPA)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Banner, Native ads (CPM, CPA, CPC, CPI)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Social Bar (chats, surveys, etc.) (CPM, CPC, CPA)
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <button class="action-button primary" onclick="showTab('newCampaign')">
+                                <span class="material-icons-sharp">add_circle</span>
+                                Create Campaign
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="start-card">
+                            <h2>Recent Activity</h2>
+                            <div class="activity-list">
+                                <ul id="activityList">
+                                    <li class="activity-item">
+                                        <span class="material-icons-sharp">notifications</span>
+                                        <div class="activity-content">
+                                            <p>No recent activity</p>
+                                            <span class="activity-time">Start creating campaigns to see your activity
+                                                here</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="action-button secondary" onclick="showTab('support')">
+                                <span class="material-icons-sharp">support</span>
+                                Get Support
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        
 
+            <!-- Performance Content -->
             <div id="performance" class="tab-content">
+                
                 <h1>Analytics</h1>
-                <div id = "dateDiv" class="date-controls"></div>
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
+                </div>
+                <div id="dateDiv" class="date-controls"></div>
                 <div id="summaryStats" class="stats-overview"></div>
                 <div class="parent-container">
                     <div class="chart-container">
@@ -114,10 +202,14 @@
                 </div>
             </div>
 
-            <div id="datatable" class="tab-content" style="display: none;">
+            
+            <!-- Data Table Content -->
+            <div id="datatable" class="tab-content">
+                
                 <h1>Analytics</h1>
-
-                <div id = "dateDiv" class="date-controls">
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
                 </div>
                 <div class="table-container">
                     <table id="dataTable">
@@ -136,31 +228,33 @@
                 </div>
             </div>
 
-            <div id="campaign" class="tab-content" style="display: block;">
+            <!-- Campaign Content -->
+            <div id="campaign" class="tab-content">
+                
                 <h1>Campaigns</h1>
-                <form>
-                    <div class="campaign-container">
-                        <div class="campaign-headers">
-                            <span>Campaign</span>
-                            <span>Impressions</span>
-                            <span>Conversions</span>
-                            <span>Clicks</span>
-                            <span>CTR (%)</span>
-                            <span>CPM ($)</span>
-                            <span>Spent ($)</span>
-                            <span>I2C</span>
-                        </div>
-            
-                        <div class="campaign-cards" id="campaignTableBody">
-                            <!-- Dynamic content goes here -->
-                        </div>
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
+                </div>
+                <div class="campaign-container">
+                    <div class="campaign-headers">
+                        <span>Campaign</span>
+                        <span>Impressions</span>
+                        <span>Conversions</span>
+                        <span>Clicks</span>
+                        <span>CTR (%)</span>
+                        <span>CPM ($)</span>
+                        <span>Spent ($)</span>
+                        <span>I2C</span>
                     </div>
-                </form>
+                    <div class="campaign-cards" id="campaignTableBody">
+                        <!-- Dynamic content goes here -->
+                    </div>
+                </div>
             </div>
-            
 
-            <div id="newCampaign" class="tab-content" style="display: none;">
-                <h2>Campaign Section</h2>
+            <!-- New Campaign Content -->
+            <div id="newCampaign" class="tab-content">
                 <form id="campaignForm">
                     <!-- Required Settings -->
                     <div class="form-section">
@@ -168,14 +262,15 @@
                         <div class="form-grid">
                             <div>
                                 <label for="campaign-name">Campaign Name</label>
-                                <input type="text" id="campaign-name" name="campaign-name" placeholder="Enter campaign name" required>
+                                <input type="text" id="campaign-name" name="campaign-name"
+                                    placeholder="Enter campaign name" required>
                             </div>
                             <div>
                                 <label for="device-format">Device</label>
                                 <select id="device-format" name="device-format" required>
                                     <option value="mobile">Mobile</option>
-                                    <option value="tablet">Tablet</option>
-                                    <option value="mobile-tablet">Mobile + Tablet Combined</option>
+                                    <option value="tablet">Desktop</option>
+                                    <option value="mobile-tablet">Mobile + Desktop</option>
                                 </select>
                             </div>
                             <div>
@@ -189,145 +284,327 @@
                         </div>
                         <div class="form-row">
                             <label for="connection-type">Connection Type</label>
-                            <!-- <input type="text" id="connection-type" name="connection-type" placeholder="Enter connection type" required> -->
                             <select id="connection-type" name="connection-type" required>
                                 <option value="wifi">Wifi</option>
                                 <option value="cellular">Cellular</option>
                                 <option value="Wifi+cellular">Wifi + Cellular</option>
-
                             </select>
                         </div>
                     </div>
-            
+
                     <!-- Ad Unit & Pricing -->
                     <div class="form-section">
                         <h2>Ad Unit & Pricing Type</h2>
-                        <div class="form-grid">
-                            <div>
-                                <label for="ad-unit">Ad Unit</label>
-                                <select id="ad-unit" name="ad-unit">
-                                    <option value="popunder">Popunder</option>
-                                    <option value="social-bar">Social Bar</option>
-                                    <option value="native-banner">Native Banner</option>
-                                    <option value="in-page-push">In-Page Push</option>
-                                    <option value="interstitial">Interstitial</option>
+                        <div class="form-row">
+                            <label>Ad Unit</label>
+                            <div class="ad-unit-buttons">
+                                <button type="button" class="ad-unit-btn" data-value="popunder">Popunder</button>
+                                <button type="button" class="ad-unit-btn" data-value="social-bar">Social Bar</button>
+                                <button type="button" class="ad-unit-btn" data-value="native-banner">Native
+                                    Banner</button>
+                                <button type="button" class="ad-unit-btn" data-value="in-page-push">In-Page
+                                    Push</button>
+                                <button type="button" class="ad-unit-btn"
+                                    data-value="interstitial">Interstitial</button>
+                            </div>
+                            <input type="hidden" id="ad-unit" name="ad-unit">
+                        </div>
+                        <div class="form-row">
+                            <label for="landing-url">Landing URL</label>
+                            <input type="text" id="landing-url" name="landing-url" placeholder="https://" required>
+                        </div>
+                        <div class="form-row">
+                            <label>Pricing Type</label>
+                            <div class="pricing-buttons">
+                                <label class="pricing-option">
+                                    <input type="radio" name="pricing-type" value="cpm" required>
+                                    <span class="pricing-label">CPM</span>
+                                </label>
+                                <label class="pricing-option">
+                                    <input type="radio" name="pricing-type" value="cpa">
+                                    <span class="pricing-label">CPA</span>
+                                </label>
+                                <label class="pricing-option">
+                                    <input type="radio" name="pricing-type" value="cpc">
+                                    <span class="pricing-label">CPC</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Schedule -->
+                    <div class="form-section">
+                        <h2>Schedule</h2>
+                        <div class="form-row">
+                            <label>
+                                <input type="radio" name="schedule" value="start-once-verified" checked>
+                                Start once verified
+                            </label>
+                            <label>
+                                <input type="radio" name="schedule" value="keep-inactive">
+                                Keep inactive
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Countries -->
+                    <div class="form-section countries-section">
+                        <h2>Countries</h2>
+                        <div class="form-row">
+                            <label for="budget">Budget</label>
+                            <div class="budget-container">
+                                <div class="currency-symbol">$</div>
+                                <input type="number" id="budget" name="budget" placeholder="0.00" class="budget-input"
+                                    required>
+                                <select id="budget-period" class="period-select">
+                                    <option value="per_day">Per Day</option>
+                                    <option value="per_week">Per Week</option>
                                 </select>
                             </div>
-                            <div>
-                                <label for="landing-url">Landing URL</label>
-                                <input type="url" id="landing-url" name="landing-url" placeholder="https://" required>
-                            </div>
-                            <div>
-                                <label>Pricing Type</label>
-                                <div class="form-row">
-                                    <label>
-                                        <input type="radio" name="pricing-type" value="cpm" required>
-                                        CPM
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="pricing-type" value="cpa">
-                                        CPA
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="pricing-type" value="cpc">
-                                        CPC
-                                    </label>
+                        </div>
+                        <div class="form-row">
+                            <label for="country-search">Search Countries</label>
+                            <input type="text" id="country-search" class="search-input"
+                                placeholder="Type to search countries...">
+                        </div>
+                        <div class="form-row">
+                            <label>Available Countries</label>
+                            <div class="countries-list">
+                                <div class="country-options">
+                                    <div class="country-option" data-value="US">United States</div>
+                                    <div class="country-option" data-value="CA">Canada</div>
+                                    <div class="country-option" data-value="GB">United Kingdom</div>
+                                    <div class="country-option" data-value="AU">Australia</div>
+                                    <div class="country-option" data-value="DE">Germany</div>
+                                    <div class="country-option" data-value="FR">France</div>
+                                    <div class="country-option" data-value="IT">Italy</div>
+                                    <div class="country-option" data-value="ES">Spain</div>
+                                    <div class="country-option" data-value="BR">Brazil</div>
+                                    <div class="country-option" data-value="IN">India</div>
+                                    <div class="country-option" data-value="CN">China</div>
+                                    <div class="country-option" data-value="JP">Japan</div>
+                                    <div class="country-option" data-value="RU">Russia</div>
+                                    <div class="country-option" data-value="MX">Mexico</div>
+                                    <div class="country-option" data-value="KR">South Korea</div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-section">
-                    <h2>Schedule</h2>
-                            <div class="form-row">
-                                <label>
-                                    <input type="radio" name="schedule" value="start-once-verified" checked>
-                                    Start once verified
-                                </label>
-                                <label>
-                                    <input type="radio" name="schedule" value="keep-inactive">
-                                    Keep inactive
-                                </label>
-                            </div>
-                    </div>
-            
-                    <div class="form-sections-container">
-                        <!-- Countries -->
-                        <div class="form-section countries-section">
-                            <h2>Countries</h2>
-                            <div class="form-row">
-                                <label for="price">Price</label>
-                                <input type="number" id="price" name="price" placeholder="$0.00" required>
-                            </div>
-                            <div class="form-row">
-                                <label for="countries">Countries</label>
-                                <textarea id="countries" name="countries" placeholder="Enter countries or use bulk input" required></textarea>
-                            </div>
-                        </div>
-                    
-                        <!-- Schedule -->
-                        <div class="form-section schedule-section">
-                                <h2>Advanced Settings</h2>
-                                <div class="form-grid">
-                                    <div>
-                                        <label for="blacklist-whitelist">Blacklist/Whitelist</label>
-                                        <textarea id="blacklist-whitelist" name="blacklist-whitelist" placeholder="Enter valid placement IDs"></textarea>
-                                    </div>
-                                    <div>
-                                        <label for="ip-range">IP Range Targeting</label>
-                                        <textarea id="ip-range" name="ip-range" placeholder="Enter IP ranges"></textarea>
-                                    </div>
-                                </div>
+                        <div class="form-row">
+                            <label>Selected Countries</label>
+                            <div class="selected-countries"></div>
                         </div>
                     </div>
-            
+
+                    <!-- Advanced Settings -->
+                    <div class="form-section schedule-section">
+                        <h2>Advanced Settings</h2>
+                        <div class="form-grid">
+                            <div>
+                                <label for="blacklist-whitelist">Blacklist/Whitelist</label>
+                                <textarea id="blacklist-whitelist" name="blacklist-whitelist"
+                                    placeholder="Enter valid placement IDs"></textarea>
+                            </div>
+                            <div>
+                                <label for="ip-range">IP Range Targeting</label>
+                                <textarea id="ip-range" name="ip-range" placeholder="Enter IP ranges"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            
 
-        <div id="support" class="tab-content" style="display: none;">
-            <h2>Support</h2>
-            <form id="supportForm" method="POST" action="/submit-support">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" required placeholder="Enter your name">
+            <!-- Support Content -->
+            <div id="support" class="tab-content">
+                <h2>Support</h2>
+                <form id="supportForm" method="POST" action="/submit-support">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject:</label>
+                        <input type="text" id="subject" name="subject" required placeholder="Enter the subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="issue">Describe your issue:</label>
+                        <textarea id="issue" name="issue" rows="5" required
+                            placeholder="Please describe your issue in detail"></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <div id="traffic" class="tab-content">
+                <h2>Traffic Volume Statistics</h2>
+                <p class="helper-text">Find out average daily volumes for specific geos and targets.</p>
+
+                <div class="traffic-loading" style="display: none;">
+                    Loading traffic data...
                 </div>
-            
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+
+                <div class="traffic-filters">
+                    <div class="filter-group">
+                        <label>Ad Unit</label>
+                        <select class="custom-select" aria-label="Ad Unit">
+                            <option selected>Popunder</option>
+                            <option>Social Bar</option>
+                            <option>Native Banner</option>
+                            <option>In-Page Push</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Traffic type</label>
+                        <select class="custom-select" aria-label="Traffic type">
+                            <option selected>Mainstream + Adult (All)</option>
+                            <option>Mainstream</option>
+                            <option>Adult</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>Device format</label>
+                        <select class="custom-select" aria-label="Device format">
+                            <option selected>All Devices</option>
+                            <option>Mobile</option>
+                            <option>Desktop</option>
+                        </select>
+                    </div>
                 </div>
-            
-                <div class="form-group">
-                    <label for="subject">Subject:</label>
-                    <input type="text" id="subject" name="subject" required placeholder="Enter the subject">
+
+                <div class="traffic-filters second-row">
+                    <div class="filter-group">
+                        <label>Country</label>
+                        <select class="custom-select" aria-label="Country">
+                            <option selected>All</option>
+                            <option>Top Countries</option>
+                            <option>Europe</option>
+                            <option>Asia</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>OS</label>
+                        <select class="custom-select" aria-label="OS">
+                            <option selected>All</option>
+                            <option>Android</option>
+                            <option>iOS</option>
+                            <option>Windows</option>
+                        </select>
+                    </div>
                 </div>
-            
-                <div class="form-group">
-                    <label for="issue">Describe your issue:</label>
-                    <textarea id="issue" name="issue" rows="5" required placeholder="Please describe your issue in detail"></textarea>
+
+                <div class="traffic-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Impressions / Total (all devices)</th>
+                                <th>Recommended CPM</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dynamic content will be inserted here -->
+                        </tbody>
+                    </table>
                 </div>
-            
-                <button type="submit">Submit</button>
-            </form>
+            </div>
+            <!-- FAQs Content -->
+            <div id="FAQs" class="tab-content">
+                <h1>Frequently Asked Questions</h1>
+                <div class="faq-container">
+                    <div class="faq-group">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How do I create a campaign?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>To create a campaign, click on the "New Campaign" tab in the sidebar. Fill out the
+                                    required information including campaign name, device type, traffic type, ad unit,
+                                    landing URL, and targeting options. Set your budget and select the countries you
+                                    want to target.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What payment methods are accepted?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We accept multiple payment methods including:</p>
+                                <ul>
+                                    <li>Credit/Debit Cards</li>
+                                    <li>Bank Transfer</li>
+                                    <li>Cryptocurrency</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What ad formats are available?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We offer several ad formats:</p>
+                                <ul>
+                                    <li>Popunder</li>
+                                    <li>Social Bar</li>
+                                    <li>Native Banner</li>
+                                    <li>In-Page Push</li>
+                                    <li>Interstitial</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How can I track my campaign performance?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can track your campaign performance in the "Analytics" and "Reports" tabs. These
+                                    sections provide detailed insights including impressions, clicks, conversions, and
+                                    spend.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What support options are available?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can reach out to our support team through the "Support" tab. Fill out the form
+                                    with your name, email, subject, and a detailed description of your issue. Our team
+                                    will get back to you as soon as possible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">menu</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
-        <div class="right">
-            <div class="top">
-              <button id="menu-btn">
-                <span class="material-icons-sharp"> menu </span>
-              </button>
-            </div>
-          </div>
-    <!-- <div id="newAd" class="tab-content" style="display: none;">
-    </div> -->
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="dashboard.js"></script>
+        <script src="chart.js"></script>
+        <script src="form.js"></script>
+        <script src="toastNotification.js"></script>
+        <script src="campaign.js"></script>
+        <script src="traffic-chart.js"></script>
+        <script src="support.js"></script>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="dashboard.js"></script>
-<script src="chart.js"></script>
-<script src="form.js"></script>
-<script src="toastNotification.js"></script>
-<script src="campaign.js"></script>
-<script src="support.js"></script>
+
 </html>
