@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="dashboardnewcampaign.css" />
     <link rel="stylesheet" href="support.css" />
     <link rel="stylesheet" href="dashboardwelcome.css" />
+    <link rel="stylesheet" href="FAQs.css" />
     <link rel="stylesheet" href="traffic.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 </head>
@@ -54,6 +55,10 @@
                         <span class="material-icons-sharp">traffic</span>
                         <h3>Traffic Chart</h3>
                     </a>
+                    <a href="#FAQs">
+                        <span class="material-icons-sharp">help_outline</span>
+                        <h3>FAQs</h3>
+                    </a>
                     <a href="#support">
                         <span class="material-icons-sharp">info</span>
                         <h3>Support</h3>
@@ -67,121 +72,127 @@
         </div>
 
         <div class="main-content">
-            <div id="dateDiv">
-                <input type="date" id="startDate" class="date-input" aria-label="Start Date">
-                <input type="date" id="endDate" class="date-input" aria-label="End Date">
-            </div>
+    
 
             <!-- Dashboard Content -->
-<div id="dashboard" class="tab-content">
-    <div class="welcome-container">
-        <div class="welcome-header">
-            <h1>Welcome to Adsterra!</h1>
-            <p class="welcome-subtitle">Thanks for joining Adsterra, the reputable advertising network with the best Partner Care approach. We have multiple popular ad formats and tons of high-quality traffic from all over the world!</p>
-        </div>
-
-        <h2 class="section-title">How to start getting traffic</h2>
-
-        <div class="getting-started-grid">
-            <div class="start-card">
-                <h2>Step 1</h2>
-                <h3>Choose payment method and top up your balance</h3>
-                <p class="card-description">Some methods allow you to make payments by yourself, others require a manager's assistance.</p>
-                <ul class="feature-list">
-                    <li>
-                        <span class="material-icons-sharp">payment</span>
-                        Credit/Debit Cards
-                    </li>
-                    <li>
-                        <span class="material-icons-sharp">account_balance</span>
-                        Bank Transfer
-                    </li>
-                    <li>
-                        <span class="material-icons-sharp">currency_bitcoin</span>
-                        Cryptocurrency
-                    </li>
-                </ul>
-                <button class="action-button primary" onclick="showTab('payment')">
-                    <span class="material-icons-sharp">account_balance_wallet</span>
-                    Choose Payment Method
-                </button>
-            </div>
-
-            <div class="start-card">
-                <h2>Step 2</h2>
-                <h3>Create a campaign by yourself or with the help of a manager</h3>
-                
-                <div class="campaign-options">
-                    <div class="option-section">
-                        <h4>By yourself:</h4>
-                        <ul class="feature-list">
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Popunder (CPM, CPA)
-                            </li>
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Native ads (CPM, CPC)
-                            </li>
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Social Bar (In-Page Push) (CPM, CPC, CPA)
-                            </li>
-                        </ul>
+            <div id="dashboard" class="tab-content">
+                <div class="welcome-container">
+                    <div class="welcome-header">
+                        <h1>Welcome to AdShark!</h1>
+                        <p class="welcome-subtitle">Thanks for joining AdShark, the reputable advertising network with
+                            the best Partner Care approach. We have multiple popular ad formats and tons of high-quality
+                            traffic from all over the world!</p>
                     </div>
 
-                    <div class="option-section">
-                        <h4>With help of a manager:</h4>
-                        <ul class="feature-list">
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Popunder (CPM, CPA)
-                            </li>
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Banner, Native ads (CPM, CPA, CPC, CPI)
-                            </li>
-                            <li>
-                                <span class="material-icons-sharp">check_circle</span>
-                                Social Bar (chats, surveys, etc.) (CPM, CPC, CPA)
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                    <h2 class="section-title">How to start getting traffic</h2>
 
-                <button class="action-button primary" onclick="showTab('newCampaign')">
-                    <span class="material-icons-sharp">add_circle</span>
-                    Create Campaign
-                </button>
-            </div>
-        </div>
+                    <div class="getting-started-grid">
+                        <div class="start-card">
+                            <h2>Step 1</h2>
+                            <h3>Choose payment method and top up your balance</h3>
+                            <p class="card-description">Some methods allow you to make payments by yourself, others
+                                require a manager's assistance.</p>
+                            <ul class="feature-list">
+                                <li>
+                                    <span class="material-icons-sharp">payment</span>
+                                    Credit/Debit Cards
+                                </li>
+                                <li>
+                                    <span class="material-icons-sharp">account_balance</span>
+                                    Bank Transfer
+                                </li>
+                                <li>
+                                    <span class="material-icons-sharp">currency_bitcoin</span>
+                                    Cryptocurrency
+                                </li>
+                            </ul>
+                            <button class="action-button primary" onclick="showTab('payment')">
+                                <span class="material-icons-sharp">account_balance_wallet</span>
+                                Choose Payment Method
+                            </button>
+                        </div>
 
-        <div class="quick-stats">
-            <div class="start-card">
-                <h2>Recent Activity</h2>
-                <div class="activity-list">
-                    <ul id="activityList">
-                        <li class="activity-item">
-                            <span class="material-icons-sharp">notifications</span>
-                            <div class="activity-content">
-                                <p>No recent activity</p>
-                                <span class="activity-time">Start creating campaigns to see your activity here</span>
+                        <div class="start-card">
+                            <h2>Step 2</h2>
+                            <h3>Create a campaign by yourself or with the help of a manager</h3>
+
+                            <div class="campaign-options">
+                                <div class="option-section">
+                                    <h4>By yourself:</h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Popunder (CPM, CPA)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Native ads (CPM, CPC)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Social Bar (In-Page Push) (CPM, CPC, CPA)
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="option-section">
+                                    <h4>With help of a manager:</h4>
+                                    <ul class="feature-list">
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Popunder (CPM, CPA)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Banner, Native ads (CPM, CPA, CPC, CPI)
+                                        </li>
+                                        <li>
+                                            <span class="material-icons-sharp">check_circle</span>
+                                            Social Bar (chats, surveys, etc.) (CPM, CPC, CPA)
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                        </li>
-                    </ul>
+
+                            <button class="action-button primary" onclick="showTab('newCampaign')">
+                                <span class="material-icons-sharp">add_circle</span>
+                                Create Campaign
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="start-card">
+                            <h2>Recent Activity</h2>
+                            <div class="activity-list">
+                                <ul id="activityList">
+                                    <li class="activity-item">
+                                        <span class="material-icons-sharp">notifications</span>
+                                        <div class="activity-content">
+                                            <p>No recent activity</p>
+                                            <span class="activity-time">Start creating campaigns to see your activity
+                                                here</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="action-button secondary" onclick="showTab('support')">
+                                <span class="material-icons-sharp">support</span>
+                                Get Support
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <button class="action-button secondary" onclick="showTab('support')">
-                    <span class="material-icons-sharp">support</span>
-                    Get Support
-                </button>
             </div>
-        </div>
-    </div>
-</div>
 
             <!-- Performance Content -->
             <div id="performance" class="tab-content">
+                
                 <h1>Analytics</h1>
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
+                </div>
                 <div id="dateDiv" class="date-controls"></div>
                 <div id="summaryStats" class="stats-overview"></div>
                 <div class="parent-container">
@@ -191,10 +202,15 @@
                 </div>
             </div>
 
+            
             <!-- Data Table Content -->
             <div id="datatable" class="tab-content">
+                
                 <h1>Analytics</h1>
-                <div id="dateDiv" class="date-controls"></div>
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
+                </div>
                 <div class="table-container">
                     <table id="dataTable">
                         <thead>
@@ -214,7 +230,12 @@
 
             <!-- Campaign Content -->
             <div id="campaign" class="tab-content">
+                
                 <h1>Campaigns</h1>
+                <div id="dateDiv">
+                    <input type="date" id="startDate" class="date-input" aria-label="Start Date">
+                    <input type="date" id="endDate" class="date-input" aria-label="End Date">
+                </div>
                 <div class="campaign-container">
                     <div class="campaign-headers">
                         <span>Campaign</span>
@@ -420,13 +441,16 @@
             </div>
             <div id="traffic" class="tab-content">
                 <h2>Traffic Volume Statistics</h2>
-                <p class="helper-text">Find out average daily volumes for specific geos and targets. Contact our support
-                    team to find out best match for geo/type of offer.</p>
+                <p class="helper-text">Find out average daily volumes for specific geos and targets.</p>
+
+                <div class="traffic-loading" style="display: none;">
+                    Loading traffic data...
+                </div>
 
                 <div class="traffic-filters">
                     <div class="filter-group">
                         <label>Ad Unit</label>
-                        <select class="custom-select">
+                        <select class="custom-select" aria-label="Ad Unit">
                             <option selected>Popunder</option>
                             <option>Social Bar</option>
                             <option>Native Banner</option>
@@ -436,7 +460,7 @@
 
                     <div class="filter-group">
                         <label>Traffic type</label>
-                        <select class="custom-select">
+                        <select class="custom-select" aria-label="Traffic type">
                             <option selected>Mainstream + Adult (All)</option>
                             <option>Mainstream</option>
                             <option>Adult</option>
@@ -445,10 +469,10 @@
 
                     <div class="filter-group">
                         <label>Device format</label>
-                        <select class="custom-select">
-                            <option selected>Mobile</option>
+                        <select class="custom-select" aria-label="Device format">
+                            <option selected>All Devices</option>
+                            <option>Mobile</option>
                             <option>Desktop</option>
-                            <option>All Devices</option>
                         </select>
                     </div>
                 </div>
@@ -456,7 +480,7 @@
                 <div class="traffic-filters second-row">
                     <div class="filter-group">
                         <label>Country</label>
-                        <select class="custom-select">
+                        <select class="custom-select" aria-label="Country">
                             <option selected>All</option>
                             <option>Top Countries</option>
                             <option>Europe</option>
@@ -466,7 +490,7 @@
 
                     <div class="filter-group">
                         <label>OS</label>
-                        <select class="custom-select">
+                        <select class="custom-select" aria-label="OS">
                             <option selected>All</option>
                             <option>Android</option>
                             <option>iOS</option>
@@ -486,57 +510,101 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td data-label="Country">India - IN</td>
-                                <td data-label="Impressions">43,664,295 / 46,422,615</td>
-                                <td data-label="Recommended CPM">$0.57</td>
-                                <td data-label="Action"><button class="create-campaign-btn">Create campaign</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Country">Indonesia - ID</td>
-                                <td data-label="Impressions">25,568,360 / 26,584,347</td>
-                                <td data-label="Recommended CPM">$1.26</td>
-                                <td data-label="Action"><button class="create-campaign-btn">Create campaign</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Country">Brazil - BR</td>
-                                <td data-label="Impressions">9,192,561 / 10,404,624</td>
-                                <td data-label="Recommended CPM">$1.09</td>
-                                <td data-label="Action"><button class="create-campaign-btn">Create campaign</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Country">Philippines - PH</td>
-                                <td data-label="Impressions">8,206,550 / 8,766,336</td>
-                                <td data-label="Recommended CPM">$1.17</td>
-                                <td data-label="Action"><button class="create-campaign-btn">Create campaign</button>
-                                </td>
-                            </tr>
+                            <!-- Dynamic content will be inserted here -->
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+            <!-- FAQs Content -->
+            <div id="FAQs" class="tab-content">
+                <h1>Frequently Asked Questions</h1>
+                <div class="faq-container">
+                    <div class="faq-group">
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How do I create a campaign?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>To create a campaign, click on the "New Campaign" tab in the sidebar. Fill out the
+                                    required information including campaign name, device type, traffic type, ad unit,
+                                    landing URL, and targeting options. Set your budget and select the countries you
+                                    want to target.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What payment methods are accepted?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We accept multiple payment methods including:</p>
+                                <ul>
+                                    <li>Credit/Debit Cards</li>
+                                    <li>Bank Transfer</li>
+                                    <li>Cryptocurrency</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What ad formats are available?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>We offer several ad formats:</p>
+                                <ul>
+                                    <li>Popunder</li>
+                                    <li>Social Bar</li>
+                                    <li>Native Banner</li>
+                                    <li>In-Page Push</li>
+                                    <li>Interstitial</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>How can I track my campaign performance?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can track your campaign performance in the "Analytics" and "Reports" tabs. These
+                                    sections provide detailed insights including impressions, clicks, conversions, and
+                                    spend.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <div class="faq-question">
+                                <h3>What support options are available?</h3>
+                                <span class="material-icons-sharp">expand_more</span>
+                            </div>
+                            <div class="faq-answer">
+                                <p>You can reach out to our support team through the "Support" tab. Fill out the form
+                                    with your name, email, subject, and a detailed description of your issue. Our team
+                                    will get back to you as soon as possible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="right">
-            <div class="top">
-                <button id="menu-btn">
-                    <span class="material-icons-sharp">menu</span>
-                </button>
+            <div class="right">
+                <div class="top">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">menu</span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="dashboard.js"></script>
-    <script src="chart.js"></script>
-    <script src="form.js"></script>
-    <script src="toastNotification.js"></script>
-    <script src="campaign.js"></script>
-    <script src="traffic-chart.js"></script>
-    <script src="support.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="dashboard.js"></script>
+        <script src="chart.js"></script>
+        <script src="form.js"></script>
+        <script src="toastNotification.js"></script>
+        <script src="campaign.js"></script>
+        <script src="traffic-chart.js"></script>
+        <script src="support.js"></script>
 </body>
 
 </html>
