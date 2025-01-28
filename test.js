@@ -12,8 +12,9 @@ const cors = require('cors');
 const app = express();
 const PORT = 3000;
 const router = express.Router();
+
 app.use(cors({
-  origin: 'https://www.adshark.net',
+  origin: 'http://www.adshark.net',
   credentials: true
 }));
 
