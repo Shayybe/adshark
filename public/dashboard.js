@@ -109,7 +109,11 @@ async function fetchData() {
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-        Toast.show(error.message, 'error');
+
+        Toast.show("No active campaigns found.");
+    } finally {
+        // loadingDiv.style.display = 'none';
+
     }
 }
 async function fetchCampaignData() {
