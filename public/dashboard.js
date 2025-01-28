@@ -1,3 +1,7 @@
+const BASE_URL = window.location.hostname === 'localhost' 
+    ? 'http://localhost:3000'
+    : 'https://www.adshark.net';
+
 document.addEventListener('DOMContentLoaded', function() {
     const logoutButton = document.getElementById('logoutButton');
     
@@ -83,17 +87,10 @@ async function fetchData() {
     const endDate = document.getElementById('endDate').value;
 
     try {
-        // Production URL (comment out when using localhost)
         const response = await fetch(
-            `http://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
+            `${BASE_URL}/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             { credentials: 'include' }
         );
-
-        // Localhost URL (comment out when using production)
-        // const response = await fetch(
-        //     `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
-        //     { credentials: 'include' }
-        // );
         
         if (!response.ok) {
             throw new Error('Failed to retrieve data');
@@ -109,13 +106,11 @@ async function fetchData() {
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-
         Toast.show("No active campaigns found.");
-    } finally {
-        // loadingDiv.style.display = 'none';
-
     }
 }
+
+// Update the fetchCampaignData function
 async function fetchCampaignData() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
@@ -124,17 +119,10 @@ async function fetchCampaignData() {
     if (loadingDiv) loadingDiv.style.display = 'block';
 
     try {
-        // Production URL (comment out when using localhost)
         const response = await fetch(
-            `http://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+            `${BASE_URL}/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             { credentials: 'include' }
         );
-
-        // Localhost URL (comment out when using production)
-        // const response = await fetch(
-        //     `http://localhost:3000/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
-        //     { credentials: 'include' }
-        // );
 
         if (!response.ok) {
             throw new Error('Failed to retrieve campaign data.');
