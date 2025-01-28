@@ -26,52 +26,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Define showTab globally
-function showTab(targetId) {
-    const tabContents = document.querySelectorAll('.tab-content');
-    const links = document.querySelectorAll('.sidebar a');
-
-    // Hide all tab contents
-    tabContents.forEach(content => {
-        if (content.id === targetId) {
-            content.style.display = 'block'; // Show the selected tab
-        } else {
-            content.style.display = 'none'; // Hide other tabs
-        }
-    });
-
-    // Remove the 'active' class from all links
-    links.forEach(link => {
-        link.classList.remove('active');
-    });
-
-    // Add the 'active' class to the clicked link
-    const activeLink = document.querySelector(`.sidebar a[href="#${targetId}"]`);
-    if (activeLink) {
-        activeLink.classList.add('active');
-    }
-
-    // Hide dateDiv for specific tabs
-    const dateDiv = document.getElementById('dateDiv');
-    if (dateDiv) {
-        if (
-            targetId === 'dashboard' || 
-            targetId === 'newCampaign' || 
-            targetId === 'support'
-        ) {
-            dateDiv.style.display = 'none';
-        } else {
-            dateDiv.style.display = 'block';
-        }
-    }
-
-    // Additional logic for specific tabs
-    if (targetId === 'campaign') {
-        fetchCampaignData();
-    } else if (targetId === 'performance' || targetId === 'datatable') {
-        fetchData();
-    }
-}
 
 function setDefaultDates() {
     const endDate = new Date();
@@ -317,27 +271,30 @@ function showTab(targetId) {
     const tabContents = document.querySelectorAll('.tab-content');
     const links = document.querySelectorAll('.sidebar a');
 
-    // Hide all tab contents
+
     tabContents.forEach(content => {
         if (content.id === targetId) {
-            content.style.display = 'block'; // Show the selected tab
+            content.style.display = 'block';
         } else {
-            content.style.display = 'none'; // Hide other tabs
+            content.style.display = 'none';
         }
     });
 
-    // Remove the 'active' class from all links
+   
     links.forEach(link => {
         link.classList.remove('active');
     });
 
-    // Add the 'active' class to the clicked link
+    
     const activeLink = document.querySelector(`.sidebar a[href="#${targetId}"]`);
     if (activeLink) {
         activeLink.classList.add('active');
     }
 
-    // Hide dateDiv for specific tabs
+    // Store the current active tab in a data attribute on the body
+    document.body.setAttribute('data-active-tab', targetId);
+
+    
     if (
         targetId === 'dashboard' || 
         targetId === 'newCampaign' || 
@@ -349,16 +306,15 @@ function showTab(targetId) {
         document.getElementById('dateDiv').style.display = 'block';
     }
 
-    // Additional logic for specific tabs
+    
     if (targetId === 'campaign') {
         fetchCampaignData();
     } else if (targetId === 'performance' || targetId === 'datatable') {
         fetchData();
-    } else if (targetId === 'traffic') {
-     
+    } else if (targetId === 'traffic') {     
         window.trafficModule.fetchTrafficData();
     } else if (targetId === 'newCampaign') {
-        // Pre-fill campaign form if coming from traffic chart
+        
         const selectedCountry = sessionStorage.getItem('selectedCountry');
         const recommendedCPM = sessionStorage.getItem('recommendedCPM');
         
@@ -378,11 +334,25 @@ function showTab(targetId) {
             }
         }
 
+           
         // Clear stored data    
         sessionStorage.removeItem('selectedCountry');
         sessionStorage.removeItem('recommendedCPM');
     }
 }
+
+function handleDateChange() {
+    const activeTab = document.body.getAttribute('data-active-tab');
+    if (activeTab === 'performance' || activeTab === 'datatable') {
+        fetchData();
+    } else if (activeTab === 'campaign') {
+        fetchCampaignData();
+    }
+}
+// Update the date change event listeners
+document.getElementById('startDate').addEventListener('change', handleDateChange);
+document.getElementById('endDate').addEventListener('change', handleDateChange);
+
 document.addEventListener('DOMContentLoaded', () => {
     const faqItems = document.querySelectorAll('.faq-item');
 
