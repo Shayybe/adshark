@@ -86,27 +86,41 @@ async function fetchData() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
 
+    console.log('Fetching data...'); 
+    console.log('Start Date:', startDate); 
+    console.log('End Date:', endDate); 
+
     try {
         const response = await fetch(
             `${BASE_URL}/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
             { credentials: 'include' }
         );
-        
+
+        console.log('Response received:', response); 
+
         if (!response.ok) {
+            const errorText = await response.text(); 
+            console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
             throw new Error('Failed to retrieve data');
         }
-        
+
         const result = await response.json();
+        console.log('Parsed JSON result:', result); 
 
         if (!result.data || !result.data.items) {
+            console.error('No data available in result:', result); 
             throw new Error('No data available');
         }
 
+        console.log('Updating chart, table, and summary stats with data:', result.data.items); 
         updateChart(result.data.items);
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
+        console.error('Error occurred:', error); 
         Toast.show("No active campaigns found.");
+    } finally {
+        console.log('Fetching completed.'); 
     }
 }
 
@@ -116,26 +130,39 @@ async function fetchCampaignData() {
     const endDate = document.getElementById('endDate').value;
     const loadingDiv = document.getElementById('loading');
 
+    console.log('Fetching campaign data...'); 
+    console.log('Start Date:', startDate);
+    console.log('End Date:', endDate);
+
     if (loadingDiv) loadingDiv.style.display = 'block';
 
     try {
+        // Production URL (comment out when using localhost)
         const response = await fetch(
             `${BASE_URL}/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             { credentials: 'include' }
         );
 
+        console.log('Response received:', response);
+
         if (!response.ok) {
+            const errorText = await response.text(); 
+            console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
             throw new Error('Failed to retrieve campaign data.');
         }
 
         const result = await response.json();
+        console.log('Parsed JSON result:', result); 
 
         if (!result.data || !result.data.items || result.data.items.length === 0) {
+            console.error('No campaign data available in result:', result); 
             throw new Error('No campaign data available');
         }
 
+        console.log('Populating campaign table with data:', result.data.items); 
         populateCampaignTable(result.data.items);
     } catch (error) {
+        console.error('Error occurred:', error); 
         Toast.show(error.message, 'error');
         const campaignTableBody = document.getElementById('campaignTableBody');
         if (campaignTableBody) {
@@ -147,6 +174,7 @@ async function fetchCampaignData() {
         }
     } finally {
         if (loadingDiv) loadingDiv.style.display = 'none';
+        console.log('Fetching completed.');
     }
 }
 
