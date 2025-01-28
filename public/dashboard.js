@@ -79,18 +79,29 @@ function setDefaultDates() {
 }
 
 async function fetchData() {
-    const startDate = document.getElementById('startDate')?.value;
-    const endDate = document.getElementById('endDate')?.value;
-    const loadingDiv = document.getElementById('loading');
-
-    if (loadingDiv) loadingDiv.style.display = 'block';
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
 
     try {
-        const result = await window.apiModule.fetchWithConfig(
-            `/api/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`
+        // Production URL (comment out when using localhost)
+        const response = await fetch(
+            `http://www.adshark.net/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
+            { credentials: 'include' }
         );
 
-        if (!result.data?.items) {
+        // Localhost URL (comment out when using production)
+        // const response = await fetch(
+        //     `http://localhost:3000/performance-report?startDate=${startDate}&endDate=${endDate}&groupBy=date`,
+        //     { credentials: 'include' }
+        // );
+        
+        if (!response.ok) {
+            throw new Error('Failed to retrieve data');
+        }
+        
+        const result = await response.json();
+
+        if (!result.data || !result.data.items) {
             throw new Error('No data available');
         }
 
@@ -98,38 +109,46 @@ async function fetchData() {
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-        console.error('Error fetching data:', error);
-        Toast.show(error.message || "Please log in to view campaign data");
-        
-        if (error.message.includes('token') || error.message.includes('unauthorized')) {
-            window.location.href = '/login';
-        }
+
+        Toast.show("No active campaigns found.");
     } finally {
-        if (loadingDiv) loadingDiv.style.display = 'none';
+        // loadingDiv.style.display = 'none';
+
     }
 }
-
 async function fetchCampaignData() {
-    const startDate = document.getElementById('startDate')?.value;
-    const endDate = document.getElementById('endDate')?.value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
     const loadingDiv = document.getElementById('loading');
 
     if (loadingDiv) loadingDiv.style.display = 'block';
 
     try {
-        const result = await window.apiModule.fetchWithConfig(
-            `/api/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`
+        // Production URL (comment out when using localhost)
+        const response = await fetch(
+            `http://www.adshark.net/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+            { credentials: 'include' }
         );
 
-        if (!result.data?.items?.length) {
+        // Localhost URL (comment out when using production)
+        // const response = await fetch(
+        //     `http://localhost:3000/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
+        //     { credentials: 'include' }
+        // );
+
+        if (!response.ok) {
+            throw new Error('Failed to retrieve campaign data.');
+        }
+
+        const result = await response.json();
+
+        if (!result.data || !result.data.items || result.data.items.length === 0) {
             throw new Error('No campaign data available');
         }
 
         populateCampaignTable(result.data.items);
     } catch (error) {
-        console.error('Error fetching campaign data:', error);
-        Toast.show(error.message || "Error fetching campaign data");
-        
+        Toast.show(error.message, 'error');
         const campaignTableBody = document.getElementById('campaignTableBody');
         if (campaignTableBody) {
             campaignTableBody.innerHTML = `
@@ -137,10 +156,6 @@ async function fetchCampaignData() {
                     <p>No campaigns found. Create a new campaign to get started!</p>
                 </div>
             `;
-        }
-
-        if (error.message.includes('token') || error.message.includes('unauthorized')) {
-            window.location.href = '/login';
         }
     } finally {
         if (loadingDiv) loadingDiv.style.display = 'none';
@@ -232,21 +247,9 @@ function populateCampaignTable(campaigns) {
 }
 
 // Initialize dashboard
-document.addEventListener('DOMContentLoaded', async () => {
-    // Check auth status when page loads
-    try {
-        await window.apiModule.checkAuthStatus();
-    } catch (error) {
-        console.error('Auth check failed:', error);
-        return; // Stop initialization if auth fails
-    }
-
-    // Initialize rest of the dashboard
-    initializeDashboard();
-});
-function initializeDashboard() {
+document.addEventListener('DOMContentLoaded', () => {
     const links = document.querySelectorAll('.sidebar a');
-    
+
     links.forEach(link => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
@@ -255,9 +258,12 @@ function initializeDashboard() {
         });
     });
 
+    // Set up date inputs
     setDefaultDates();
+
+    // Show dashboard/welcome page by default
     showTab('dashboard');
-}
+});
 
 // Mobile menu handlers
 const sideMenu = document.querySelector("aside");
