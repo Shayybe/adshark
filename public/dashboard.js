@@ -36,13 +36,20 @@ function setDefaultDates() {
     document.getElementById('endDate').value = endDate.toISOString().split('T')[0];
 }
 
-async function fetchData() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
+async function fetchData(startDate, endDate) {
+    if (!startDate || !endDate) {
+        if (document.body.getAttribute('data-active-tab') === 'performance') {
+            startDate = document.getElementById('startDate').value;
+            endDate = document.getElementById('endDate').value;
+        } else if (document.body.getAttribute('data-active-tab') === 'datatable') {
+            startDate = document.getElementById('startDateTable').value;
+            endDate = document.getElementById('endDateTable').value;
+        }
+    }
 
-    console.log('Fetching data...'); 
-    console.log('Start Date:', startDate); 
-    console.log('End Date:', endDate); 
+    // console.log('Fetching data...'); 
+    // console.log('Start Date:', startDate); 
+    // console.log('End Date:', endDate); 
 
     try {
         const response = await fetch(
@@ -50,73 +57,64 @@ async function fetchData() {
             { credentials: 'include' }
         );
 
-        console.log('Response received:', response); 
+        // console.log('Response received:', response); 
 
         if (!response.ok) {
             const errorText = await response.text(); 
-            console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
+            // console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
             throw new Error('Failed to retrieve data');
         }
 
         const result = await response.json();
-        console.log('Parsed JSON result:', result); 
+        // console.log('Parsed JSON result:', result); 
 
         if (!result.data || !result.data.items) {
-            console.error('No data available in result:', result); 
+            // console.error('No data available in result:', result); 
             throw new Error('No data available');
         }
 
-        console.log('Updating chart, table, and summary stats with data:', result.data.items); 
+        // console.log('Updating chart, table, and summary stats with data:', result.data.items); 
         updateChart(result.data.items);
         updateTable(result.data.items);
         updateSummaryStats(result.data.items);
     } catch (error) {
-        console.error('Error occurred:', error); 
-        Toast.show("No active campaigns found.");
+        Toast.show("Complete date fields!");
     } finally {
-        console.log('Fetching completed.'); 
     }
 }
 
-// Update the fetchCampaignData function
 async function fetchCampaignData() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
+    const startDate = document.getElementById('startDateCamp').value;
+    const endDate = document.getElementById('endDateCamp').value;
     const loadingDiv = document.getElementById('loading');
 
-    console.log('Fetching campaign data...'); 
-    console.log('Start Date:', startDate);
-    console.log('End Date:', endDate);
+    // console.log('Fetching campaign data...'); 
+    // console.log('Start Date:', startDate);
+    // console.log('End Date:', endDate);
 
     if (loadingDiv) loadingDiv.style.display = 'block';
 
     try {
-        // Production URL (comment out when using localhost)
         const response = await fetch(
             `${BASE_URL}/performance-report-campaign?startDate=${startDate}&endDate=${endDate}`,
             { credentials: 'include' }
         );
 
-        console.log('Response received:', response);
-
         if (!response.ok) {
             const errorText = await response.text(); 
-            console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
-            throw new Error('Failed to retrieve campaign data.');
+            // console.error('Response not OK. Status:', response.status, 'Error Text:', errorText); 
+            throw new Error('Fill date fields');
         }
 
         const result = await response.json();
-        console.log('Parsed JSON result:', result); 
-
-        if (!result.data || !result.data.items || result.data.items.length === 0) {
-            console.error('No campaign data available in result:', result); 
+        
+        if (!result.data?.items?.length) {
             throw new Error('No campaign data available');
         }
 
-        console.log('Populating campaign table with data:', result.data.items); 
         populateCampaignTable(result.data.items);
     } catch (error) {
-        console.error('Error occurred:', error); 
+        // console.error('Error occurred:', error); 
         Toast.show(error.message, 'error');
         const campaignTableBody = document.getElementById('campaignTableBody');
         if (campaignTableBody) {
@@ -128,7 +126,6 @@ async function fetchCampaignData() {
         }
     } finally {
         if (loadingDiv) loadingDiv.style.display = 'none';
-        console.log('Fetching completed.');
     }
 }
 
@@ -271,88 +268,115 @@ function showTab(targetId) {
     const tabContents = document.querySelectorAll('.tab-content');
     const links = document.querySelectorAll('.sidebar a');
 
-
     tabContents.forEach(content => {
-        if (content.id === targetId) {
-            content.style.display = 'block';
-        } else {
-            content.style.display = 'none';
-        }
+        content.style.display = content.id === targetId ? 'block' : 'none';
     });
 
-   
-    links.forEach(link => {
-        link.classList.remove('active');
-    });
-
-    
+    links.forEach(link => link.classList.remove('active'));
     const activeLink = document.querySelector(`.sidebar a[href="#${targetId}"]`);
     if (activeLink) {
         activeLink.classList.add('active');
     }
 
-    // Store the current active tab in a data attribute on the body
     document.body.setAttribute('data-active-tab', targetId);
 
-    
-    if (
-        targetId === 'dashboard' || 
-        targetId === 'newCampaign' || 
-        targetId === 'support' ||
-        targetId === 'traffic'
-    ) {
-        document.getElementById('dateDiv').style.display = 'none';
-    } else {
-        document.getElementById('dateDiv').style.display = 'block';
+    const dateDiv = document.getElementById('dateDiv');
+    if (dateDiv) {
+        const hideDateTabs = ['dashboard', 'newCampaign', 'support', 'traffic'];
+        dateDiv.style.display = hideDateTabs.includes(targetId) ? 'none' : 'block';
     }
 
-    
-    if (targetId === 'campaign') {
-        fetchCampaignData();
-    } else if (targetId === 'performance' || targetId === 'datatable') {
-        fetchData();
-    } else if (targetId === 'traffic') {     
-        window.trafficModule.fetchTrafficData();
-    } else if (targetId === 'newCampaign') {
-        
-        const selectedCountry = sessionStorage.getItem('selectedCountry');
-        const recommendedCPM = sessionStorage.getItem('recommendedCPM');
-        
-        if (selectedCountry) {
-            const countryOptions = document.querySelectorAll('.country-option');
-            countryOptions.forEach(option => {
-                if (option.textContent.includes(selectedCountry.split(' - ')[0])) {
-                    option.click();
-                }
-            });
-        }
+    // Handle tab-specific actions
+    switch (targetId) {
+        case 'campaign':
+            fetchCampaignData();
+            break;
+        case 'performance':
+        case 'datatable':
+            fetchData();
+            break;
+        case 'traffic':
+            window.trafficModule?.fetchTrafficData();
+            break;
+        case 'newCampaign':
+            handleNewCampaignTab();
+            break;
+    }
+}
 
-        if (recommendedCPM) {
-            const budgetInput = document.getElementById('budget');
-            if (budgetInput) {
-                budgetInput.value = parseFloat(recommendedCPM.replace('$', ''));
+function handleNewCampaignTab() {
+    const selectedCountry = sessionStorage.getItem('selectedCountry');
+    const recommendedCPM = sessionStorage.getItem('recommendedCPM');
+    
+    if (selectedCountry) {
+        const countryOptions = document.querySelectorAll('.country-option');
+        countryOptions.forEach(option => {
+            if (option.textContent.includes(selectedCountry.split(' - ')[0])) {
+                option.click();
             }
-        }
-
-           
-        // Clear stored data    
-        sessionStorage.removeItem('selectedCountry');
-        sessionStorage.removeItem('recommendedCPM');
+        });
     }
+
+    if (recommendedCPM) {
+        const budgetInput = document.getElementById('budget');
+        if (budgetInput) {
+            budgetInput.value = parseFloat(recommendedCPM.replace('$', ''));
+        }
+    }
+
+    sessionStorage.removeItem('selectedCountry');
+    sessionStorage.removeItem('recommendedCPM');
 }
 
 function handleDateChange() {
     const activeTab = document.body.getAttribute('data-active-tab');
-    if (activeTab === 'performance' || activeTab === 'datatable') {
-        fetchData();
-    } else if (activeTab === 'campaign') {
-        fetchCampaignData();
+    let startDate, endDate;
+
+    switch (activeTab) {
+        case 'performance':
+            startDate = document.getElementById('startDate').value;
+            endDate = document.getElementById('endDate').value;
+            fetchData(startDate, endDate);
+            break;
+        case 'datatable':
+            startDate = document.getElementById('startDateTable').value;
+            endDate = document.getElementById('endDateTable').value;
+            fetchData(startDate, endDate);
+            break;
+        case 'campaign':
+            fetchCampaignData();
+            break;
     }
 }
-// Update the date change event listeners
+function setupDateListeners() {
+    const startDateCamp = document.getElementById('startDateCamp');
+    const endDateCamp = document.getElementById('endDateCamp');
+    if (startDateCamp && endDateCamp) {
+        startDateCamp.addEventListener('change', handleDateChange);
+        endDateCamp.addEventListener('change', handleDateChange);
+    }
+
+    const startDate = document.getElementById('startDate');
+    const endDate = document.getElementById('endDate');
+    if (startDate && endDate) {
+        startDate.addEventListener('change', handleDateChange);
+        endDate.addEventListener('change', handleDateChange);
+    }
+
+    const startDateTable = document.getElementById('startDateTable');
+    const endDateTable = document.getElementById('endDateTable');
+    if (startDateTable && endDateTable) {
+        startDateTable.addEventListener('change', handleDateChange);
+        endDateTable.addEventListener('change', handleDateChange);
+    }
+}
+
 document.getElementById('startDate').addEventListener('change', handleDateChange);
 document.getElementById('endDate').addEventListener('change', handleDateChange);
+document.getElementById('startDateTable').addEventListener('change', handleDateChange);
+document.getElementById('endDateTable').addEventListener('change', handleDateChange);
 
+document.addEventListener('DOMContentLoaded', setupDateListeners);
 document.addEventListener('DOMContentLoaded', () => {
     const faqItems = document.querySelectorAll('.faq-item');
 
