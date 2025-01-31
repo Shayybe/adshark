@@ -267,6 +267,12 @@ document.getElementById('endDate').addEventListener('change', () => {
 function showTab(targetId) {
     const tabContents = document.querySelectorAll('.tab-content');
     const links = document.querySelectorAll('.sidebar a');
+    const paymentForm = document.getElementById('paymentForm');
+
+    // Hide payment form unless explicitly showing it
+    if (paymentForm && targetId !== 'payment') {
+        paymentForm.classList.add('hidden');
+    }
 
     tabContents.forEach(content => {
         content.style.display = content.id === targetId ? 'block' : 'none';
@@ -300,6 +306,11 @@ function showTab(targetId) {
             break;
         case 'newCampaign':
             handleNewCampaignTab();
+            break;
+        case 'payment':
+            if (paymentForm) {
+                paymentForm.classList.remove('hidden');
+            }
             break;
     }
 }

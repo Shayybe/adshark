@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="dashboardwelcome.css" />
     <link rel="stylesheet" href="FAQs.css" />
     <link rel="stylesheet" href="traffic.css" />
+    <link rel="stylesheet" href="AddPaymentsForms.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
 </head>
 
@@ -198,7 +200,55 @@
                     </div>
                 </div>
             </div>
+            <div class="payment-form hidden" id="paymentForm">
+                <div class="payment-form-header">
+                    <h2>Add Funds</h2>
+                </div>
+                <form onsubmit="event.preventDefault();" class="payment-form-content">
+                    <div class="payment-methods">
+                        <button type="button" class="payment-method active" onclick="selectPaymentMethod('stripe')">
+                            <i class="fa-brands fa-stripe"></i>
+                            <span>Stripe</span>
+                        </button>
+                        <button type="button" class="payment-method" onclick="selectPaymentMethod('paypal')">
+                            <i class="fa-brands fa-paypal"></i>
+                            <span>PayPal</span>
+                        </button>
+                    </div>
 
+                    <div class="form-section stripe-section">
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVC</label>
+                                <input type="text" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section paypal-section hidden">
+                        <div class="form-group">
+                            <label>PayPal Email</label>
+                            <input type="email" placeholder="your@email.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Amount</label>
+                        <input type="number" placeholder="Enter amount" min="1" step="1">
+                    </div>
+
+                    <button type="submit" class="submit-button">Proceed to Payment</button>
+                </form>
+            </div>
+          
             
             <!-- Data Table Content -->
             <div id="datatable" class="tab-content">
@@ -592,7 +642,88 @@
                 </div>
             </div>
         </div>
+        <script>
+            // Function to show specific tab
+function showTab(tabName) {
+    // Hide all tab contents
+    const tabs = document.querySelectorAll('.tab-content');
+    tabs.forEach(tab => tab.classList.remove('active'));
 
+    // Show the selected tab
+    const selectedTab = document.getElementById(tabName);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
+
+    // If payment tab is selected, show payment form
+    if (tabName === 'payment') {
+        const paymentForm = document.getElementById('paymentForm');
+        if (paymentForm) {
+            paymentForm.classList.remove('hidden');
+        }
+    }
+}
+
+// Function to select payment method
+function selectPaymentMethod(method) {
+    // Update payment method buttons
+    const paymentMethodButtons = document.querySelectorAll('.payment-method');
+    paymentMethodButtons.forEach(btn => btn.classList.remove('active'));
+    
+    const selectedMethodButton = document.querySelector(`.payment-method[onclick*="${method}"]`);
+    if (selectedMethodButton) {
+        selectedMethodButton.classList.add('active');
+    }
+
+    // Show/hide corresponding payment sections
+    const stripeSection = document.querySelector('.stripe-section');
+    const paypalSection = document.querySelector('.paypal-section');
+
+    if (method === 'stripe') {
+        stripeSection.classList.remove('hidden');
+        paypalSection.classList.add('hidden');
+    } else if (method === 'paypal') {
+        stripeSection.classList.add('hidden');
+        paypalSection.classList.remove('hidden');
+    }
+}
+
+// Optional: Add event listeners for date picker
+document.addEventListener('DOMContentLoaded', () => {
+    const dateFilterBtn = document.querySelector('.date-filter-btn');
+    const datePickerPopup = document.querySelector('.date-picker-popup');
+    const cancelBtn = document.querySelector('.cancel-btn');
+    const applyBtn = document.querySelector('.apply-btn');
+
+    if (dateFilterBtn && datePickerPopup) {
+        dateFilterBtn.addEventListener('click', () => {
+            datePickerPopup.classList.toggle('hidden');
+        });
+    }
+
+    if (cancelBtn && datePickerPopup) {
+        cancelBtn.addEventListener('click', () => {
+            datePickerPopup.classList.add('hidden');
+        });
+    }
+
+    if (applyBtn && datePickerPopup) {
+        applyBtn.addEventListener('click', () => {
+            const startDate = document.getElementById('startDate').value;
+            const startTime = document.getElementById('startTime').value;
+            const endDate = document.getElementById('endDate').value;
+            const endTime = document.getElementById('endTime').value;
+
+            const dateRangeText = document.getElementById('dateRangeText');
+            if (dateRangeText) {
+                dateRangeText.textContent = `${startDate} ${startTime} - ${endDate} ${endTime}`;
+            }
+
+            datePickerPopup.classList.add('hidden');
+        });
+    }
+});
+        </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- <script src="config.js"></script> -->
         <script src="dashboard.js"></script>
