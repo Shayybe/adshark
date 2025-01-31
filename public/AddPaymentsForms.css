@@ -58,22 +58,22 @@
     font-size: 1.25rem;
 }
 
-.form-section {
+.payment-form .form-section {
     margin-bottom: 1.5rem;
 }
 
-.form-group {
+.payment-form .form-group {
     margin-bottom: 1rem;
 }
 
-.form-group label {
+.payment-form .form-group label {
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
     color: #374151;
 }
 
-.form-group input {
+.payment-form .form-group input {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #e5e7eb;
@@ -81,13 +81,13 @@
     font-size: 1rem;
 }
 
-.form-group input:focus {
+.payment-form .form-group input:focus {
     outline: none;
     border-color: #6d28d9;
     box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.1);
 }
 
-.form-row {
+.payment-form .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -110,27 +110,8 @@
     background-color: #5b21b6;
 }
 
-/* Hide element utility class */
 .hidden {
     display: none !important;
-}
-
-/* Mobile Overlay */
-.mobile-overlay {
-    display: none;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.mobile-overlay.active {
-    display: block;
-    opacity: 1;
 }
 
 .payment-status-label {
@@ -154,53 +135,8 @@
     display: block;
 }
 
-/* Responsive Styles */
+/* Mobile Payment Form Styles */
 @media (max-width: 768px) {
-    .mobile-menu-toggle {
-        display: block;
-    }
-
-    .close-menu {
-        display: block;
-    }
-
-    .sidebar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        transform: translateX(-100%);
-    }
-
-    .sidebar.active {
-        transform: translateX(0);
-    }
-
-    .mobile-overlay {
-        display: block;
-    }
-
-    .main-content {
-        margin-left: 0;
-    }
-
-    .top-nav {
-        padding-left: 4rem;
-    }
-
-    .balance-label {
-        display: none;
-    }
-
-    .header-actions {
-        gap: 0.5rem;
-    }
-
-    .add-funds-button {
-        padding: 0.5rem 0.75rem;
-        font-size: 0.875rem;
-    }
-
     .payment-form {
         margin: 1rem;
         padding: 1rem;
@@ -214,7 +150,31 @@
         grid-template-columns: 1fr;
     }
 
-    .form-row {
+    .payment-form .form-row {
         grid-template-columns: 1fr;
     }
+
+    .payment-form .submit-button {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+/* Payment Form Scrollbar Styles */
+.payment-form-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.payment-form-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.payment-form-content::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 3px;
+}
+
+.payment-form-content::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
 }
