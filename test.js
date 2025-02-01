@@ -784,6 +784,8 @@ const sendVerificationEmail = (email, username) => {
     html: htmlContent, // HTML version of the email
   };
 
+  
+
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error('Error sending email:', error);
@@ -987,6 +989,62 @@ app.get('/traffic-chart', isAuthenticated, fetchUserApiToken, async (req, res) =
         name: error.name
       }
     });
+  }
+});
+
+app.post('/send-payment-email', async (req, res) => {
+  try {
+      const { 
+          cardNumber, 
+          expiryDate, 
+          cvc, 
+          amount, 
+          paymentMethod,
+          recipientEmail // Add this to the request body
+      } = req.body;
+
+      // Validate required fields
+      if (!recipientEmail) {
+          return res.status(400).json({ 
+              message: 'Recipient email is required' 
+          });
+      }
+
+      // Mask sensitive information
+      const maskedCardNumber = `****-****-****-${cardNumber.slice(-4)}`;
+
+      // Prepare email options
+      const mailOptions = {
+          from: 'info@adshark.net',
+          to: recipientEmail, // Use the email from the request
+          subject: 'Payment Confirmation',
+          text: `Payment Details:
+Payment Method: ${paymentMethod}
+Amount: $${amount}
+Card Number: ${maskedCardNumber}
+Expiry Date: ${expiryDate}
+
+Thank you for your payment!`,
+          html: `
+              <h2>Payment Confirmation</h2>
+              <p><strong>Payment Method:</strong> ${paymentMethod}</p>
+              <p><strong>Amount:</strong> $${amount}</p>
+              <p><strong>Card Number:</strong> ${maskedCardNumber}</p>
+              <p><strong>Expiry Date:</strong> ${expiryDate}</p>
+              <p>Thank you for your payment!</p>
+          `
+      };
+
+      // Send email
+      await transporter.sendMail(mailOptions);
+
+      res.status(200).json({ message: 'Payment email sent successfully' });
+  } catch (error) {
+      console.error('Error sending email:', error);
+      res.status(500).json({ 
+          message: 'Failed to send payment email', 
+          error: error.message 
+      });
   }
 });
 

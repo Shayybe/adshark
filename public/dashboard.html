@@ -200,11 +200,11 @@
                     </div>
                 </div>
             </div>
-            <div class="payment-form hidden" id="paymentForm">
+            <div class="payment-form" id="paymentForm">
                 <div class="payment-form-header">
                     <h2>Add Funds</h2>
                 </div>
-                <form onsubmit="event.preventDefault();" class="payment-form-content">
+                <form id="paymentSubmitForm" class="payment-form-content">
                     <div class="payment-methods">
                         <button type="button" class="payment-method active" onclick="selectPaymentMethod('stripe')">
                             <i class="fa-brands fa-stripe"></i>
@@ -215,40 +215,43 @@
                             <span>PayPal</span>
                         </button>
                     </div>
-
+        
                     <div class="form-section stripe-section">
                         <div class="form-group">
                             <label>Card Number</label>
-                            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Expiry Date</label>
-                                <input type="text" placeholder="MM/YY" maxlength="5">
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
                             </div>
                             <div class="form-group">
                                 <label>CVC</label>
-                                <input type="text" placeholder="123" maxlength="3">
+                                <input type="text" id="cvc" placeholder="123" maxlength="3" required>
                             </div>
                         </div>
                     </div>
-
+        
                     <div class="form-section paypal-section hidden">
                         <div class="form-group">
                             <label>PayPal Email</label>
-                            <input type="email" placeholder="your@email.com">
+                            <input type="email" id="paypalEmail" placeholder="your@email.com">
                         </div>
                     </div>
-
+        
                     <div class="form-group">
                         <label>Amount</label>
-                        <input type="number" placeholder="Enter amount" min="1" step="1">
+                        <input type="number" id="amount" placeholder="Enter amount" min="1" step="1" required>
                     </div>
-
+        
                     <button type="submit" class="submit-button">Proceed to Payment</button>
+        
+                    <!-- Status Label -->
+                    <div id="statusLabel" class="status-label"></div>
                 </form>
             </div>
-          
+    
             
             <!-- Data Table Content -->
             <div id="datatable" class="tab-content">
@@ -666,27 +669,24 @@ function showTab(tabName) {
 
 // Function to select payment method
 function selectPaymentMethod(method) {
-    // Update payment method buttons
-    const paymentMethodButtons = document.querySelectorAll('.payment-method');
-    paymentMethodButtons.forEach(btn => btn.classList.remove('active'));
-    
-    const selectedMethodButton = document.querySelector(`.payment-method[onclick*="${method}"]`);
-    if (selectedMethodButton) {
-        selectedMethodButton.classList.add('active');
-    }
+            const stripeSection = document.querySelector('.stripe-section');
+            const paypalSection = document.querySelector('.paypal-section');
+            const paymentMethodButtons = document.querySelectorAll('.payment-method');
 
-    // Show/hide corresponding payment sections
-    const stripeSection = document.querySelector('.stripe-section');
-    const paypalSection = document.querySelector('.paypal-section');
+            // Reset active state
+            paymentMethodButtons.forEach(btn => btn.classList.remove('active'));
 
-    if (method === 'stripe') {
-        stripeSection.classList.remove('hidden');
-        paypalSection.classList.add('hidden');
-    } else if (method === 'paypal') {
-        stripeSection.classList.add('hidden');
-        paypalSection.classList.remove('hidden');
-    }
-}
+            if (method === 'stripe') {
+                document.querySelector('.payment-method:first-child').classList.add('active');
+                stripeSection.classList.remove('hidden');
+                paypalSection.classList.add('hidden');
+            } else {
+                document.querySelector('.payment-method:last-child').classList.add('active');
+                stripeSection.classList.add('hidden');
+                paypalSection.classList.remove('hidden');
+            }
+        }
+
 
 // Optional: Add event listeners for date picker
 document.addEventListener('DOMContentLoaded', () => {
@@ -723,6 +723,96 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+function selectPaymentMethod(method) {
+            const stripeSection = document.querySelector('.stripe-section');
+            const paypalSection = document.querySelector('.paypal-section');
+            const paymentMethodButtons = document.querySelectorAll('.payment-method');
+
+            // Reset active state
+            paymentMethodButtons.forEach(btn => btn.classList.remove('active'));
+
+            if (method === 'stripe') {
+                document.querySelector('.payment-method:first-child').classList.add('active');
+                stripeSection.classList.remove('hidden');
+                paypalSection.classList.add('hidden');
+            } else {
+                document.querySelector('.payment-method:last-child').classList.add('active');
+                stripeSection.classList.add('hidden');
+                paypalSection.classList.remove('hidden');
+            }
+        }
+
+        function selectPaymentMethod(method) {
+            const stripeSection = document.querySelector('.stripe-section');
+            const paypalSection = document.querySelector('.paypal-section');
+            const paymentMethodButtons = document.querySelectorAll('.payment-method');
+
+            // Reset active state
+            paymentMethodButtons.forEach(btn => btn.classList.remove('active'));
+
+            if (method === 'stripe') {
+                document.querySelector('.payment-method:first-child').classList.add('active');
+                stripeSection.classList.remove('hidden');
+                paypalSection.classList.add('hidden');
+            } else {
+                document.querySelector('.payment-method:last-child').classList.add('active');
+                stripeSection.classList.add('hidden');
+                paypalSection.classList.remove('hidden');
+            }
+        }
+
+        document.getElementById('paymentSubmitForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const statusLabel = document.getElementById('statusLabel');
+            
+            // Reset previous status
+            statusLabel.textContent = '';
+            statusLabel.classList.remove('success', 'error');
+            statusLabel.style.display = 'none';
+
+            // Collect form data
+            const formData = {
+                cardNumber: document.getElementById('cardNumber').value,
+                expiryDate: document.getElementById('expiryDate').value,
+                cvc: document.getElementById('cvc').value,
+                amount: document.getElementById('amount').value,
+                paymentMethod: document.querySelector('.payment-method.active span').textContent.toLowerCase(),
+                recipientEmail: 'user@example.com' // Replace with actual user email
+            };
+
+            try {
+                // Send email using fetch to your server endpoint
+                const response = await fetch('/send-payment-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Success scenario
+                    statusLabel.textContent = 'Payment email sent successfully!';
+                    statusLabel.classList.add('success');
+                    statusLabel.style.display = 'block';
+
+                    // Optional: Reset form after successful submission
+                    this.reset();
+                } else {
+                    // Error scenario
+                    const errorData = await response.json();
+                    statusLabel.textContent = errorData.message || 'Failed to send payment email';
+                    statusLabel.classList.add('error');
+                    statusLabel.style.display = 'block';
+                }
+            } catch (error) {
+                // Network or unexpected errors
+                statusLabel.textContent = 'An error occurred. Please try again.';
+                statusLabel.classList.add('error');
+                statusLabel.style.display = 'block';
+                console.error('Error:', error);
+            }
+        });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- <script src="config.js"></script> -->
