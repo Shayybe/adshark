@@ -208,27 +208,27 @@
                     <div class="payment-methods">
                         <button type="button" class="payment-method active" onclick="selectPaymentMethod('stripe')">
                             <i class="fa-brands fa-stripe"></i>
-                            <span>Stripe</span>
+                            <span></span>
                         </button>
                         <button type="button" class="payment-method" onclick="selectPaymentMethod('paypal')">
                             <i class="fa-brands fa-paypal"></i>
-                            <span>PayPal</span>
+                            <span></span>
                         </button>
                     </div>
         
                     <div class="form-section stripe-section">
                         <div class="form-group">
                             <label>Card Number</label>
-                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" >
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Expiry Date</label>
-                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5" >
                             </div>
                             <div class="form-group">
                                 <label>CVC</label>
-                                <input type="text" id="cvc" placeholder="123" maxlength="3" required>
+                                <input type="text" id="cvc" placeholder="123" maxlength="3" >
                             </div>
                         </div>
                     </div>
@@ -813,6 +813,43 @@ function selectPaymentMethod(method) {
                 console.error('Error:', error);
             }
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    // Get input elements
+    const cardNumberInput = document.getElementById('cardNumber');
+    const expiryDateInput = document.getElementById('expiryDate');
+
+    // Format card number
+    cardNumberInput.addEventListener('input', function(e) {
+        // Remove all non-digit characters
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // Add space after every 4 digits
+        value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+        
+        // Update input value
+        e.target.value = value;
+    });
+
+    // Format expiry date
+    expiryDateInput.addEventListener('input', function(e) {
+        // Remove all non-digit characters
+        let value = e.target.value.replace(/\D/g, '');
+        
+        // Add slash after first 2 digits if there are more than 2 digits
+        if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2);
+        }
+        
+        // Update input value
+        e.target.value = value;
+    });
+
+    // Optional: Enforce numeric input for CVC
+    const cvcInput = document.getElementById('cvc');
+    cvcInput.addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+    });
+});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <!-- <script src="config.js"></script> -->
